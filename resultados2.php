@@ -75,6 +75,7 @@
 				<br>
 			</section>
 			<div class="filtros_2">
+					
 					<div class="bloque" id="consensus">
 						<p> Visualization options: </p>
 						<div class="styled-select blue semi-square">
@@ -89,6 +90,12 @@
 						  </select>
 						</div>
 					</div>
+
+					<div class="slidecontainer">
+					  <p> Consistency index: </p>
+					  <input type="range" min="1" max="10" value="0" class="slider" id="Consistency_Index">
+					</div>
+
 
 			<div class="bloque" id="consistency">
 				<p> Consistency index</p>
