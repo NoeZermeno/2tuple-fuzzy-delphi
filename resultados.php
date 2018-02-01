@@ -1,12 +1,11 @@
 <?php
 	$max = 7;
-	$total = 10;
+	$total = 30;
 	$niveles = '<table id="niveles">';
 	$niveles .= '<tr>';
 	for ($x = 1; $x <= $max; $x++) {
-
 		$niveles .= '<td class="nivel' . $x . '"></td>';
-		
+
 	}
 	$niveles .= '</tr>';
 	$niveles .= '</table>';
@@ -25,10 +24,14 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var oTablaDatos = $('#datos').DataTable({
-				"order": [[6, "asc"]],
+				"scrollResize": true,
+    			"scrollY": 400,
+    			"scrollCollapse": true,
+    			"paging": false,
+				"order": [[5, "asc"]],
 				"columnDefs": [
 					{
-						"targets": [6],
+						"targets": [5],
 						"visible": false
 					}
 				]
@@ -48,38 +51,38 @@
 	</script>
 </head>
 <body>
-		
-		
+
+
 		<div class="iconos_redes">
 			<nav class = "menu">
 				<ul>
 					<li><a href="" title="">HOME</a></li>
 					<li><a href="" title="">IMPORT</a></li>
 					<li><a href="" title="">ABOUT US</a></li>
-					
+
 				</ul>
 			</nav>
 		</div>
 
 		<div class="encabezado">
 			<img src="images/Encabezado.png" alt="Encabezado de página" id="logos">
-			
+
 		</div>
 
-		
+
 		<section>
 			<br>
 			<h1 id="titulo">2-tuple Linguistic Delphi Method to Validate a Questionnaire by Consensus for a Blended Enviroment</h1>
-			<br>		
-				</section>		
-	
-	
+			<br>
+				</section>
+
+
 
 	<div id="bloque">
 		<?php echo $niveles; ?>
 		<input type="range" name="rango" id="rango" min="1" max="<?php echo $max; ?>">
 	</div>
-	
+
 
 <frameset rows="20%,*,20%">
   <frame src="frame_a.htm">
@@ -91,14 +94,12 @@
 	<table id="datos" class="display" cellspacing="0" width="100%">
 		<thead>
 			<tr>
-				
-
 				<th>N°</th>
 				<th>Item</th>
 				<th>Score</th>
 				<th>Label output</th>
 				<th>Consensus</th>
-	
+				<th>Nivel</th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -108,23 +109,24 @@
 				<th>Score</th>
 				<th>Label output</th>
 				<th>Consensus</th>
+				<th>Nivel</th>
 			</tr>
 		</tfoot>
 		<tbody>
-			<?php 
+			<?php
 			function randomFloat($min = 0, $max = 1) {
  		    return $min + mt_rand() / mt_getrandmax() * ($max - $min);
 			}
 
 			$_2_tuplas = 0;
 			$label_output="";
-				for ($y = 1; $y <= $total; $y++) { 
+				for ($y = 1; $y <= $total; $y++) {
 					//$nivel = rand(1, $max);
 
-					 
+
 					$mean = round(randomFloat(0,6),2);
 					$CoV = round(randomFloat(0,0.7),2);
-					
+
 					 if ($mean >5.4){
 					 	$_2_tuplas = "(S<sub>6</sub>, " . round(($mean-6),2)  . ")";
 					 	$label_output = "Excelent";
@@ -190,32 +192,28 @@
 						$items[] = "Aprendí a utilizar la plataforma Moodle con apoyo de un colega";
 						$items[]= "Puedo explorar funcionalidades de la plataforma por ensayo y error";
 
-		
+
 			?>
 			<tr>
 				<td> <?php echo $y; ?></td>
 				<td id="preguntas"> <?php echo $items[$y]; ?></td>
 				<td id="score"> <?php echo $_2_tuplas; ?></td>
 				<td  class="nivel<?php echo $nivel; ?> texto_sombra"> <?php echo $label_output; ?></td>
-				<!--<td class="texto_sombra"> <?php echo $label_output; ?></td>-->
-				
-
-				<td> <?php 
-
-				if ($label_output=="Excelent" || $label_output=="Very Correct" ) {
-				 	echo  "<img src='images/check.png' width=25px>";
-				 	
-				 }else{
-				 	echo  "<img src='images/no_check.png' width=25px>";
-				 } 
-				 ?></td>
-				 <td></td>
+				<td> <?php
+					if ($label_output=="Excelent" || $label_output=="Very Correct" ) {
+					 	echo  "<img src='images/check.png' width=25px>";
+					 }else{
+					 	echo  "<img src='images/no_check.png' width=25px>";
+					 }
+					 ?>
+			 	</td>
+				<td><?php echo $nivel; ?></td>
 			</tr>
 			<?php } ?>
 		</tbody>
 	</table>
-	
-	
+
+
 	<footer>
 		<p class="footer">.  This page was created by students of the UGR. The UGR has no direct relationship with the information on this website.</p>
 		<a href="" title=""><div class="icon-github iconos"></div></a>
