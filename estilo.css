@@ -182,9 +182,8 @@ input#rango {
 
 #Total_score{
 	display: block;
-
 	margin-left: 5%;
-	width: 15%;
+	width: 65%;
 }
 
 .filtros_2 table {
@@ -248,6 +247,13 @@ input#rango {
 }
 
 #Consistency_Index{
+	display: block;
+	align-content: center;
+	margin-left: 5%;
+	width: 50%;
+}
+
+#Panel_Expert{
 	display: block;
 	align-content: center;
 	margin-left: 5%;

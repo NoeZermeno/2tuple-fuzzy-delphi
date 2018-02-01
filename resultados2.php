@@ -53,9 +53,13 @@
 			});
 		</script>
 		<script type="text/javascript">
-			function show_value(x)
+			function show_valueS(x)
 				{
 				 document.getElementById("CI").innerHTML=x;
+				}
+				function show_valueE(x)
+				{
+				 document.getElementById("EC").innerHTML=x;
 				}
 		</script>	
 
@@ -111,17 +115,17 @@
 							<td>
 								<div class="bloque" id = "Consistency_Index">
 								  <p>Satisfiable Consensus Level: </p>
-								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_value(this.value);">
-								   <label name="CI" id = "CI"></label>
+								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
+								   <label name="CI" id = "CI">0</label>
 								</div>
 								<div class="bloque" id = "Panel_Expert">
 								  <p>Expert Panel Confidence: </p>
-								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="expert_confidence" onchange="show_value(this.value);">
-								   <label name="EC" id = "EC"></label>
+								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="expert_confidence" onchange="show_valueE(this.value);">
+								   <label name="EC" id = "EC">0</label>
 								</div>
 								<div class="bloque" id="Total_score">
 									<p> Questionnaire Total Score</p>
-									<h3>(Excellent , -0.45 )</h3>
+									<h3>Very correct , -0.45 )</h3>
 								</div>
 							</td>
 						</tr>
@@ -302,7 +306,7 @@
 					<th><?php echo $_2_tuplas; ?></th>
 					<th><?php echo $_2_tuplasP; ?></th>
 					<th><?php echo $_2_tuplas; ?></th>
-					<th>Total Score</th>
+					<th>(Very correct , -0.45 )</th>
 					<th><?php
 						if ($label_output=="Excelent" || $label_output=="Very Correct" ) {
 						 	echo  "<img src='images/check.png' width=25px>";
