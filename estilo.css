@@ -95,11 +95,10 @@ footer {
 	margin-bottom: 25px;
 }
 
-
-
 #preguntas{
 	max-width: 350px;
 }
+
 #score{
 	min-width: 80px;
 }
@@ -173,7 +172,7 @@ input#rango {
 #consensus{
 	display: block;
 	margin-left: 5%;
-	width: 5%;
+	width: 13%;
 }
 
 #consistency{
@@ -188,22 +187,16 @@ input#rango {
 }
 
 
-
-
 .filtros_2{
 		display: flex;
 }
-
-
-
 
 
 .styled-select {
    background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
    height: 29px;
    overflow: hidden;
-   width: 150px;
-
+   width: 180px;
 }
 
 .styled-select select {
@@ -212,7 +205,7 @@ input#rango {
    font-size: 16px;
    height: 29px;
    padding: 5px; /* If you add too much padding here, the options won't show in IE */
-   width: 160px;
+   width: 190px;
 
 }
 
