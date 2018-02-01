@@ -66,7 +66,7 @@
 			</div>
 
 			<div class="encabezado">
-				<img src="images/Encabezado.png" alt="Encabezado de página" id="logos">
+				<img src="images/A03.png" alt="Encabezado de página" id="logos">
 			</div>
 
 			<section>
