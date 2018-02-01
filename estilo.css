@@ -16,9 +16,24 @@ body {
 	background-color: #fff;
 }
 
+
+div.encabezado{
+
+	background-color: #E2E2E2; 
+}
+
+#titulo{
+	max-width: 55%;
+	margin: auto;
+}
+
+#logos{
+	max-width: 100%;
+}
+
 footer {
             color: white;
-            position: relative;
+            position: absolute;
             height: 40px;
             padding:5px 0px;
             clear: both;
@@ -26,27 +41,45 @@ footer {
             text-align: left;
             font-size: 10px;
             display: inline-block;
-            width: 100%;
+            width: auto;
+    
         }	
 
 .footer{
 	display: inline;
 }
+
 .dataTables_wrapper{
 	width: 90%;
 	margin: auto;
+	}
+
+.menu ul{
+	margin: 0;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: flex-end;
 }
 
-.texto_sombra{
-	color: white;
-	/*font-size: 25px; */
-	text-shadow: black 0.1em 0.1em 0.2em
 
+
+
+.menu li:hover{
+	background: rgba(0,0,0,0.3); 
 }
+
+.menu li a{
+	display: block;
+	padding: 15px 20px;
+	color: #fff;
+	text-decoration: none;
+}
+
 
 .iconos{
 	color: white;
-	margin-top: 5px;
+	margin-top: 10px;
 	margin-right: 20px;
 	display: inline-block;
 	font-size: 25px;
@@ -56,7 +89,7 @@ footer {
 
 .iconos_redes{
 	background-color: #CB2C30;
-	height: 40px;
+	height: 50px;
 }
 
 #logo_ugr {
@@ -100,42 +133,65 @@ table#niveles {
     height: 20px;
     margin: 0 auto;
     margin-bottom: 5px;
+		
 }
 
+
+#preguntas{
+	max-width: 350px;
+}
+#score{
+	min-width: 80px;	
+}
+
+
 .nivel1 {
-	background-color: darkred;
-	color: #FFFFFF;
+	
+	background-color: #FFB6AE;
+/*	background-color: rgba(139,0,0,.6);*/
+	font: bold;
 }
 .nivel2 {
-	background-color: red;
-	color: #FFFFFF;
+	background-color: #FFE1AE;
+/*	background-color: rgba(255,0,0,.6);*/
+		font: bold;
 }
 .nivel3 {
-	background-color: orange;
-	color: #FFFFFF;
+	background-color: #FFF4E1;
+/*	background-color: rgba(255,165,0,.6);*/
+	font: bold;
 }
 
 .nivel4 {
-	background-color: yellow;
-	color: #FFFFFF;
+	background-color: #FDFEE0;
+/*	background-color: rgba(255,255,0,.6);*/
+	font: bold;
 }
 
 .nivel5 {
-	background-color: greenyellow;
-	color: #FFFFFF;
-
+	background-color: #FAFCAF;
+/*	background-color: rgba(173,255,47,.6);*/
+	font: bold;
 }
 
 .nivel6 {
-	background-color: lawngreen;
-	color: white;
+	background-color: #DCF9E4;
+/*	background-color: rgba(124,252,0,.6);*/
+	font: bold;
 }
 
 .nivel7 {
-	background-color: green;
-	color: white;
-	
+	background-color: #B0F2C2;
+/*	background-color: rgba(0,128,0,.6);*/
+	font: bold;
 }
+
+
+.texto_sombra{
+	color: #1B0B7C;
+
+}
+
 
 
 input#rango {
@@ -144,3 +200,4 @@ input#rango {
 .oculto {
 	display: none;
 }
+
