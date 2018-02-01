@@ -246,3 +246,10 @@ input#rango {
     background: #81BEF7;
     cursor: pointer;
 }
+
+#Consistency_Index{
+	display: block;
+	align-content: center;
+	margin-left: 5%;
+	width: 50%;
+}

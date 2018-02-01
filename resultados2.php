@@ -55,7 +55,6 @@
 		<script type="text/javascript">
 			function show_value(x)
 				{
-					alert(x);
 				 document.getElementById("CI").innerHTML=x;
 				}
 		</script>	
@@ -74,7 +73,7 @@
 			</div>
 
 			<div class="encabezado">
-				<img src="images/Encabezado.png" alt="Encabezado de página" id="logos">
+				<img src="images/header.png" alt="Pages header" id="logos">
 			</div>
 
 			<section>
@@ -99,14 +98,14 @@
 						</div>
 					</div>
 
-					<div class="bloque">
+					<div class="bloque" id = "Consistency_Index">
 					  <p> Consistency index: </p>
-					   0<input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_value(this.value);">1
+					   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_value(this.value);">
 					   <label name="CI" id = "CI"></label>
 					</div>
 
 
-			<div class="bloque" id="consistency">
+			<div class="bloque" id="Consistency">
 				<p> Trim Tool: visualizes crop items below the following label</p>
 					<?php echo $niveles; ?>
 					<input type="range" name="rango" value="0" id="rango" min="1" max="<?php echo $max; ?>">
