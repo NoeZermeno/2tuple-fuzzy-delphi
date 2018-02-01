@@ -52,6 +52,13 @@
 				});
 			});
 		</script>
+		<script type="text/javascript">
+			function show_value(x)
+				{
+				 document.getElementById("CI").innerHTML=x;
+				}
+		</script>	
+
 	</head>
 	<body>
 		<div class="iconos_redes">
@@ -66,7 +73,7 @@
 			</div>
 
 			<div class="encabezado">
-				<img src="images/A03.png" alt="Encabezado de página" id="logos">
+				<img src= "images/header.png" alt="Pages header" id="logos">
 			</div>
 
 			<section>
@@ -91,23 +98,27 @@
 						</div>
 					</div>
 
-					<div class="slidecontainer">
+					<div class="bloque" id = "Consistency_Index">
 					  <p> Consistency index: </p>
-					  <input type="range" min="1" max="10" value="0" class="slider" id="Consistency_Index">
+					   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_value(this.value);">
+					   <label name="CI" id = "CI"></label>
 					</div>
 
 
-			<div class="bloque" id="consistency">
-				<p> Consistency index</p>
+			<div class="bloque" id="Consistency">
+				<p> Trim Tool: visualizes crop items below the following label</p>
 					<?php echo $niveles; ?>
 					<input type="range" name="rango" value="0" id="rango" min="1" max="<?php echo $max; ?>">
 				</div>
 
 				<div class="bloque" id="Total_score">
-					<p> Total Score</p>
+					<p> Questionnaire Total Score</p>
+						<h3>(Excellent , -0.45 )</h3>
+				</div>
 
-						<h3>(s<sub>5</sub> , 0.45 )</h3>
-
+				<div class="bloque" id="Search_div">
+					<p> Search </p>
+					<input type="search" id = "search" placeholder="item">
 				</div>
 		</div>
 		<table id="datos" class="display" cellspacing="0" width="100%">
