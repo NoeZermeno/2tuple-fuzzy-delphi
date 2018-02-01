@@ -1,6 +1,6 @@
 <?php
 	$max = 7;
-	$total =27;
+	$total =10;
 	$niveles = '<table id="niveles">';
 	$niveles .= '<tr>';
 	$count = '';
@@ -307,7 +307,7 @@ $items[] = "Estoy satisfecho con las conclusiones extraidas en las actividades c
 				<?php } ?>
 				<tfoot>
 				<tr>
-					<th>Showing 30 of 45</th>
+					<th>Showing 10 of 45</th>
 					<th align="right">Results</th>
 					<th><?php echo $_2_tuplasC; ?></th>
 					<th><?php echo $_2_tuplas; ?></th>
