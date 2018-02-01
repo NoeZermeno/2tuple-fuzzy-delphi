@@ -22,6 +22,9 @@
 		<link rel="stylesheet" type="text/css" href="jquery.dataTables.min.css">
 		<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js">
 		<script type="text/javascript" src="jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="jquery.dataTables.min.js"></script>
 		<script type="text/javascript">
@@ -91,9 +94,34 @@
 						</div>
 					</div>
 
+					<div data-role="page">
+					  <div data-role="header">
+					    <h1>Range Slider</h1>
+					  </div>
+
+					  <div data-role="main" class="ui-content">
+					      <div data-role="rangeslider">
+					        <label for="price-min">Price:</label>
+					        <input type="range" name="Concistency_min" id="Consistency-min" value="0" min="0" max="10">
+					        <label for="price-max">Price:</label>
+					        <input type="range" name="oncistency_max" id="Consistency-max" value="5" min="0" max="10">
+					      </div>
+					  </div>
+					</div> 
+
+
+
+
 					<div class="slidecontainer">
 					  <p> Consistency index: </p>
-					  <input type="range" min="1" max="10" value="0" class="slider" id="Consistency_Index">
+					  <div data-role="main" class="ui-content">
+					      <div data-role="rangeslider">
+					        <label for="price-min">Price:</label>
+					        <input type="range" name="price-min" id="price-min" value="0" min="0" max="0">
+					        <label for="price-max">Price:</label>
+					        <input type="range" name="price-max" id="price-max" value="7" min="0" max="10">
+					      </div>
+					  </div>
 					</div>
 
 
