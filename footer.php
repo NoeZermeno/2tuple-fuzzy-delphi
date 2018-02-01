@@ -1,5 +1,7 @@
 <footer>
 		<div class="wrapp">
-			<p>Página ASOC 2018</p>
+			<p>License CC-By-NC-SA University of Granada
+            </p>
+            <p>Contact: rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p>
 		</div>
 </footer>
