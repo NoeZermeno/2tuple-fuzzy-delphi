@@ -82,45 +82,45 @@
 				<br>
 			</section>
 			<div class="filtros_2">
-					
-					<div class="bloque" id="consensus">
-						<p> Visualization options: </p>
-						<div class="styled-select blue semi-square">
-						  <select>
-						    <option>Collective criteria</option>
-						    <option>Collective Clarity</option>
-						    <option>Collective Writing</option>
-						    <option>Collective Presence</option>
-						    <option>Collective Answering Scale</option>
-						    <option>Average Relevanc</option>
-						    <option>Consensus</option>
-						    <option>All information</option>
-						  </select>
-						</div>
-					</div>
-
-					<div class="bloque" id = "Consistency_Index">
-					  <p> Satisfiable Consensus Level: </p>
-					   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_value(this.value);">
-					   <label name="CI" id = "CI"></label>
-					</div>
-
-
-			<div class="bloque" id="Consistency">
-				<p> Trim Tool: visualizes crop items below the following label</p>
-					<?php echo $niveles; ?>
-					<input type="range" name="rango" value="0" id="rango" min="1" max="<?php echo $max; ?>">
-				</div>
-
-				<div class="bloque" id="Total_score">
-					<p> Questionnaire Total Score</p>
-						<h3>(Excellent , -0.45 )</h3>
-				</div>
-
-				<div class="bloque" id="Search_div">
-					<p> Search </p>
-					<input type="search" id = "search" placeholder="item">
-				</div>
+					<table border="0">
+						<tr>
+							<td>
+								<div class="bloque" id="consensus">
+									<p> Visualization options: </p>
+									<div class="styled-select blue semi-square">
+									  <select>
+									    <option>Collective criteria</option>
+									    <option>Collective Clarity</option>
+									    <option>Collective Writing</option>
+									    <option>Collective Presence</option>
+									    <option>Collective Answering Scale</option>
+									    <option>Average Relevanc</option>
+									    <option>Consensus</option>
+									    <option>All information</option>
+									  </select>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="bloque" id="Consistency">
+									<p> Trim Tool: visualizes crop items below the following label</p>
+									<?php echo $niveles; ?>
+									<input type="range" name="rango" value="0" id="rango" min="1" max="<?php echo $max; ?>">
+								</div>
+							</td>
+							<td>
+								<div class="bloque" id = "Consistency_Index">
+								  <p>Satisfiable Consensus Level: </p>
+								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_value(this.value);">
+								   <label name="CI" id = "CI"></label>
+								</div>
+								<div class="bloque" id="Total_score">
+									<p> Questionnaire Total Score</p>
+									<h3>(Excellent , -0.45 )</h3>
+								</div>
+							</td>
+						</tr>
+					</table>
 		</div>
 		<table id="datos" class="display" cellspacing="0" width="100%">
 			<thead>
@@ -132,7 +132,7 @@
 					<th>Collective Presence</th>
 					<th>Collective Scale</th>
 					<th>Score</th>
-					<th>Linguistic label</th>
+					<th>Label</th>
 					<th>Consensus</th>
 				</tr>
 			</thead>

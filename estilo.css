@@ -187,11 +187,10 @@ input#rango {
 	width: 15%;
 }
 
-
-.filtros_2{
-		display: flex;
+.filtros_2 table {
+    width: 90%;
+    margin: 0 auto;
 }
-
 
 .styled-select {
    background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
