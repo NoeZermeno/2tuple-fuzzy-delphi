@@ -96,7 +96,8 @@ footer {
 }
 
 #preguntas{
-	max-width: 350px;
+	max-width: 240px;
+	text-align: left;
 }
 
 #score{

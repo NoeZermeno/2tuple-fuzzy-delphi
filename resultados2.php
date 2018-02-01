@@ -1,6 +1,6 @@
 <?php
 	$max = 7;
-	$total = 30;
+	$total = 29;
 	$niveles = '<table id="niveles">';
 	$niveles .= '<tr>';
 	$count = 0;
@@ -90,16 +90,17 @@
 						    <option>Collective criteria</option>
 						    <option>Collective Clarity</option>
 						    <option>Collective Writing</option>
-						    <option>Collective Belonging</option>
-						    <option>Collective Scale</option>
+						    <option>Collective Presence</option>
+						    <option>Collective Answering Scale</option>
+						    <option>Average Relevanc</option>
 						    <option>Consensus</option>
-						    <option>No Consensus</option>
+						    <option>All information</option>
 						  </select>
 						</div>
 					</div>
 
 					<div class="bloque" id = "Consistency_Index">
-					  <p> Consistency index: </p>
+					  <p> Satisfiable Consensus Level: </p>
 					   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_value(this.value);">
 					   <label name="CI" id = "CI"></label>
 					</div>
@@ -124,90 +125,116 @@
 		<table id="datos" class="display" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					<th>N°</th>
+					<th>Num</th>
 					<th>Item</th>
+					<th>Collective Clarity</th>
+					<th>Collective Writing</th>
+					<th>Collective Presence</th>
+					<th>Collective Scale</th>
 					<th>Score</th>
-					<th>Label output</th>
+					<th>Label</th>
 					<th>Consensus</th>
-					<th>Nivel</th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<th>N°</th>
-					<th>Item</th>
-					<th>Score</th>
-					<th>Label output</th>
-					<th>Consensus</th>
-					<th>Nivel</th>
-				</tr>
-			</tfoot>
+
 			<tbody>
 				<?php
 				function randomFloat($min = 0, $max = 1) {
 	 		    return $min + mt_rand() / mt_getrandmax() * ($max - $min);
 				}
 
+				$sClarity = [];
+				$sPresence = [];
+
 				$_2_tuplas = 0;
+				$_2_tuplasC = 0;
+				$_2_tuplasP = 0;
 				$label_output="";
 					for ($y = 1; $y <= $total; $y++) {
 						//$nivel = rand(1, $max);
 
+						
 
 						$mean = round(randomFloat(0,6),2);
 						$CoV = round(randomFloat(0,0.7),2);
 
 						 if ($mean >5.4){
 						 	$_2_tuplas = "(S<sub>6</sub>, " . round(($mean-6),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Excelent";
 						 	$nivel =7;
 						 } elseif ($mean>4.9) {
 						 	$_2_tuplas = "(S<sub>5</sub>, " . round(($mean-5),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>5</sub>, " . round((round(randomFloat(0,6),2)-5),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Very Correct";
 						 	$nivel = 6;
 						 }elseif ($mean>4.4) {
 						 	$_2_tuplas = "(S<sub>5</sub>, " . round(($mean-5),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>5</sub>, " . round((round(randomFloat(0,6),2)-5),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Very Correct";
 						 	$nivel = 6;
 						 }elseif ($mean>3.9) {
 						 	$_2_tuplas = "(S<sub>4</sub>, " . round(($mean-4),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>4</sub>, " . round((round(randomFloat(0,6),2)-4),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Correct";
 						 	$nivel = 5;
 						 }elseif ($mean>3.4) {
 						 	$_2_tuplas = "(S<sub>4</sub>, " . round(($mean-4),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>4</sub>, " . round((round(randomFloat(0,6),2)-4),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Correct";
+
 						 	$nivel = 5;
 						 }elseif ($mean>2.9) {
 						 	$_2_tuplas = "(S<sub>3</sub>, " . round(($mean-3),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>3</sub>, " . round((round(randomFloat(0,6),2)-3),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Moderate";
 						 	$nivel = 4;
 						 }elseif ($mean>2.4) {
 						 	$_2_tuplas = "(S<sub>3</sub>, " . round(($mean-3),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>3</sub>, " . round((round(randomFloat(0,6),2)-3),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Moderate";
 						 	$nivel = 4;
 						 }elseif ($mean>1.9) {
 						 	$_2_tuplas = "(S<sub>2</sub>, " . round(($mean-2),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>2</sub>, " . round((round(randomFloat(0,6),2)-2),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Incorrect";
 						 	$nivel = 3;
 						 }elseif ($mean>1.4) {
 						 	$_2_tuplas = "(S<sub>2</sub>, " . round(($mean-2),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>2</sub>, " . round((round(randomFloat(0,6),2)-2),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Incorrect";
 						 	$nivel = 3;
 						 }elseif ($mean>0.9) {
 						 	$_2_tuplas = "(S<sub>1</sub>, " . round(($mean-1),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>1</sub>, " . round((round(randomFloat(0,6),2)-1),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Very Incorrect";
 						 	$nivel = 2;
 						 }elseif ($mean>0.5) {
 						 	$_2_tuplas = "(S<sub>1</sub>, " . round(($mean-1),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>1</sub>, " . round((round(randomFloat(0,6),2)-1),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Very Incorrect";
 						 	$nivel = 2;
 						 }else{
 						 	$_2_tuplas = "(S<sub>0</sub>, " . round(($mean-0),2)  . ")";
+						 	$_2_tuplasC = "(S<sub>0</sub>, " . round((round(randomFloat(0,6),2)-0),2)  . ")";
+						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(0,6),2)-6),2)  . ")";
 						 	$label_output = "Lousy";
 						 	$nivel = 1;
 						 }
 
 
+							
 							$items = [];
 							$items[] = "¿Con cuántas plataformas de educación virtual ha trabajado anteriormente?";
 							$items[] = "¿Conocía previamente la plataforma Moodle?";
@@ -245,6 +272,10 @@
 				<tr>
 					<td> <?php echo $y; ?></td>
 					<td id="preguntas"> <?php echo $items[$y]; ?></td>
+					<td id="cClarity"><?php echo $_2_tuplasC; ?></td>
+					<td id="cWriting"><?php echo $_2_tuplas; ?></td>
+					<td id="cPresence"><?php echo $_2_tuplasP; ?></td>
+					<td id="cScale"><?php echo $_2_tuplas; ?></td>
 					<td id="score"> <?php echo $_2_tuplas; ?></td>
 					<td  class="nivel<?php echo $nivel; ?> texto_sombra"> <?php echo $label_output; ?></td>
 					<td> <?php
@@ -255,9 +286,28 @@
 						 }
 						 ?>
 				 	</td>
-					<td><?php echo $nivel; ?></td>
 				</tr>
+
 				<?php } ?>
+				<tfoot>
+				<tr>
+					<th></th>
+					<th align="right">Results</th>
+					<th><?php echo $_2_tuplasC; ?></th>
+					<th><?php echo $_2_tuplas; ?></th>
+					<th><?php echo $_2_tuplasP; ?></th>
+					<th><?php echo $_2_tuplas; ?></th>
+					<th>Total Score</th>
+					<th><?php
+						if ($label_output=="Excelent" || $label_output=="Very Correct" ) {
+						 	echo  "<img src='images/check.png' width=25px>";
+						 }else{
+						 	echo  "<img src='images/no_check.png' width=25px>";
+						 }
+						 ?></th>
+					<th>Consensus</th>
+				</tr>
+			</tfoot>
 			</tbody>
 		</table>
 
