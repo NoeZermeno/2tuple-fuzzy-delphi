@@ -1,10 +1,9 @@
 <?php
 	$max = 7;
-	$total = 10;
+	$total = 30;
 	$niveles = '<table id="niveles">';
 	$niveles .= '<tr>';
 	for ($x = 1; $x <= $max; $x++) {
-
 		$niveles .= '<td class="nivel' . $x . '"></td>';
 		
 	}
@@ -25,10 +24,10 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var oTablaDatos = $('#datos').DataTable({
-				"order": [[6, "asc"]],
+				"order": [[5, "asc"]],
 				"columnDefs": [
 					{
-						"targets": [6],
+						"targets": [5],
 						"visible": false
 					}
 				]
@@ -91,14 +90,12 @@
 	<table id="datos" class="display" cellspacing="0" width="100%">
 		<thead>
 			<tr>
-				
-
 				<th>N°</th>
 				<th>Item</th>
 				<th>Score</th>
 				<th>Label output</th>
 				<th>Consensus</th>
-	
+				<th>Nivel</th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -108,6 +105,7 @@
 				<th>Score</th>
 				<th>Label output</th>
 				<th>Consensus</th>
+				<th>Nivel</th>
 			</tr>
 		</tfoot>
 		<tbody>
@@ -209,7 +207,7 @@
 				 	echo  "<img src='images/no_check.png' width=25px>";
 				 } 
 				 ?></td>
-				 <td></td>
+				 <td><?php echo $nivel; ?></td>
 			</tr>
 			<?php } ?>
 		</tbody>
