@@ -73,7 +73,7 @@
 			</div>
 
 			<div class="encabezado">
-				<img src="images/header.png" alt="Pages header" id="logos">
+				<img src= "images/header.png" alt="Pages header" id="logos">
 			</div>
 
 			<section>
