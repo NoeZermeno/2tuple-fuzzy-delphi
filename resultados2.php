@@ -132,7 +132,7 @@
 					<th>Collective Presence</th>
 					<th>Collective Scale</th>
 					<th>Score</th>
-					<th>Label</th>
+					<th>Linguistic label</th>
 					<th>Consensus</th>
 				</tr>
 			</thead>
