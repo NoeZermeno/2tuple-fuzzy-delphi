@@ -32,6 +32,7 @@
 	    			"scrollCollapse": true,
 	    			"paging": false,
 					"order": [[5, "asc"]],
+					"searching": false,
 					"columnDefs": [
 						{
 							"targets": [5],
@@ -61,7 +62,7 @@
 				{
 				 document.getElementById("EC").innerHTML=x;
 				}
-		</script>	
+		</script>
 
 	</head>
 	<body>
@@ -118,15 +119,22 @@
 								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
 								   <label name="CI" id = "CI">0</label>
 								</div>
+							</td>
+							<td>
 								<div class="bloque" id = "Panel_Expert">
 								  <p>Expert Panel Confidence: </p>
 								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="expert_confidence" onchange="show_valueE(this.value);">
 								   <label name="EC" id = "EC">0</label>
 								</div>
+							</td>
+							<td>
 								<div class="bloque" id="Total_score">
 									<p> Questionnaire Total Score</p>
 									<h3>Very correct , -0.45 )</h3>
 								</div>
+							</td>
+							<td>
+								<div id="datos_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="datos"></label></div>
 							</td>
 						</tr>
 					</table>
@@ -162,7 +170,7 @@
 					for ($y = 1; $y <= $total; $y++) {
 						//$nivel = rand(1, $max);
 
-						
+
 
 						$mean = round(randomFloat(0,6),2);
 						$CoV = round(randomFloat(0,0.7),2);
@@ -243,7 +251,7 @@
 						 }
 
 
-							
+
 							$items = [];
 							$items[] = "¿Con cuántas plataformas de educación virtual ha trabajado anteriormente?";
 							$items[] = "¿Conocía previamente la plataforma Moodle?";
