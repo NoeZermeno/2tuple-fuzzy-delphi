@@ -1,6 +1,6 @@
 <?php
 	$max = 7;
-	$total = 29;
+	$total =27;
 	$niveles = '<table id="niveles">';
 	$niveles .= '<tr>';
 	$count = '';
@@ -252,36 +252,36 @@
 
 
 							$items = [];
-							$items[] = "¿Con cuántas plataformas de educación virtual ha trabajado anteriormente?";
-							$items[] = "¿Conocía previamente la plataforma Moodle?";
-							$items[] = "¿Ha utilizado la plataforma para sus actividades académicas?";
-							$items[] = "¿Ha recibido con anterioridad formación en Moodle?";
-							$items[] = "Califique su nivel de dominio sobre la plataforma Moodle";
-							$items[] = "En promedio, ¿cuánto tiempo emplea semanalmente en la plataforma cuando se encuentra en período de clases";
-							$items[] = "En promedio, ¿cuánto tiempo emplea semanalmente en la plataforma cuando no se encuentra en período de clases";
-							$items[] = "¿Ha utilizado la plataforma Moodle en el rol docente?";
-							$items[] = "Aprendí a utilizar la plataforma de forma sencilla";
-							$items[] = "Aprender como utilizar nuevas funciones de la plataforma es sencillo";
-							$items[] = "Aprendí a utilizar la plataforma Moodle con apoyo de un colega";
-							$items[]= "Puedo explorar funcionalidades de la plataforma por ensayo y error";
-							$items[]= "En ocasiones necesito utilizar ayuda externa al trabajar con la plataforma (tutoriales, apoyo de colegas, manual de usuarios, etc...)";
-							$items[]= "Es fácil navegar entre las diferentes secciones de la plataforma";
-							$items[]= "Completo las actividades de la plataforma eficientemente";
-							$items[]= "Considero que Moodle es una plataforma virtual flexible";
-							$items[]= "Soy capaz de utilizar la información provista por el sistema";
-							$items[]= "Identifico cada sección en la plataforma";
-							$items[]= "El uso de ésta plataforma se asemeja a otras interfaces que me son habituales";
-							$items[]= "Puedo utilizar la plataforma con facilidad, incluso después de haber pasado tiempo sin haberla empleado";
-							$items[]= "Los mensajes informativos (de error, confirmación y advertencias) son claros";
-							$items[]= "Tras un evento de error, encuentro fácilmente documentación sobre este";
-							$items[]= "La información provista en la plataforma es fácil de entender";
-							$items[]= "Estoy satisfecho con el lenguaje empleado en la plataforma";
-							$items[]= "Estoy satisfecho con funcionamiento del sistema Moodle";
-							$items[]= "Recomendaría a esta plataforma para el manejo de cursos en línea a un amigo";
-							$items[]= "Me parece atractiva la interfaz del sistema";
-							$items[]= "La organización de los componentes es clara";
-							$items[]= "La organización de los menús me parece lógica";
-							$items[]= "Pienso que el uso de la plataforma es amigable/cercano";
+							$items[] = "Las actividades planteadas por el profesorado a través de los videos aumentaron mi interés por lo contenidos del curso.
+Escala Tipo A"; 
+$items[] = "La comunicación con mis compañeros a través de las actividades colaborativas aumentaron mi interés por lo contenidos del curso.Escala a utilizar: Tipo A"; 
+$items[] = "El uso de videos me ha facilitado el intercambio de información sobre los contenidos del curso.Escala a utilizar: Tipo A"; 
+$items[] = "El trabajo colaborativo me ha facilitado el intercambio de información sobre los contenidos del curso.Escala a utilizar: Tipo A"; 
+$items[] = "El uso de videos me ha facilitado la asociación de ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
+$items[] = "El trabajo colaborativo me ha facilitado la asociación de ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
+$items[] = "El uso de videos me ha facilitado la aplicación de nuevas ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
+$items[] = "El trabajo colaborativo me ha facilitado la aplicación de nuevas ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
+$items[] = "Trabajando colaborativamente he podido expresar mis emociones.Escala a utilizar: Tipo A"; 
+$items[] = "Trabajando colaborativamente he podido demostrar gratitud con algún miembro del grupo.Escala a utilizar: Tipo A"; 
+$items[] = "Trabajando colaborativamente he podido expresarme libremente y sin riesgos.Escala a utilizar: Tipo A"; 
+$items[] = "Me sentí cómodo interactuando con otros participantes del curso.Escala a utilizar: Tipo A"; 
+$items[] = "Trabajando colaborativamente me he sentido unido al grupo.Escala a utilizar: Tipo A"; 
+$items[] = "Sentí que mi punto de vista fue reconocido por otros participantes del curso.Escala a utilizar: Tipo A"; 
+$items[] = "En los videos se expresaban claramente los contenidos y la organización del curso.Escala a utilizar: Tipo A"; 
+$items[] = "Trabajando colaborativamente he obtenido información sobre los contenidos y la organización del curso.Escala a utilizar: Tipo A"; 
+$items[] = "En los videos se animaba a consultar los contenidos del curso y fuentes externas para generar conocimientos entre todos.Escala a utilizar: Tipo A"; 
+$items[] = "Trabajando colaborativamente se ha promovido y se ha animado la construcción de conocimientos.Escala a utilizar: Tipo A"; 
+$items[] = "A través de los videos se me han dado orientaciones explícitas para centrarme en los contenidos del curso.Escala a utilizar: Tipo A"; 
+$items[] = "A través del trabajo colaborativo he obtenido orientaciones explícitas para centrarme en los contenidos del curso.Escala a utilizar: Tipo A";
+$items[] = "Estoy satisfecho con las actividades propuestas en el curso.Escala a utilizar: Tipo B"; 
+$items[] = "Estoy satisfecho con la información aportada por mis compañeros.Escala a utilizar: Tipo B"; 
+$items[] = "Estoy satisfecho con las respuestas recibidas a mis preocupaciones, preguntas y necesidades relacionadas con los temas tratados en el curso.Escala a utilizar: Tipo B"; 
+$items[] = "Estoy satisfecho porque pude expresar mis preocupaciones, preguntas y necesidades relacionadas con los temas tratados en el curso.Escala a utilizar: Tipo B"; 
+$items[] = "Estoy satisfecho con los acuerdos adoptados en las actividades colaborativas.
+Escala a utilizar: Tipo B";
+$items[] = "Estoy satisfecho con los resúmenes realizados en las actividades del curso.Escala a utilizar: Tipo B"; 
+$items[] = "Considero que he alcanzado los objetivos del curso.Escala a utilizar: Tipo B"; 
+$items[] = "Estoy satisfecho con las conclusiones extraidas en las actividades colaborativas.Escala a utilizar: Tipo B"; 
 
 
 				?>
@@ -307,7 +307,7 @@
 				<?php } ?>
 				<tfoot>
 				<tr>
-					<th></th>
+					<th>Showing 30 of 45</th>
 					<th align="right">Results</th>
 					<th><?php echo $_2_tuplasC; ?></th>
 					<th><?php echo $_2_tuplas; ?></th>
