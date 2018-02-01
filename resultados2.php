@@ -141,7 +141,7 @@
 					<th>Collective Presence</th>
 					<th>Collective Scale</th>
 					<th>Score</th>
-					<th>Label</th>
+					<th>Total <filtering></th>
 					<th>Consensus</th>
 				</tr>
 			</thead>
@@ -307,14 +307,8 @@
 					<th><?php echo $_2_tuplasP; ?></th>
 					<th><?php echo $_2_tuplas; ?></th>
 					<th>(Very correct , -0.45 )</th>
-					<th><?php
-						if ($label_output=="Excelent" || $label_output=="Very Correct" ) {
-						 	echo  "<img src='images/check.png' width=25px>";
-						 }else{
-						 	echo  "<img src='images/no_check.png' width=25px>";
-						 }
-						 ?></th>
-					<th>Consensus</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</tfoot>
 			</tbody>
