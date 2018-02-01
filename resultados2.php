@@ -114,6 +114,11 @@
 								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_value(this.value);">
 								   <label name="CI" id = "CI"></label>
 								</div>
+								<div class="bloque" id = "Panel_Expert">
+								  <p>Expert Panel Confidence: </p>
+								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="expert_confidence" onchange="show_value(this.value);">
+								   <label name="EC" id = "EC"></label>
+								</div>
 								<div class="bloque" id="Total_score">
 									<p> Questionnaire Total Score</p>
 									<h3>(Excellent , -0.45 )</h3>
