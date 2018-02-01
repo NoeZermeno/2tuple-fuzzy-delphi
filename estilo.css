@@ -179,11 +179,22 @@ input#rango {
 #consistency{
 	display: block;
 }
-
+td.total_score {
+	width: 20%;
+}
+td.total_score h3 {
+	font-size: 14px;
+}
 #Total_score{
 	display: block;
 	margin-left: 5%;
 	width: 65%;
+}
+td.w10 {
+	width: 10%;
+}
+td.w20 {
+	width: 20%;
 }
 
 .filtros_2 table {

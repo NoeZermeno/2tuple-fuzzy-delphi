@@ -3,11 +3,11 @@
 	$total = 29;
 	$niveles = '<table id="niveles">';
 	$niveles .= '<tr>';
-	$count = 0;
+	$count = '';
 	for ($x = 1; $x <= $max; $x++) {
 
-		$niveles .= '<td class="nivel' . $x . '">' . round($count,2) .  '</td>';
-		$count += 0.1666666666666667;
+		$niveles .= '<td class="nivel' . $x . '">' . 's<sub>' .$x. '</sub>'.  '</td>';
+		
 	}
 	$niveles .= '</tr>';
 	$niveles .= '</table>';
@@ -113,24 +113,24 @@
 									<input type="range" name="rango" value="0" id="rango" min="1" max="<?php echo $max; ?>">
 								</div>
 							</td>
-							<td>
+							<td class="w10">
 								<div class="bloque" id = "Consistency_Index">
 								  <p>Satisfiable Consensus Level: </p>
 								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
 								   <label name="CI" id = "CI">0</label>
 								</div>
 							</td>
-							<td>
+							<td class="w10">
 								<div class="bloque" id = "Panel_Expert">
 								  <p>Expert Panel Confidence: </p>
 								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="expert_confidence" onchange="show_valueE(this.value);">
 								   <label name="EC" id = "EC">0</label>
 								</div>
 							</td>
-							<td>
+							<td class="w20">
 								<div class="bloque" id="Total_score">
 									<p> Questionnaire Total Score</p>
-									<h3>Very correct , -0.45 )</h3>
+									<h3>(Very correct , -0.45 )</h3>
 								</div>
 							</td>
 							<td>
