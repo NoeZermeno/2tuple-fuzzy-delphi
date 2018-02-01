@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <section class="main">
 <?php include ('Diseño.php')?>
- <div class="wrapp">
+	<div class="wrapp">
 			<div class="imagen">
 				<a><img src="A03.png" ></a>
 			</div>
-		</div>
+	</div>
 <div class="wrapp">  
   		
          <br>	
@@ -54,11 +54,7 @@
 				
 		        
         </div>
- 		<div class="Texto2">
-				<section><br>
-				  <br><br>
-                </section>
-		</div>
+ 		
 </section>
 <?php include ('footer.php') ?>
 </html>
