@@ -65,7 +65,7 @@
 
 	</head>
 	<body>
-		<h1>HOLA</h1>
+		
 		<div class="iconos_redes">
 				<nav class = "menu">
 					<ul>
