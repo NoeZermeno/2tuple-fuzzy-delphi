@@ -4,86 +4,85 @@
 <head>
   <META charset="UTF-8"> 
   <meta >
- <title>Inicio</title>
-   <link rel="stylesheet" href="style01.css">
+  <title>Inicio</title>
+  <link rel="stylesheet" href="style01.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
  </head>
- <section class="main">
-  <div class="wrapp">
-       <nav>
-         <ul>
-           <li><a href="index.html">HOME</a></li>
-           <li><a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">CODE SOURCE</a></li>
-                    
-         </ul>
-       </nav>
-     </div>
- <div class="wrapp">
-			<div class="imagen">
-				<a><img src="images/A03.png" ></a>
-			</div>
-		</div>
-<div class="wrapp">  
+ 
+<body>
+  <div id="container">  
+    <header class="cont_menu">
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" target="_blank">CODE SOURCE</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section class="main">
+      <div class="imagen">
+  				<img src="images/A03.png" >
+  		</div>
   		
-         <br>	
+      <br>	
         <h3>Select your file that has the database of your questionnaire</h3>
-  		<br/>
-					
-  		 
-        <div class="apartado_1">
-			<h3>Questionnaire plain data import</h3>
-            <br>
-           
-          <form action="script1.php" method="post">
-   					Iteration : 
-   						<select name="selector">    
-       					<option value="1" selected="1">1</option>
-       					<option value="2">2</option>
-      					<option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-  						</select>
-			</form>          
-           <br><br>
-           
-           <form>
- 				 	<P> <strong>Content type </strong>: </P> 
- 				 	<br/>
-             <input type="radio" name="gender" value="Response" checked> Response<br>
-					<input type="radio" name="gender" value="female"> Result<br>
-			 <input type="radio" name="gender" value="Expert weight"> Expert weight
-		  </form>
-                      
-           <br/><br/><br/>
-            <form name="form1" method="post" action="">
-              <label>
-                <input type="checkbox" name="head1" id="head1">
-                Use headings</label>
-            </form>
-            <br/><br/>
-            
+      <br/>
+  					
+      <div class="apartado_1">
+        <h3>Questionnaire plain data import</h3>
+        <br>
+        <form action="script1.php" method="post">
+ 					<label>Iteration : </label>
+ 						<select name="selector">    
+              <option value="1" selected="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+						</select>
+        </form>          
+        <br><br>
+         
+        <form>
+          <p> <strong>Content type </strong>: </p> 
+          <br/>
+          <input type="radio" name="gender" value="Response" checked> Response
+          <br>
+          <input type="radio" name="gender" value="female"> Result
+          <br>
+          <input type="radio" name="gender" value="Expert weight"> Expert weight
+        </form>
                     
-          <form action='import.html' method='post' enctype="multipart/form-data">
-   			Importing file CSV : <input type='file' name='fichero' size='20'>
-            <br><br><br>
+        <br/><br/><br/>
+        <form name="form1" method="post" action="">
+          <label> <input type="checkbox" name="head1" id="head1"> Use headings</label>
+        </form>
+        <br/><br/>
+          
                   
-            <input name='submit' type='submit' class="boton3" value='Import & Analyze '>
-  			</form>         
-				
-		        
-        </div>
- 		<div class="Texto2">
-				<section><br>
-				  <br><br>
-                </section>
+        <form action='import.html' method='post' enctype="multipart/form-data">
+ 			    <label>Importing file CSV :</label> <input type='file' name='fichero' size='20'>
+          <br><br><br>
+          <input name='submit' type='submit' class="boton3" value='Import & Analyze '>
+        </form>         
+			</div>
+      
+      <div class="Texto2">
+        <section><br>
+          <br><br>
+        </section>
+      </div>
+    </section>
+  </div> <!--End container-->
+  <div class="clearfooter"></div>
+    
+  <footer>
+		<div class="foot">
+			<p>License CC-By-NC-SA University of Granada</p>
+         <p>Contact: rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p>
 		</div>
-</section>
-<footer>
-		<div class="wrapp">
-			<p>License CC-By-NC-SA University of Granada
-            </p>
-            <p>Contact: rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p>
-		</div>
-</footer>
-
+  </footer>
+</body>
 </html>
 	
