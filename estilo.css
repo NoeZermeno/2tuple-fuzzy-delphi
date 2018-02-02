@@ -8,18 +8,18 @@
 html {
 	background-color: #4F4C4D;
 }
-
 body {
 	width: 100%;
 	margin: 0 auto;
-
+	
 	text-align: center;
 	background-color: #fff;
 }
 
 
 div.encabezado{
-	background-color: #E2E2E2;
+
+	background-color: #E2E2E2; 
 }
 
 #titulo{
@@ -32,24 +32,25 @@ div.encabezado{
 }
 
 footer {
-      color: white;
-      position: relative;
-      height: 40px;
-      padding:5px 0px;
-      clear: both;
-      background: #4F4C4D;
-      text-align: left;
-      font-size: 10px;
-      display: inline-block;
-      width: 100%;
-      }
+            color: white;
+            position: absolute;
+            height: 40px;
+            padding:5px 0px;
+            clear: both;
+            background: #4F4C4D;
+            text-align: left;
+            font-size: 10px;
+            display: inline-block;
+            width: auto;
+    
+        }	
 
 .footer{
 	display: inline;
 }
 
 .dataTables_wrapper{
-	width: 80%;
+	width: 90%;
 	margin: auto;
 	}
 
@@ -61,8 +62,11 @@ footer {
 	justify-content: flex-end;
 }
 
+
+
+
 .menu li:hover{
-	background: rgba(0,0,0,0.3);
+	background: rgba(0,0,0,0.3); 
 }
 
 .menu li a{
@@ -88,20 +92,39 @@ footer {
 	height: 50px;
 }
 
-.bloque {
+#logo_ugr {
+	
+background: rgba(232,233,233,0.81);
+background: -moz-linear-gradient(top, rgba(232,233,233,0.81) 0%, rgba(145,153,149,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(232,233,233,0.81)), color-stop(100%, rgba(145,153,149,1)));
+background: -webkit-linear-gradient(top, rgba(232,233,233,0.81) 0%, rgba(145,153,149,1) 100%);
+background: -o-linear-gradient(top, rgba(232,233,233,0.81) 0%, rgba(145,153,149,1) 100%);
+background: -ms-linear-gradient(top, rgba(232,233,233,0.81) 0%, rgba(145,153,149,1) 100%);
+background: linear-gradient(to bottom, rgba(232,233,233,0.81) 0%, rgba(145,153,149,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e9e9', endColorstr='#919995', GradientType=0 );
+
+padding: 5px;
+	
+}
+
+.left{
+	display: inline-block;
+	float: left;
+}
+
+.right{
+	display: inline-block;
+	float: right;
+}
+
+
+
+#bloque {
 	width: 30%;
 	padding: 10px;
 	margin: 0 auto;
 	margin-bottom: 25px;
-}
-
-#preguntas{
-	max-width: 240px;
-	text-align: left;
-}
-
-#score{
-	min-width: 80px;
+	border: 1px solid #F40303;
 }
 
 table#niveles {
@@ -110,48 +133,57 @@ table#niveles {
     height: 20px;
     margin: 0 auto;
     margin-bottom: 5px;
-
+		
 }
 
-.nivel1 {
 
+#preguntas{
+	max-width: 350px;
+}
+#score{
+	min-width: 80px;	
+}
+
+
+.nivel1 {
+	
 	background-color: #FFB6AE;
+/*	background-color: rgba(139,0,0,.6);*/
 	font: bold;
-	width: 100px;
 }
 .nivel2 {
 	background-color: #FFE1AE;
+/*	background-color: rgba(255,0,0,.6);*/
 		font: bold;
-		width: 100px;
 }
 .nivel3 {
 	background-color: #FFF4E1;
+/*	background-color: rgba(255,165,0,.6);*/
 	font: bold;
-	width: 100px;
 }
 
 .nivel4 {
 	background-color: #FDFEE0;
+/*	background-color: rgba(255,255,0,.6);*/
 	font: bold;
-	width: 100px;
 }
 
 .nivel5 {
 	background-color: #FAFCAF;
+/*	background-color: rgba(173,255,47,.6);*/
 	font: bold;
-	width: 100px
 }
 
 .nivel6 {
 	background-color: #DCF9E4;
+/*	background-color: rgba(124,252,0,.6);*/
 	font: bold;
-	width: 100px
 }
 
 .nivel7 {
 	background-color: #B0F2C2;
+/*	background-color: rgba(0,128,0,.6);*/
 	font: bold;
-	width: 100px
 }
 
 
@@ -160,114 +192,12 @@ table#niveles {
 
 }
 
-input#rango {
-    width: 85%;
-}
 
+
+input#rango {
+    width: 80%;
+}
 .oculto {
 	display: none;
 }
 
-/*botones de consenso*/
-
-#consensus{
-	display: block;
-	margin-left: 5%;
-	width: 13%;
-}
-
-#consistency{
-	display: block;
-}
-td.total_score {
-	width: 20%;
-}
-td.total_score h3 {
-	font-size: 14px;
-}
-#Total_score{
-	display: block;
-	margin-left: 5%;
-	width: 65%;
-}
-td.w10 {
-	width: 10%;
-}
-td.w20 {
-	width: 20%;
-}
-
-.filtros_2 table {
-    width: 90%;
-    margin: 0 auto;
-		font-size: 14px;
-}
-
-.styled-select {
-   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
-   height: 29px;
-   overflow: hidden;
-   width: 180px;
-}
-
-.styled-select select {
-   background: transparent;
-   border: none;
-   font-size: 16px;
-   height: 29px;
-   padding: 5px; /* If you add too much padding here, the options won't show in IE */
-   width: 190px;
-
-}
-
-.semi-square {
-   -webkit-border-radius: 5px;
-   -moz-border-radius: 5px;
-   border-radius: 5px;
-}
-
-.blue    { background-color: #81BEF7; }
-
-.slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-}
-
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #81BEF7;
-    cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #81BEF7;
-    cursor: pointer;
-}
-
-#Consistency_Index{
-	display: block;
-	align-content: center;
-	margin-left: 5%;
-	width: 50%;
-}
-
-#Panel_Expert{
-	display: block;
-	align-content: center;
-	margin-left: 5%;
-	width: 50%;
-}
