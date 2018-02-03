@@ -25,7 +25,8 @@
 		<script type="text/javascript" src="jquery.dataTables.min.js"></script>
 			
 		<script type="text/javascript">
-			var lab=0;
+			
+            //Filter for the Trim tool: Filters the data table according to the selected color (button).
 			function fun(value){
 
 				for (var x = 1; x < 7; x++) {
@@ -35,8 +36,39 @@
 							$('#datos td.nivel' + x).parent('tr').removeClass('oculto');
 						}
 					}
-					 lab =x;	
-				}	
+			
+				}
+            
+            //
+            function show_valueS(x)
+				{
+				 document.getElementById("CI").innerHTML=x;
+				}
+				function show_valueE(x)
+				{
+				 document.getElementById("EC").innerHTML=x;
+				}
+
+            // Filter visualization options: allows filtering according to the selected criteria.
+            function hideColumns(sel){
+
+                if (sel=="allInformation") {
+                    for (i=3 ; i<=$('#tableDatosBody tr:last td').length ; i++){
+
+                        $('.col_' + i).show();		
+                    }	
+                }else {
+                    for (i=3 ; i<=6 ; i++){
+                        if (i!=sel){
+                            $('.col_'+sel).show();
+                            $('.col_' + i).hide();		
+                        }
+                    }
+                }
+            }
+
+
+            
 		</script>
 
 		<script type="text/javascript">
@@ -58,34 +90,10 @@
 				
 			});
 		</script>
-		<script type="text/javascript">
-			function show_valueS(x)
-				{
-				 document.getElementById("CI").innerHTML=x;
-				}
-				function show_valueE(x)
-				{
-				 document.getElementById("EC").innerHTML=x;
-				}
-
-				function hideColumns(sel){
-					
-					if (sel=="allInformation") {
-						for (i=3 ; i<=$('#tableDatosBody tr:last td').length ; i++){
-							
-							$('.col_' + i).show();		
-						}	
-					}else {
-						for (i=3 ; i<=6 ; i++){
-						 	if (i!=sel){
-								$('.col_'+sel).show();
-								$('.col_' + i).hide();		
-							}
-						}
-					}
-				}
-		</script>
-
+		
+        
+        
+        
 	</head>
 	<body>
 		<div class="iconos_redes">
@@ -176,7 +184,8 @@
 							<td class="w10">
 								<div class="bloque" id = "Consistency_Index">
 								  <p>Satisfiable Consensus Level: </p>
-								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
+								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);"><br>
+                                  
 								   <label name="CI" id = "CI">0</label>
 								</div>
 							</td>
