@@ -22,6 +22,7 @@
 class Judge {
     private $items = [];
     private $weight;
+    private $scale;
 
     //propiedades
 
@@ -33,7 +34,15 @@ class Judge {
         return $this->weight;
     }
 
-    //metodos
+    public function setscale($scale) {
+
+        echo "Escala: " . $scale . "<br>";
+        $this->scale = $scale;
+    }
+
+    public function getscale() {
+        return $this->scale;
+    }
 
     public function addItem($item) {
         $this->items[] = $item;
@@ -143,11 +152,11 @@ class Item {
 function getHigherSelectionScale($judges) {
 	$higher = 0;
 	$judge = $judges[0];
-	
-	for ($i = 0; $i < $judge->ItemsCount(); $i++) {
-		$item = $judge->Item($i);
-		if ($item->getSelectionScale() > $higher) {
-			$higher = $item->getSelectionScale();
+	for ($i = 0; $i < count($judge); $i++) {
+		$scale = $judge->getscale();
+    echo "scale: " . $scale . "<br>";
+		if ($scale > $higher) {
+			$higher = $judge->getSelectionScale();
 		}
 	}
 	
@@ -155,7 +164,7 @@ function getHigherSelectionScale($judges) {
 }
 
 function getSelectionScale($item) {
-	return $item->getSelectionScale();
+	return $judge->getScale();
 }
 
 function Normalize($values, $CurrentSelectionScale, $MaxSelectionScale) {
@@ -264,36 +273,25 @@ $columnCount = 0;
 while (!feof($handle)) {
 	$row = fgets($handle);
 	$cols = explode(';', $row);
-	
+  print_r($cols);
+
 	if (strpos($row, 'criteria') !== false) {
-		$columnCount = count($cols);
 		continue;
-	}	
-	
+	}
+
 	if (count($cols) != $columnCount) {
 		continue;
 	}
 	
-	if (strpos($row, 'escala') !== false) { //Necesitamos esta fila para obtener la escala de selección posteriomente
-		$scales = explode(';', $row);
-		continue;
-	}	
-	
-
 	$judge = new Judge();
-	for ($i = 1; $i < count($cols); $i += 5) {
-		//echo "$i<br>";
+	for ($i = 2; $i < count($cols); $i += 5) {
 		
-		$item = new Item();
-			
+		$item = new Item();	
 		$item->setClarity($cols[$i]);
 		$item->setWriting($cols[$i + 1]);
 		$item->setBelonging($cols[$i + 2]);
 		$item->setScale($cols[$i + 3]);
-		$item->setWeight($cols[$i + 4]);
-			
-		$item->setSelectionScale($scales[$i]);
-			
+		$item->setWeight($cols[$i + 4]);	
 		$judge->addItem($item);
 			
 	}
@@ -307,10 +305,9 @@ while (!feof($handle)) {
 $HSS = getHigherSelectionScale($judges);
 
 foreach ($judges as $judge) {
-	//var_dump( $judge );
 	$normalized_judge = new Judge();
 	foreach ($judge->Items() as $item) {
-		$CSS = getSelectionScale($item);
+		$CSS = $judge->getscale();
 
 		$normalized_item = new Item();
 		$newValue = Normalize($item->getClarity(), $CSS, $HSS);
@@ -351,11 +348,10 @@ for ($j = 0; $j < $itemCount; $j++) {
       $scale = ArrayToString($item->getScale());
       
       //echo "<tr><td>J" . ($i + 1) . "</td><td>" . $clarity . "</td><td>$writing</td><td>$belonging</td><td>$scale</td></tr>";
-      echo "<tr><td>J" . ($i + 1) . "</td><td>" . elementOfSet($clarity ,$item->getSelectionScale()) . "</td><td>" . elementOfSet($writing ,$item->getSelectionScale())  ."</td><td>" . elementOfSet($belonging ,$item->getSelectionScale()) . "</td><td>" . elementOfSet($scale ,$item->getSelectionScale()) . "</td></tr>";
+      echo "<tr><td>J" . ($i + 1) . "</td><td>" . $clarity  . "</td><td>" . $writing  ."</td><td>" . $belonging  . "</td><td>" . $scale . "</td></tr>";
   }
   
   
-  //echo "<tr><td></td><td>$clarity</td><td>$writing</td><td>$belonging</td><td>$scale</td></tr>";
   echo '</table>';
 }
 echo '</div>';
@@ -369,16 +365,13 @@ for ($j = 0; $j < $itemCount; $j++) {
       $judge = $normalized_judges[$i];
       $item = $judge->Item($j);
 
-      $clarity = Tuple($item->getClarity(),$item->getSelectionScale());
-      $writing = Tuple($item->getWriting(),$item->getSelectionScale());
-      $belonging = Tuple($item->getBelonging(),$item->getSelectionScale());
-      $scale = Tuple($item->getScale(),$item->getSelectionScale());
+      $clarity = Tuple($item->getClarity());
+      $writing = Tuple($item->getWriting());
+      $belonging = Tuple($item->getBelonging());
+      $scale = Tuple($item->getScale());
       
-      echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . completeTuple($clarity,$item->getSelectionScale()) . "</td><td>" . completeTuple($writing ,$item->getSelectionScale())."</td><td>" . completeTuple($belonging ,$item->getSelectionScale()) . "</td><td>" . completeTuple($scale ,$item->getSelectionScale()) . "</td></tr>";
+      echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . $clarity. "</td><td>" . $writing."</td><td>" . $belonging . "</td><td>" .$scale . "</td></tr>";
   }
-  
-  
-  //echo "<tr><td></td><td>$clarity</td><td>$writing</td><td>$belonging</td><td>$scale</td></tr>";
   echo '</table>';
 }
 echo '</div>';
@@ -402,7 +395,6 @@ for ($j = 0; $j < $itemCount; $j++) {
   for ($i = 0; $i < count($normalized_judges); $i++) {
       $judge = $normalized_judges[$i];
       $item = $judge->Item($j);
-
       $clarity = Tuple($item->getClarity());
       $sClarity = TupleAdd($sClarity, $clarity);
       $writing = Tuple($item->getWriting());
@@ -412,7 +404,7 @@ for ($j = 0; $j < $itemCount; $j++) {
       $scale = Tuple($item->getScale());
       $sScale = TupleAdd($scale, $sScale) . "<br>";
       
-      echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . completeTuple($clarity,$item->getSelectionScale()) . "</td><td>" . completeTuple($writing ,$item->getSelectionScale())."</td><td>" . completeTuple($belonging ,$item->getSelectionScale()) . "</td><td>" . completeTuple($scale ,$item->getSelectionScale()) . "</td></tr>";
+      echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . $sClarity . "</td><td>" . $sWriting ."</td><td>" . $sBelonging . "</td><td>" . $sScale . "</td></tr>";
   }
   
   $sClarity = TupleDiv($sClarity, $rowCount);
@@ -424,7 +416,7 @@ for ($j = 0; $j < $itemCount; $j++) {
   $sScale = TupleDiv($scale, $rowCount);
   $scales[] = $sScale;
   
-  echo "<tr><td></td><td>" .TupleLinguisticDiv($sClarity) . "</td><td>" . TupleLinguisticDiv($sWriting)."</td><td>". TupleLinguisticDiv($sBelonging)."/td><td>" . TupleLinguisticDiv($sScale) ."$sScale</td></tr>";
+  echo "<tr><td></td><td>" .$sClarity. "</td><td>" . $sWriting."</td><td>". $sBelonging."/td><td>" . $sScale ."$sScale</td></tr>";
   echo '</table>';
 }
 echo '</div>';
