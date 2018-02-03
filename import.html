@@ -37,7 +37,7 @@
       <div class="apartado_1">
         <h3>Questionnaire plain data import</h3>
         <br>
-        <form action="script1.php" method="post">
+        <form action="resultados.php" method="post">
  					<label>Iteration : </label>
  						<select name="selector">
               <option value="1" selected="1">1</option>
@@ -49,15 +49,29 @@
         </form>
         <br><br>
 
-        <form>
+      <!--  <form>
           <p> <strong>Content type </strong>: </p>
           <br/>
-          <input type="radio" name="gender" value="Response" checked> Response
+          <input type="radio" name="response" value="Response" checked> Response
           <br>
-          <input type="radio" name="gender" value="female"> Result
+          <input type="radio" name="result" value="result"> Result
           <br>
-          <input type="radio" name="gender" value="Expert weight"> Expert weight
+          <input type="radio" name="expert" value="Expert weight"> Expert weight
+        </form> -->
+        <form action='import.html' method='post' enctype="multipart/form-data">
+                <label>Importing Response file CSV :</label> <input type='file1' name='' size='40' onclick="most()">
         </form>
+                <br><br>
+        <form action='import.html' method='post' enctype="multipart/form-data">
+                 <label>Importing Result file CSV :</label> <input type='file2' name='' size='40' >
+        </form>
+                <br><br>
+        <form action='import.html' method='post' enctype="multipart/form-data">
+                 <label>Importing Expert weight file CSV :</label> <input type='file3' name='' size='40' >
+        </form>
+                <br><br>
+
+
 
         <br/><br/><br/>
         <form name="form1" method="post" action="">
@@ -66,14 +80,9 @@
         <br/><br/>
 
 
-        <form action='import.html' method='post' enctype="multipart/form-data">
-         <label>Importing file CSV :</label> <input type='file' name='fichero' size='40' onclick="most()">
-       </form>
-         <br><br><br>
-
         <div id='but01' style='display:none;'>
          <input name='submit' type='submit' class="boton3" value='Import & Analyze '>
-        </div>         
+        </div>
 
       </div>
 
