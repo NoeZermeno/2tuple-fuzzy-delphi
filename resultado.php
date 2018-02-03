@@ -99,9 +99,9 @@
 				</nav>
 			</div>
 
-			<div class="encabezado">
+			<!--<div class="encabezado">
 				<img src= "images/A1.png" alt="Pages header" id="logos">
-			</div>
+			</div>--> 
 
 			<section>
 				<br>
@@ -199,7 +199,7 @@
 						</tr>
 					</table>
 		</div>
-		<table id="datos" class="display" cellspacing="0" width="100%">
+		<table id="datos" class="display" cellspacing="0" >
 			<thead >
 				<tr>
 					<th class="col_1">Num</th>
