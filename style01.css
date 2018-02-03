@@ -7,15 +7,15 @@
 }
 
 
-html, body {    
-   height: 100%; 
+html, body {
+   height: 100%;
    font-family: 'Open Sans', sans-serif;
 }
 
 body {
 	background:#f2f2f2;
 	color:#333;
-	
+
 }
 
 
@@ -215,7 +215,7 @@ width: 100%;
   height: 0px;
   background: rgba(255, 255, 255, 0.1);
   transition: all 1s ease;
-} 
+}
 .boton2:hover:before {
   height: 100%;
 }
@@ -230,7 +230,7 @@ width: 100%;
   border-color: #318aac;
   transition: all 1s ease;
   position: relative;
-  width:200px; 
+  width:200px;
   height:50px;
   left: 400px;
 }
@@ -273,7 +273,7 @@ width: 100%;
   outline-color: rgba(49, 138, 172, 0);
   outline-offset: 80px;
   text-shadow: 1px 1px 6px #fff;
-  border-shadow: 
+  border-shadow:
 }
 
 .clearfooter{
@@ -288,6 +288,7 @@ footer {
   padding:10px 0;
   margin-top: 15px;
   color:#fff;
+  display: inline-block;
 }
 
 footer p {
@@ -295,3 +296,19 @@ footer p {
   font-size: 12px;
 }
 
+
+
+.iconos{
+	color: white;
+	margin-right: 30px;
+
+	display: inline-block;
+	font-size: 25px;
+	float: right;
+}
+
+
+.iconos_redes{
+	background-color: #fff;
+	height: 50px;
+}
