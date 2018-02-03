@@ -199,7 +199,7 @@
 						</tr>
 					</table>
 		</div>
-		<table id="datos" class="display" cellspacing="0" >
+		<table id="datos" class="display" cellspacing="0" width="100%">
 			<thead >
 				<tr>
 					<th class="col_1">Num</th>
