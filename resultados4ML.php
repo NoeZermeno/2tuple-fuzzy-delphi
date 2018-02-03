@@ -19,9 +19,24 @@
 		<link rel="stylesheet" type="text/css" href="estilo.css">
 		<link rel="stylesheet" type="text/css" href="jquery.dataTables.min.css">
 		<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="estilo_barra.css">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 		<script type="text/javascript" src="jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="jquery.dataTables.min.js"></script>
+		
+		<script type="text/javascript">
+
+			function fun(value){
+					for (var x = 1; x < value; x++) {
+						if (x < value) {
+							$('#datos td.nivel' + x).parent('tr').addClass('oculto');
+						} else {
+							$('#datos td.nivel' + x).parent('tr').removeClass('oculto');
+						}
+					}	
+				}	
+		</script>
+
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var oTablaDatos = $('#datos').DataTable({
@@ -38,18 +53,7 @@
 						}
 					]
 				});
-				$('#rango').on('change', function(){
-					
-					var max = $('#rango').attr('max');;
-					var nivel = $(this).val();
-					for (var x = 1; x <= max; x++) {
-						if (x < nivel) {
-							$('#datos td.nivel' + x).parent('tr').addClass('oculto');
-						} else {
-							$('#datos td.nivel' + x).parent('tr').removeClass('oculto');
-						}
-					}
-				});
+				
 			});
 		</script>
 		<script type="text/javascript">
@@ -85,6 +89,7 @@
 					<h1 id="titulo">2-tuple Linguistic Delphi Method to Validate a Questionnaire by Consensus for a Blended Enviroment</h1>
 				<br>
 			</section>
+
 			<div class="filtros_2">
 					<table border="0">
 						<tr>
@@ -107,8 +112,45 @@
 							<td>
 								<div class="bloque" id="Consistency">
 									<p> Trim Tool: visualizes crop items below the following label</p>
-									<?php echo $niveles; ?>
-									<input type="range" name="rango" value="0" id="rango" min="1" max="<?php echo $max; ?>">
+									
+							    <div class='btns'>
+							      <label>
+							        <input checked='' name='button-group' type='radio' value=1 class="bc" onclick="fun(this.value)">
+							          <span class='btn first'>S<sub>0</sub></span>
+							        </input>
+							      </label>
+							      <label>
+							        <input name='button-group' type='radio' value=2 class="bc" onclick="fun(this.value)">
+							          <span class='btn'>S<sub>1</sub></span>
+							        </input>
+							      </label>
+							      <label>
+							        <input name='button-group' type='radio' value=3 class="bc" onclick="fun(this.value)">
+							          <span class='btn'>S<sub>2</sub></span>
+							        </input>
+							      </label>
+							      <label>
+							        <input name='button-group' type='radio' value='4' class="bc" onclick="fun(this.value)">
+							          <span class='btn'>S<sub>3</sub></span>
+							        </input>
+							      </label>
+							      <label>
+							        <input name='button-group' type='radio' value='5' class="bc" onclick="fun(this.value)">
+							          <span class='btn'>S<sub>4</sub></span>
+							        </input>
+							      </label>
+							      <label>
+							        <input name='button-group' type='radio' value='6' class="bc" onclick="fun(this.value)">
+							          <span class='btn'>S<sub>5</sub></span>
+							        </input>
+							      </label>
+							      <label>
+							        <input name='button-group' type='radio' value='7' class="bc" onclick="fun(this.value)">
+							          <span class='btn last'>S<sub>6</sub></span>
+							        </input>
+							      </label>
+							    </div>
+							  
 								</div>
 							</td>
 							<td class="w10">
