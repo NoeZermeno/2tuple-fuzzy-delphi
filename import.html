@@ -9,9 +9,13 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
  </head>
  <script type="text/javascript">
-	function most(){
-	     document.getElementById("but01").style.display = "block";
-	}
+  function show1(){
+      document.getElementById("but01").style.display = "block";
+    }
+  function hide1(){
+      document.getElementById("but01").style.display = "none";
+    }
+
   </script>
 
 <body>
@@ -59,8 +63,8 @@
           <input type="radio" name="expert" value="Expert weight"> Expert weight
         </form> -->
         <form action='import.html' method='post' enctype="multipart/form-data">
-                <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onclick="most()">
-        		<input type='reset' name='cancel1' value='cancel'>
+                <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onclick="show1()">
+        		<input type='reset' name='cancel1' value='cancel' onclick="hide1()">
         </form>
                 <br><br>
 
