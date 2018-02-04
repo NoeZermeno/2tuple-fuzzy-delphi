@@ -41,18 +41,7 @@
 
       <div class="apartado_1">
         <h3>Questionnaire plain data import</h3>
-        <br>
-        <form action="resultados.php" method="post">
- 					<label>Iteration : </label>
- 						<select name="selector">
-              <option value="1" selected="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-						</select>
-        </form>
-        <br><br>
+        <br><br><br>
 
       <!--  <form>
           <p> <strong>Content type </strong>: </p>
@@ -64,39 +53,41 @@
           <input type="radio" name="expert" value="Expert weight"> Expert weight
         </form> -->
         <form action='calc.php' method='post' enctype="multipart/form-data">
-                  <form name="form1" method="post" action="calc.php">
-    		          		<label> <input name="head1" type="checkbox" id="head1" value="1"> Use headings</label>
-                  </form>
-                  <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onclick="show1()">
-        		          <input type='reset' name='cancel1' value='cancel' onclick="hide1()">
-            	        <br><br><br><br>
-               		    <div>
-                		       <label>Importing Result file CSV :</label> <input type='file' name='file2' size='20' >
-        		 		           <input type='reset' name='cancel2' value='cancel'>
-                 		       <br><br><br><br>
-                	    </div>
-                	    <div>
-                		        <label>Importing Expert weight file CSV :</label> <input type='file' name='file3' size='20' >
-        		 		            <input type='reset' name='cancel3' value='cancel'>
-                 		        <br><br><br><br>
-                	    </div>
-                	    <div>
-                		        <br>
-                			         <div id='but01' style='display:none;'>
-            					             <br><br><br><br>
-                                   <input name='submit' type='submit' class="boton3" value='Import & Analyze '>
-        					 	           </div>
-               			 </div>
 
+                <label>Iteration : </label>
+ 						<select name="selector">
+              				<option value="1" selected="1">1</option>
+              				<option value="2">2</option>
+              				<option value="3">3</option>
+              				<option value="4">4</option>
+              				<option value="5">5</option>
+						</select>
+                <br><br>
+                <input type="checkbox" name="condiciones" value="1">Use headings<br><br>
+                <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onclick="show1()">
+        		<input type='reset' name='cancel1' value='cancel' onclick="hide1()">
+            	<br><br><br><br>
+               		<div>
+                		<label>Importing Result file CSV :</label> <input type='file' name='file2' size='20' >
+        		 		<input type='reset' name='cancel2' value='cancel'>
+                 		<br><br><br><br>
+                	</div>
+                	<div>
+                		<label>Importing Expert weight file CSV :</label> <input type='file' name='file3' size='20' >
+        		 		<input type='reset' name='cancel3' value='cancel'>
+                 		<br><br><br><br>
+                	</div>
+                	<div>
+                		<div id='but01' style='display:none;'>
+            					<br><br><br><br>
+                                <input name='submit' type='submit' class="boton3" value='Import & Analyze '>
+
+                        	</div>
+               		</div>
          </form>
 
-        
+
         <br/><br/>
-
-
-        <div id='but01' style='display:none;'>
-         <input name='submit' type='submit' class="boton3" value='Import & Analyze '>
-        </div>
 
       </div>
 
