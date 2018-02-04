@@ -15,15 +15,3 @@
  function hide1(){
        		document.getElementById("but01").style.display = "none";
      }
-
- function fileValidation1(){
-     var fileInput = document.getElementsByName('file');
-     var filePath = fileInput.value;
-     var allowedExtensions = /(.csv)$/i;
-     if(!allowedExtensions.exec(filePath)){
-         alert('Error! . . .  Please only upload files with .csv extension');
-         fileInput.value = '';
-         document.getElementById("but01").style.display = "none";
- 		return false;
- 	}
- }
