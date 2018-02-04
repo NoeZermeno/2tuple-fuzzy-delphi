@@ -1,6 +1,6 @@
 <?php
 	$max = 7;
-	$total =10;
+	$total =25;
 	$niveles = '<table id="niveles">';
 	$niveles .= '<tr>';
 	$count = '';
@@ -23,41 +23,24 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 		<script type="text/javascript" src="jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="jquery.dataTables.min.js"></script>
-		
+			
 		<script type="text/javascript">
-
+			
+            //Filter for the Trim tool: Filters the data table according to the selected color (button).
 			function fun(value){
-					for (var x = 1; x < value; x++) {
+
+				for (var x = 1; x < 7; x++) {
 						if (x < value) {
 							$('#datos td.nivel' + x).parent('tr').addClass('oculto');
 						} else {
 							$('#datos td.nivel' + x).parent('tr').removeClass('oculto');
 						}
-					}	
-				}	
-		</script>
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-				var oTablaDatos = $('#datos').DataTable({
-					"scrollResize": true,
-	    			"scrollY": 400,
-	    			"scrollCollapse": true,
-	    			"paging": false,
-					"order": [[5, "asc"]],
-					"searching": false,
-					"columnDefs": [
-						{
-							"targets": [5],
-							"visible": false
-						}
-					]
-				});
-				
-			});
-		</script>
-		<script type="text/javascript">
-			function show_valueS(x)
+					}
+			
+				}
+            
+            //
+            function show_valueS(x)
 				{
 				 document.getElementById("CI").innerHTML=x;
 				}
@@ -65,8 +48,52 @@
 				{
 				 document.getElementById("EC").innerHTML=x;
 				}
+
+            // Filter visualization options: allows filtering according to the selected criteria.
+            function hideColumns(sel){
+
+                if (sel=="allInformation") {
+                    for (i=3 ; i<=$('#tableDatosBody tr:last td').length ; i++){
+
+                        $('.col_' + i).show();		
+                    }	
+                }else {
+                    for (i=3 ; i<=6 ; i++){
+                        if (i!=sel){
+                            $('.col_'+sel).show();
+                            $('.col_' + i).hide();		
+                        }
+                    }
+                }
+            }
+
+
+            
 		</script>
 
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var oTablaDatos = $('#datos').DataTable({
+					"scrollResize": true,
+	    			"scrollY": 450,
+	    			"scrollCollapse": true,
+	    			"paging": false,
+					"order": [[0, "asc"]],
+					"searching": false,
+					"columnDefs": [
+						{
+							"targets": [1],
+							"visible": true
+						}
+					]
+				});
+				
+			});
+		</script>
+		
+        
+        
+        
 	</head>
 	<body>
 		<div class="iconos_redes">
@@ -80,9 +107,9 @@
 				</nav>
 			</div>
 
-			<div class="encabezado">
+			<!--<div class="encabezado">
 				<img src= "images/A1.png" alt="Pages header" id="logos">
-			</div>
+			</div>--> 
 
 			<section>
 				<br>
@@ -91,20 +118,21 @@
 			</section>
 
 			<div class="filtros_2">
-					<table border="0">
+					<table border="0" >
 						<tr>
 							<td>
 								<div class="bloque" id="consensus">
 									<p> Visualization options: </p>
 									<div class="styled-select semi-square">
-									  <select>
-									    <option>Collective Clarity</option>
-									    <option>Collective Writing</option>
-									    <option>Collective Presence</option>
-									    <option>Collective Answering Scale</option>
-									    <option>Average Relevance</option>
-									    <option>Consensus</option>
-									    <option>All information</option>
+									  <select onchange="hideColumns(this.value);"">
+									    <option value="allInformation">All information</option>
+									    <option value="3">Collective Clarity</option>
+									    <option value="4">Collective Writing</option>
+									    <option value="5">Collective Presence</option>
+									    <option value="6">Collective Answering Scale</option>
+									    <option value="7">Average Relevance</option>
+									    <option value="8">Consensus</option>
+									    
 									  </select>
 									</div>
 								</div>
@@ -156,7 +184,8 @@
 							<td class="w10">
 								<div class="bloque" id = "Consistency_Index">
 								  <p>Satisfiable Consensus Level: </p>
-								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
+								   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);"><br>
+                                  
 								   <label name="CI" id = "CI">0</label>
 								</div>
 							</td>
@@ -180,21 +209,21 @@
 					</table>
 		</div>
 		<table id="datos" class="display" cellspacing="0" width="100%">
-			<thead>
+			<thead >
 				<tr>
-					<th>Num</th>
-					<th>Item</th>
-					<th>Collective Clarity</th>
-					<th>Collective Writing</th>
-					<th>Collective Presence</th>
-					<th>Collective Scale</th>
-					<th>Score</th>
-					<th>Total <filtering></th>
-					<th>Consensus</th>
+					<th class="col_1">Num</th>
+					<th class="col_2">Item</th>
+					<th class="col_3">Collective Clarity</th>
+					<th class="col_4">Collective Writing</th>
+					<th class="col_5">Collective Presence</th>
+					<th class="col_6">Collective Scale</th>
+					<th class="col_7">Score</th>
+					<th class="col_8">Consensus</th>
+					<th class="col_9">Total</th>
 				</tr>
 			</thead>
 
-			<tbody>
+			<tbody id=tableDatosBody>
 				<?php
 				function randomFloat($min = 0, $max = 1) {
 	 		    return $min + mt_rand() / mt_getrandmax() * ($max - $min);
@@ -294,48 +323,48 @@
 
 							$items = [];
 							$items[] = "Las actividades planteadas por el profesorado a través de los videos aumentaron mi interés por lo contenidos del curso.
-Escala Tipo A"; 
-$items[] = "La comunicación con mis compañeros a través de las actividades colaborativas aumentaron mi interés por lo contenidos del curso.Escala a utilizar: Tipo A"; 
-$items[] = "El uso de videos me ha facilitado el intercambio de información sobre los contenidos del curso.Escala a utilizar: Tipo A"; 
-$items[] = "El trabajo colaborativo me ha facilitado el intercambio de información sobre los contenidos del curso.Escala a utilizar: Tipo A"; 
-$items[] = "El uso de videos me ha facilitado la asociación de ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
-$items[] = "El trabajo colaborativo me ha facilitado la asociación de ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
-$items[] = "El uso de videos me ha facilitado la aplicación de nuevas ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
-$items[] = "El trabajo colaborativo me ha facilitado la aplicación de nuevas ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
-$items[] = "Trabajando colaborativamente he podido expresar mis emociones.Escala a utilizar: Tipo A"; 
-$items[] = "Trabajando colaborativamente he podido demostrar gratitud con algún miembro del grupo.Escala a utilizar: Tipo A"; 
-$items[] = "Trabajando colaborativamente he podido expresarme libremente y sin riesgos.Escala a utilizar: Tipo A"; 
-$items[] = "Me sentí cómodo interactuando con otros participantes del curso.Escala a utilizar: Tipo A"; 
-$items[] = "Trabajando colaborativamente me he sentido unido al grupo.Escala a utilizar: Tipo A"; 
-$items[] = "Sentí que mi punto de vista fue reconocido por otros participantes del curso.Escala a utilizar: Tipo A"; 
-$items[] = "En los videos se expresaban claramente los contenidos y la organización del curso.Escala a utilizar: Tipo A"; 
-$items[] = "Trabajando colaborativamente he obtenido información sobre los contenidos y la organización del curso.Escala a utilizar: Tipo A"; 
-$items[] = "En los videos se animaba a consultar los contenidos del curso y fuentes externas para generar conocimientos entre todos.Escala a utilizar: Tipo A"; 
-$items[] = "Trabajando colaborativamente se ha promovido y se ha animado la construcción de conocimientos.Escala a utilizar: Tipo A"; 
-$items[] = "A través de los videos se me han dado orientaciones explícitas para centrarme en los contenidos del curso.Escala a utilizar: Tipo A"; 
-$items[] = "A través del trabajo colaborativo he obtenido orientaciones explícitas para centrarme en los contenidos del curso.Escala a utilizar: Tipo A";
-$items[] = "Estoy satisfecho con las actividades propuestas en el curso.Escala a utilizar: Tipo B"; 
-$items[] = "Estoy satisfecho con la información aportada por mis compañeros.Escala a utilizar: Tipo B"; 
-$items[] = "Estoy satisfecho con las respuestas recibidas a mis preocupaciones, preguntas y necesidades relacionadas con los temas tratados en el curso.Escala a utilizar: Tipo B"; 
-$items[] = "Estoy satisfecho porque pude expresar mis preocupaciones, preguntas y necesidades relacionadas con los temas tratados en el curso.Escala a utilizar: Tipo B"; 
-$items[] = "Estoy satisfecho con los acuerdos adoptados en las actividades colaborativas.
-Escala a utilizar: Tipo B";
-$items[] = "Estoy satisfecho con los resúmenes realizados en las actividades del curso.Escala a utilizar: Tipo B"; 
-$items[] = "Considero que he alcanzado los objetivos del curso.Escala a utilizar: Tipo B"; 
-$items[] = "Estoy satisfecho con las conclusiones extraidas en las actividades colaborativas.Escala a utilizar: Tipo B"; 
+							Escala Tipo A"; 
+							$items[] = "La comunicación con mis compañeros a través de las actividades colaborativas aumentaron mi interés por lo contenidos del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "El uso de videos me ha facilitado el intercambio de información sobre los contenidos del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "El trabajo colaborativo me ha facilitado el intercambio de información sobre los contenidos del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "El uso de videos me ha facilitado la asociación de ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "El trabajo colaborativo me ha facilitado la asociación de ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "El uso de videos me ha facilitado la aplicación de nuevas ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "El trabajo colaborativo me ha facilitado la aplicación de nuevas ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "Trabajando colaborativamente he podido expresar mis emociones.Escala a utilizar: Tipo A"; 
+							$items[] = "Trabajando colaborativamente he podido demostrar gratitud con algún miembro del grupo.Escala a utilizar: Tipo A"; 
+							$items[] = "Trabajando colaborativamente he podido expresarme libremente y sin riesgos.Escala a utilizar: Tipo A"; 
+							$items[] = "Me sentí cómodo interactuando con otros participantes del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "Trabajando colaborativamente me he sentido unido al grupo.Escala a utilizar: Tipo A"; 
+							$items[] = "Sentí que mi punto de vista fue reconocido por otros participantes del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "En los videos se expresaban claramente los contenidos y la organización del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "Trabajando colaborativamente he obtenido información sobre los contenidos y la organización del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "En los videos se animaba a consultar los contenidos del curso y fuentes externas para generar conocimientos entre todos.Escala a utilizar: Tipo A"; 
+							$items[] = "Trabajando colaborativamente se ha promovido y se ha animado la construcción de conocimientos.Escala a utilizar: Tipo A"; 
+							$items[] = "A través de los videos se me han dado orientaciones explícitas para centrarme en los contenidos del curso.Escala a utilizar: Tipo A"; 
+							$items[] = "A través del trabajo colaborativo he obtenido orientaciones explícitas para centrarme en los contenidos del curso.Escala a utilizar: Tipo A";
+							$items[] = "Estoy satisfecho con las actividades propuestas en el curso.Escala a utilizar: Tipo B"; 
+							$items[] = "Estoy satisfecho con la información aportada por mis compañeros.Escala a utilizar: Tipo B"; 
+							$items[] = "Estoy satisfecho con las respuestas recibidas a mis preocupaciones, preguntas y necesidades relacionadas con los temas tratados en el curso.Escala a utilizar: Tipo B"; 
+							$items[] = "Estoy satisfecho porque pude expresar mis preocupaciones, preguntas y necesidades relacionadas con los temas tratados en el curso.Escala a utilizar: Tipo B"; 
+							$items[] = "Estoy satisfecho con los acuerdos adoptados en las actividades colaborativas.
+							Escala a utilizar: Tipo B";
+							$items[] = "Estoy satisfecho con los resúmenes realizados en las actividades del curso.Escala a utilizar: Tipo B"; 
+							$items[] = "Considero que he alcanzado los objetivos del curso.Escala a utilizar: Tipo B"; 
+							$items[] = "Estoy satisfecho con las conclusiones extraidas en las actividades colaborativas.Escala a utilizar: Tipo B"; 
 
 
 				?>
 				<tr>
-					<td> <?php echo $y; ?></td>
-					<td id="preguntas"> <?php echo $items[$y]; ?></td>
-					<td id="cClarity"><?php echo $_2_tuplasC; ?></td>
-					<td id="cWriting"><?php echo $_2_tuplas; ?></td>
-					<td id="cPresence"><?php echo $_2_tuplasP; ?></td>
-					<td id="cScale"><?php echo $_2_tuplas; ?></td>
-					<td id="score"> <?php echo $_2_tuplas; ?></td>
-					<td  class="nivel<?php echo $nivel; ?> texto_sombra"> <?php echo $label_output; ?></td>
-					<td> <?php
+					<td class="col_1" > <?php echo $y; ?></td>
+					<td class="col_2" id="preguntas"> <?php echo $items[$y]; ?></td>
+					<td class="col_3" id="cClarity"><?php echo $_2_tuplasC; ?></td>
+					<td class="col_4" id="cWriting"><?php echo $_2_tuplas; ?></td>
+					<td class="col_5" id="cPresence"><?php echo $_2_tuplasP; ?></td>
+					<td class="col_6" id="cScale"><?php echo $_2_tuplas; ?></td>
+					<td class="col_7" id="score"> <?php echo $_2_tuplas; ?></td>
+					
+					<td class="col_8"> <?php
 						if ($label_output=="Excelent" || $label_output=="Very Correct" ) {
 						 	echo  "<img src='images/check.png' width=25px>";
 						 }else{
@@ -343,6 +372,7 @@ $items[] = "Estoy satisfecho con las conclusiones extraidas en las actividades c
 						 }
 						 ?>
 				 	</td>
+				 	<td class=" nivel<?php echo $nivel; ?> texto_sombra col_9" > <?php echo $label_output; ?></td>
 				</tr>
 
 				<?php } ?>

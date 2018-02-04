@@ -4,6 +4,7 @@
 <html>
 <head>
 	<title></title>
+    <link rel="stylesheet" type="text/css" href="estilo_btn_select.css"
 	<script src="jquery-3.3.1.min.js" type="text/javascript"></script>
 <script>
 
@@ -76,6 +77,19 @@
 	</tr>
 </table>
 
+    <div class="switch">
+  <input name="switch" id="one" type="radio" checked/>
+  <label for="one" class="switch__label">One</label>
+  <input name="switch" id="two" type="radio" />
+  <label for="two" class="switch__label">Two</label>
+  <input name="switch" id="three" type="radio" />
+  <label for="three" class="switch__label">Three</label>
+  <div class="switch__indicator" /></div>
+</div>
+    
+   
+</div>
+    
 </body>
 </html>
 
