@@ -9,15 +9,8 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
  	<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+  <script type="text/javascript" src="val-and-fun.js"></script>
  </head>
- <script type="text/javascript">
-    function show1(){
-        document.getElementById("but01").style.display = "block";
-      }
-    function hide1(){
-      document.getElementById("but01").style.display = "none";
-      }
-  </script>
 
 <body>
   <div id="container">
@@ -64,16 +57,16 @@
 						</select>
                 <br><br>
                 <input type="checkbox" name="condiciones" value="1">Use headings<br><br>
-                <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onclick="show1()">
+                <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onchange="return fileValidation1()" onclick="show1()">
         		<input type='reset' name='cancel1' value='cancel' onclick="hide1()">
             	<br><br><br><br>
                		<div>
-                		<label>Importing Result file CSV :</label> <input type='file' name='file2' size='20' >
+                		<label>Importing Result file CSV :</label> <input type='file' name='file2' size='20' onchange="return fileValidation2()">
         		 		<input type='reset' name='cancel2' value='cancel'>
                  		<br><br><br><br>
                 	</div>
                 	<div>
-                		<label>Importing Expert weight file CSV :</label> <input type='file' name='file3' size='20' >
+                		<label>Importing Expert weight file CSV :</label> <input type='file' name='file3' size='20' onchange="return fileValidation3()">
         		 		<input type='reset' name='cancel3' value='cancel'>
                  		<br><br><br><br>
                 	</div>
