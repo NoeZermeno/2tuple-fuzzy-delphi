@@ -47,37 +47,38 @@
         </form> -->
         <form action='calc.php' method='post' enctype="multipart/form-data">
 
-                <label>Iteration : </label>
- 						<select name="selector">
-              				<option value="1" selected="1">1</option>
-              				<option value="2">2</option>
-              				<option value="3">3</option>
-              				<option value="4">4</option>
-              				<option value="5">5</option>
-						</select>
-                <br><br>
-                <input type="checkbox" name="condiciones" value="1">Use headings<br><br>
-                <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onchange="return fileValidation1()" onclick="show1()">
-        		<input type='reset' name='cancel1' value='cancel' onclick="hide1()">
-            	<br><br><br><br>
-               		<div>
-                		<label>Importing Result file CSV :</label> <input type='file' name='file2' size='20' onchange="return fileValidation2()">
-        		 		<input type='reset' name='cancel2' value='cancel'>
-                 		<br><br><br><br>
-                	</div>
-                	<div>
-                		<label>Importing Expert weight file CSV :</label> <input type='file' name='file3' size='20' onchange="return fileValidation3()">
-        		 		<input type='reset' name='cancel3' value='cancel'>
-                 		<br><br><br><br>
-                	</div>
-                	<div>
-                		<div id='but01' style='display:none;'>
-            					<br><br><br><br>
-                                <input name='submit' type='submit' class="boton3" value='Import & Analyze '>
+               <label>Iteration : </label>
+           <select name="selector">
+                     <option value="1" selected="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+           </select>
+               <br><br>
+               <input type="checkbox" name="condiciones" value="1">Use headings<br><br>
 
-                        	</div>
-               		</div>
-         </form>
+               <label>Importing Response file CSV :</label> <input type='file' name='file' size='20' onchange="return fileValidation1()" onclick="show1()">
+           <input type='reset' name='cancel1' value='cancel' onclick="hide1()">
+               <br><br><br><br>
+                 <div>
+                   <label>Importing Result file CSV :</label> <input type='file' name='file' size='20' onchange="return fileValidation1()">
+               <input type='reset' name='cancel2' value='cancel'>
+                   <br><br><br><br>
+                 </div>
+                 <div>
+                   <label>Importing Expert weight file CSV :</label> <input type='file' name='file' size='20' onchange="return fileValidation1()">
+               <input type='reset' name='cancel3' value='cancel'>
+                   <br><br><br>
+                 </div>
+                 <div>
+                   <div id='but01' style='display:none;'>
+                     <br><br>
+                               <input name='submit' type='submit' class="boton3" value='Import & Analyze '>
+
+                         </div>
+                 </div>
+        </form>
 
 
         <br/><br/>
