@@ -322,7 +322,7 @@ $normalized_judges = [];
 $dimentions        = [];
 
 error_reporting(0);
-$hEvaluation       = fopen('evaluacion.csv', 'r');
+$hEvaluation       = fopen('evaluation.csv', 'r');
 $hDimentions       = fopen('dimensiones.csv', 'r');
 $hQuestionnaire    = fopen('cuestionario.csv', 'r');
 error_reporting(1);
