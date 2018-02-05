@@ -25,5 +25,5 @@ function ext_cont(f){
         var t=f.cloneNode(true);
         t.value='';
         f.parentNode.replaceChild(t,f);
-        alert('extensión no válida');
+        alert('The file extension is not valid. Please enter a file »name.csv«');
 }
