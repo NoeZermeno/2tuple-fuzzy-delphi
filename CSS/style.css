@@ -5,6 +5,10 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
+#head_row{
+	border: 1px solid blue;
+}
+
 html {
 	background-color: #4F4C4D;
 }
@@ -87,7 +91,7 @@ footer {
 }
 
 
-.iconos_redes{
+.menu_bar{
 	background-color: #CB2C30;
 	height: 50px;
 }
@@ -117,7 +121,10 @@ padding: 5px;
 	float: right;
 }
 
-
+.options_bar{
+    max-width: 90%;
+    margin: 0 auto;
+}
 
 #bloque {
 	width: 30%;
@@ -138,7 +145,7 @@ table#niveles {
 
 
 #preguntas{
-	max-width: 350px;
+    text-align: left;
 }
 #score{
 	min-width: 80px;	

@@ -1,7 +1,7 @@
 <?php
     include ("item.php");
 	$max = 7;
-	$total =10;
+	$total =46;
 	$niveles = '<table id="niveles">';
 	$niveles .= '<tr>';
 	$count = '';
@@ -30,14 +30,13 @@
 			function fun(value){
 
 				for (var x = 1; x < 7; x++) {
-						if (x < value) {
-							$('#datos td.nivel' + x).parent('tr').addClass('oculto');
-						} else {
+                    if (x < value) {
+						$('#datos td.nivel' + x).parent('tr').addClass('oculto');
+					} else {
 							$('#datos td.nivel' + x).parent('tr').removeClass('oculto');
-						}
 					}
-			
-				}
+                }
+			}
             
             //
             function show_valueS(x)
@@ -50,23 +49,21 @@
 				}
 
             // Filter visualization options: allows filtering according to the selected criteria.
-	            function hideColumns(sel){
-                    alert( $('#tableDatosBody tr:last td').length );
-	                if (sel=="allInformation") {
-                        
-	                    for (i=3 ; i<=$('#tableDatosBody tr:last td').length ; i++){
-
-	                        $('.col_' + i).show();		
-	                    }	
-	                }else {
-	                    for (i=3 ; i<=6 ; i++){
-	                        if (i!=sel){
-	                            $('.col_'+sel).show();
-	                            $('.col_' + i).hide();		
-	                        }
-	                    }
-	                }
-	            }
+            function hideColumns(sel){
+               
+                if (sel=="allInformation") {
+                    for (i=3 ; i<=$('#tableDatosBody tr:last td').length ; i++){
+                        $('.col_' + i).show();		
+                    }	
+                }else {
+                    for (i=3 ; i<=6 ; i++){
+                        if (i!=sel){
+                            $('.col_'+sel).show();
+                            $('.col_' + i).hide();		
+                        }
+                    }
+                }
+            }
 
 
             
@@ -88,7 +85,6 @@
 						}
 					]
 				});
-				
 			});
 		</script>
 	</head>
@@ -114,14 +110,14 @@
 			<br>
 		</section>
 
-		<div class="filtros_2">
+		<div class="options_bar">
 			<table >
 				<tr>
 					<td>
-						<div class="options_bar" id="consensus">
+						<div class="Visualization_select" id="consensus">
 							<p> Visualization options: </p>
 							<div class="styled-select semi-square">
-							  <select onchange="hideColumns(this.value);"">
+							  <select onchange="hideColumns(this.value);">
 							    <option value="allInformation">All information</option>
 							    <option value="3">Collective Clarity</option>
 							    <option value="4">Collective Writing</option>
@@ -188,7 +184,7 @@
 					<td class="w10">
 						<div class="options_bar" id = "Panel_Expert">
 						  <p>Expert Panel Confidence: </p>
-						   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="expert_confidence" onchange="show_valueE(this.value);">
+						   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="expert_confidence" onchange="show_valueE(this.value);"><br>
 						   <label name="EC" id = "EC">0</label>
 						</div>
 					</td>
@@ -240,7 +236,7 @@
 
 
 
-						$mean = round(randomFloat(3,6),2);
+						/*$mean = round(randomFloat(3,6),2);
 						$CoV = round(randomFloat(0,0.7),2);
 
 						 if ($mean >5.4){
@@ -351,17 +347,17 @@
 							$items[] = "Estoy satisfecho con los resúmenes realizados en las actividades del curso.Escala a utilizar: Tipo B"; 
 							$items[] = "Considero que he alcanzado los objetivos del curso.Escala a utilizar: Tipo B"; 
 							$items[] = "Estoy satisfecho con las conclusiones extraidas en las actividades colaborativas.Escala a utilizar: Tipo B"; 
-
+*/
 
 				?>
 				<tr>
 					<td class="col_1" > <?php echo $y; ?></td>
-					<td class="col_2" id="preguntas"> <?php echo getItem($y-1)['item']; ?></td>
-					<td class="col_3" id="cClarity"><?php echo getItem($y-1)['CC']; ?></td>
-					<td class="col_4" id="cWriting"><?php echo getItem($y-1)['CW']; ?></td>
-					<td class="col_5" id="cPresence"><?php echo getItem($y-1)['CP']; ?></td>
-					<td class="col_6" id="cScale"><?php echo getItem($y-1)['CAS']; ?></td>
-					<td class="col_7" id="score"> <?php echo getItem($y-1)['score']; ?></td>
+                    <td class="col_2" id="preguntas"> <?php echo getItem($y-1)['item']; ?></td>
+					<td class="col_3" id="cClarity"><?php echo linguisticLabel($y-1,'CC');?></td>
+					<td class="col_4" id="cWriting"><?php echo linguisticLabel($y-1,'CW'); ?></td>
+					<td class="col_5" id="cPresence"><?php echo linguisticLabel($y-1,'CP');?></td>
+					<td class="col_6" id="cScale"><?php echo linguisticLabel($y-1,'CAS'); ?></td>
+					<td class="col_7" id="score"> <?php echo linguisticLabel($y-1,'score');?></td>
 					
 					<td class="col_8"> <?php
 						if ($label_output=="Excelent" || $label_output=="Very Correct" ) {
@@ -371,7 +367,7 @@
 						 }
 						 ?>
 				 	</td>
-				 	<td class=" nivel<?php echo $nivel; ?> texto_sombra col_9" > <?php echo $label_output; ?></td>
+				 	<td class=" nivel<?php echo linguisticLabel($y-1,'level'); ?> texto_sombra col_9" > <?php echo linguisticLabel($y-1,'Total'); ?></td>
 				</tr>
 
 				<?php } ?>
