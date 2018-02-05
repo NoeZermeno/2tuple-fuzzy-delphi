@@ -293,16 +293,10 @@ function TupleAdd($value1, $value2)
 function TupleDiv($value, $div)
 {
 	$a   = explode(',', $value);
-
 	$c   = [];
-	$mod = [];
-	$inf = [];
-	$sup = [];
-	$c[] = $a[0] / $div ;
-	$c[] = $a[1] / $div ;
-
+	$c[] = round($a[0] / $div , 2) ;
+	$c[] = round($a[1] / $div , 2);
 	return implode(',', $c);
-
 }
 
 function TupleLinguisticDiv($value)
@@ -442,8 +436,7 @@ $aJudge    = $normalized_judges[0];
 $itemCount = $aJudge->ItemsCount();
 $rowCount  = count($judges);
 
-/*
-echo '<div id="etapa1" class="oculto">';
+/*echo '<div id="etapa1" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
 	echo '<table border=1>';
 	echo '<tr><th colspan="5">Item ' . ($j + 1) . '</th></tr>';
@@ -463,13 +456,9 @@ for($j = 0; $j < $itemCount; $j++){
 
 	echo '</table>';
 }
-echo '</div>';
+echo '</div>';*/
 
-echo '<div id="etapa2" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
-	echo '<table border=1>';
-	echo '<tr><th colspan="5">Item ' . ($j + 1) . '</th></tr>';
-	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
@@ -478,12 +467,10 @@ for($j = 0; $j < $itemCount; $j++){
 		$writing   = Tuple($item->getWriting());
 		$belonging = Tuple($item->getBelonging());
 		$scale     = Tuple($item->getScale());
-
-		echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . $clarity. "</td><td>" . $writing."</td><td>" . $belonging . "</td><td>" .$scale . "</td></tr>";
 	}
-	echo '</table>';
-}*/
-echo '</div>';
+
+}
+
 
 $clarities = [];
 $writings  = [];
@@ -501,11 +488,7 @@ function weight_criteria($value, $value2){
 
 }
 
-echo '<div id="etapa3" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
-	echo '<table border=1>';
-	echo '<tr><th colspan="5">Etapa 3 Item' . ($j + 1) . '</th></tr>';
-	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
 
 	$sClarity   = '0,0';
 	$sWriting   = '0,0';
@@ -528,32 +511,72 @@ for($j = 0; $j < $itemCount; $j++){
 		$scale     = Tuple($item->getScale());
 		$scale   = weight_criteria($scale,$dimentions[0]->judgeValue[$i]);
 		$sScale    = TupleAdd($scale, $sScale);
-
-		echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . $clarity . "</td><td>" . $writing ."</td><td>" . $belonging . "</td><td>" . $scale . "</td></tr>";
 	}
 	$clarities[] = $sClarity;
 	$writings[] = $sWriting;
 	$belongings[] = $sBelonging;
 	$scales[] = $sScale;
-	echo "-->: " . $sScale;
 
-	echo "<tr><td></td><td>" .$sClarity. "</td><td>" . $sWriting."</td><td>". $sBelonging."</td><td>" . $sScale ."</td></tr>";
-	echo '</table>';
 }
-echo '</div>';
+
+function score($value){
+	$a   = explode(',', $value);
+	$b   = explode(',', $value2);
+	$c   = [];
+	$c[] = ($a[0] )/2;
+	$c[] = ($a[1] + $b[0])/2;
+	return implode(',', $c);
+
+}
 
 
 echo '<table id="final" border=1 class="oculto">';
-echo '<tr><th colspan="5">Agregation</th></tr>';
-echo '<tr><th>Item</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
-echo "aqui!: " . $itemCount . "<br>";
+echo '<tr><th colspan="6">Agregation</th></tr>';
+echo '<tr><th>Item</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th><th>Score</th></tr>';
+$score = "0,0";
+$sScore = [];
+$question = [];
 for($j = 0; $j < $itemCount; $j++){
-	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $clarities[$j] . '</td><td>' . $writings[$j] . '</td><td>' . $belongings[$j] . '</td><td>' . $scales[$j] . '</td></tr>';
+	$question[] = "A$j";
+	$score = TupleAdd($clarities[$j], $score);
+	$score = TupleAdd($writings[$j], $score);
+	$score = TupleAdd($belongings[$j], $score);
+	$score = TupleAdd($scales[$j], $score);
+	$score = TupleDiv($score,4);
+	$sScore[] = $score; 
+	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $clarities[$j] . '</td><td>' . $writings[$j] . '</td><td>' . $belongings[$j] . '</td><td>' . $scales[$j] . '</td><td>' .$score. '</td></tr>';
 }
 echo '</table>';
-?>
 
-<input type="button" id="boton1" value="Etapa 1" class="">
-<input type="button" id="boton2" value="Etapa 2" class="oculto">
-<input type="button" id="boton3" value="Etapa 3" class="oculto">
-<input type="button" id="boton4" value="Etapa 4" class="oculto">
+$table = [];
+$table['item'] = array_merge($table,$question);
+$table['CC'] = array_merge($table,$clarities);
+$table['CW'] = array_merge($table,$writings);
+$table['CP'] = array_merge($table,$belongings);
+$table['CAS'] = array_merge($table,$scales);
+$table['SCORE'] = array_merge($table,$sScore);
+
+
+function linguisticLabel($criteria, $index){
+
+	global $table;
+
+	if($criteria != 'Total' && $criteria != 'level' &&  $criteria != 'item'  && $criteria != 'SCORE' ){
+		return $table[$criteria][$index];
+	}
+
+	if ($criteria == 'SCORE'){
+        return $table['SCORE'][$index];
+	}
+    
+    if ($criteria == 'level'){
+        return round($table['SCORE'][$index]+1);
+    }
+
+    if ($criteria == 'item'){
+        return $table['item'][$index];
+    }
+
+}
+
+?>
