@@ -186,6 +186,16 @@ class Item
 class Dimention {
 	public $questions  = [];
 	public $judgeValue = [];
+
+	public function getJudgeValues()
+	{
+		return $this->judgeValue;
+	}
+
+	public function getJudgeValue($index)
+	{
+		return $this->judgeValue[$index];
+	}
 }
 
 function getHigherSelectionScale($judges)
@@ -311,7 +321,6 @@ function TupleLinguisticDiv($value)
 		{
 			$items[] = "($i,.$d)";
 		}
-
 	}
 	return implode(',', $items);
 }
@@ -353,17 +362,18 @@ while(!feof($hEvaluation)){
 		$item->setScale($cols[$i + 3]);
 		$item->setWeight($cols[$i + 4]);
 		$judge->addItem($item);
-
 	}
-
 	$judges[] = $judge;
 
 }
 
-
+$dimentions = [];
 if($hDimentions !== false){
 	$columnCount = 0;
 	while(!feof($hDimentions)){
+
+		$acum = 0;
+		$weightJ = [];
 		$row = fgets($hDimentions);
 		$cols= explode(';', $row);
 
@@ -383,17 +393,23 @@ if($hDimentions !== false){
 		}
 		
 		$dimention = new Dimention();
+		
 		//$dimention->questions = &question;//where the questionnaire will be saved remains to be determined
 		for ($i = 3; $i < $columnCount; $i++) {
 			$value = $cols[$i];
-			$dimention->judgeValue[] = $value;
+			$weightJ[] = $value;
+			$acum += $value;
 		}
-		
+
+		for ($i = 0 ; $i <count($weightJ); $i++){
+			$dimention->judgeValue[] = round(($weightJ[$i]/$acum),2);
+		}
 		$dimentions[] = $dimention;
 	}
 }
 
-var_dump($dimentions);
+
+//var_dump($dimentions);
 
 //a new array of judges with standardized values is created
 $HSS = getHigherSelectionScale($judges);
@@ -417,7 +433,6 @@ foreach($judges as $judge){
 		$normalized_item->setSelectionScale($item->getSelectionScale());
 		//var_dump($normalized_item);
 		$normalized_judge->addItem($normalized_item);
-
 	}
 	$normalized_judges[] = $normalized_judge;
 }
@@ -427,11 +442,12 @@ $aJudge    = $normalized_judges[0];
 $itemCount = $aJudge->ItemsCount();
 $rowCount  = count($judges);
 
+/*
 echo '<div id="etapa1" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
 	echo '<table border=1>';
 	echo '<tr><th colspan="5">Item ' . ($j + 1) . '</th></tr>';
-	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Relevance</th></tr>';
+	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
@@ -453,7 +469,7 @@ echo '<div id="etapa2" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
 	echo '<table border=1>';
 	echo '<tr><th colspan="5">Item ' . ($j + 1) . '</th></tr>';
-	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Relevance</th></tr>';
+	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
@@ -466,7 +482,7 @@ for($j = 0; $j < $itemCount; $j++){
 		echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . $clarity. "</td><td>" . $writing."</td><td>" . $belonging . "</td><td>" .$scale . "</td></tr>";
 	}
 	echo '</table>';
-}
+}*/
 echo '</div>';
 
 $clarities = [];
@@ -474,42 +490,54 @@ $writings  = [];
 $belongings= [];
 $scales    = [];
 
+
+function weight_criteria($value, $value2){
+
+	$a   = explode(',', $value);
+	$c   = [];
+	$c[] = $a[0] * $value2 ;
+	$c[] = $a[1] * $value2 ;
+	return implode(',', $c);
+
+}
+
 echo '<div id="etapa3" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
 	echo '<table border=1>';
-	echo '<tr><th colspan="5">Item ' . ($j + 1) . '</th></tr>';
-	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Relevance</th></tr>';
+	echo '<tr><th colspan="5">Etapa 3 Item' . ($j + 1) . '</th></tr>';
+	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
 
 	$sClarity   = '0,0';
 	$sWriting   = '0,0';
 	$sBelonging = '0,0';
 	$sScale     = '0,0';
+	$judge_weight = [];
 
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
 		$clarity   = Tuple($item->getClarity());
+		$clarity   = weight_criteria($clarity,$dimentions[0]->judgeValue[$i]);
 		$sClarity  = TupleAdd($sClarity, $clarity);
 		$writing   = Tuple($item->getWriting());
+		$writing   = weight_criteria($writing,$dimentions[0]->judgeValue[$i]);
 		$sWriting  = TupleAdd($writing, $sWriting);
 		$belonging = Tuple($item->getBelonging());
+		$belonging   = weight_criteria($belonging,$dimentions[0]->judgeValue[$i]);
 		$sBelonging= TupleAdd($belonging, $sBelonging);
 		$scale     = Tuple($item->getScale());
+		$scale   = weight_criteria($scale,$dimentions[0]->judgeValue[$i]);
 		$sScale    = TupleAdd($scale, $sScale);
 
-		echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . $sClarity . "</td><td>" . $sWriting ."</td><td>" . $sBelonging . "</td><td>" . $sScale . "</td></tr>";
+		echo "<tr><td>J<sub>" . ($i + 1) . "</sub></td><td>" . $clarity . "</td><td>" . $writing ."</td><td>" . $belonging . "</td><td>" . $scale . "</td></tr>";
 	}
-
-	$sClarity = TupleDiv($sClarity, $rowCount);
 	$clarities[] = $sClarity;
-	$sWriting = TupleDiv($writing, $rowCount);
 	$writings[] = $sWriting;
-	$sBelonging = TupleDiv($belonging, $rowCount);
 	$belongings[] = $sBelonging;
-	$sScale = TupleDiv($scale, $rowCount);
 	$scales[] = $sScale;
+	echo "-->: " . $sScale;
 
-	echo "<tr><td></td><td>" .$sClarity. "</td><td>" . $sWriting."</td><td>". $sBelonging."/td><td>" . $sScale ."$sScale</td></tr>";
+	echo "<tr><td></td><td>" .$sClarity. "</td><td>" . $sWriting."</td><td>". $sBelonging."</td><td>" . $sScale ."</td></tr>";
 	echo '</table>';
 }
 echo '</div>';
@@ -518,6 +546,7 @@ echo '</div>';
 echo '<table id="final" border=1 class="oculto">';
 echo '<tr><th colspan="5">Agregation</th></tr>';
 echo '<tr><th>Item</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
+echo "aqui!: " . $itemCount . "<br>";
 for($j = 0; $j < $itemCount; $j++){
 	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $clarities[$j] . '</td><td>' . $writings[$j] . '</td><td>' . $belongings[$j] . '</td><td>' . $scales[$j] . '</td></tr>';
 }
