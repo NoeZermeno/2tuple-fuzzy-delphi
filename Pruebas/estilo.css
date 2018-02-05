@@ -15,7 +15,6 @@ html {
 body {
 	width: 100%;
 	margin: 0 auto;
-	
 	text-align: center;
 	background-color: #fff;
 }
@@ -122,8 +121,12 @@ padding: 5px;
 }
 
 .options_bar{
-    max-width: 90%;
     margin: 0 auto;
+    max-width: 90%;
+}
+
+.col_2{
+	max-width:350px;
 }
 
 #bloque {
@@ -145,7 +148,7 @@ table#niveles {
 
 
 #preguntas{
-    text-align: left;
+	text-align: left;
 }
 #score{
 	min-width: 80px;	
