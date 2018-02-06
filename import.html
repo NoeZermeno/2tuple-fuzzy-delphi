@@ -31,7 +31,8 @@
         <h3>Select your file that has the database of your questionnaire</h3>
         <h5>Files must have a .cvs extension</h5>
       	<br/>
-      	<form action='calc.php' method='post' enctype="multipart/form-data">
+        <div align="center">
+        <form action='calc.php' method='post' enctype="multipart/form-data">
          	  <label>Iteration : </label>
            		   <select name="selector">
                      <option value="1" selected="1">1</option>
@@ -55,12 +56,13 @@
             </div>
             <br>
             <input type='reset' name='cancel1' class="buttonsA1" value='clear form' onclick="hide1()">
-            <div id='but01' style='display:none;'>
+              <div id='but01' style='display:none;'>
                  <input type='submit'  name='submit' class="boton3" value='Import & Analyze'>
-			      </div>
+			        </div>
         </form>
-        <br/><br/>
-    	</section>
+      </div>
+       <br/><br/>
+      </section>
  	</div> <!--End container-->
 
   <div class="clearfooter"></div>
