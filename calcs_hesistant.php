@@ -1,16 +1,33 @@
-<!DOCTYPE html> 
-<html> 
-<head> 
-	<meta charset='utf-8'/> 
-	<title>Tables</title> 
-	<link rel="stylesheet" href="CSS/calcs.css">
-
-</head> 
-<body>
-
+<style type="text/css">
+	.hide
+	{
+		display: none;
+	}
+	input[type=button]
+	{
+		margin-top: 25px;
+	}
+</style>
+<script type="text/javascript" src="jquery-1.12.4.js">
+</script>
+<script type="text/style" src="estilos.css">
+</script>
+<script type="text/javascript">
+	$(document).ready(function()
+		{
+			$('#boton1').on('click', function()
+				{
+					$('div#etapa1').removeClass('oculto');
+					$(this).addClass('oculto');
+					$('input#boton2').removeClass('oculto');;
+				});
+		});
+</script>
 
 
 <?php
+
+echo "<!DOCTYPE html> <html> <head> <title>Tables</title> </head> <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/> <body>";
 
 class Judge
 {
@@ -64,16 +81,26 @@ class Judge
 
 class Item
 {
-	private $clarity=0;
-	private $writing=0;
-	private $belonging=0;
-	private $scale = 0;
+
+	private $clarity = [];
+	private $writing = [];
+	private $belonging = [];
+	private $scale = [];
 	private $weight = 0;
 	private $sScale = 0;
 
 	public function setClarity($value)
 	{
-		$this->clarity = $value;
+		if( is_array($value) ){
+			$this->clarity = $value;
+			return;
+		}
+		else
+		if(strpos($value, ',') !== false){
+			$value = str_replace('"', '', $value);
+			$value = explode(',', $value);
+		}
+		$this->clarity[] = $value;
 	}
 
 	public function getClarity()
@@ -83,8 +110,16 @@ class Item
 
 	public function setWriting($value)
 	{
-
-		$this->writing = $value;
+		if( is_array($value) ){
+			$this->writing = $value;
+			return;
+		}
+		else
+		if(strpos($value, ',') !== false){
+			$value = str_replace('"', '', $value);
+			$value = explode(',', $value);
+		}
+		$this->writing[] = $value;
 	}
 
 	public function getWriting()
@@ -94,7 +129,16 @@ class Item
 
 	public function setBelonging($value)
 	{
-		$this->belonging = $value;
+		if( is_array($value) ){
+			$this->belonging = $value;
+			return;
+		}
+		else
+		if(strpos($value, ',') !== false){
+			$value = str_replace('"', '', $value);
+			$value = explode(',', $value);
+		}
+		$this->belonging[] = $value;
 	}
 
 	public function getBelonging()
@@ -104,8 +148,16 @@ class Item
 
 	public function setScale($value)
 	{
-
-		$this->scale = $value;
+		if( is_array($value) ){
+			$this->scale = $value;
+			return;
+		}
+		else
+		if(strpos($value, ',') !== false){
+			$value = str_replace('"', '', $value);
+			$value = explode(',', $value);
+		}
+		$this->scale[] = $value;
 	}
 
 	public function getScale()
@@ -150,16 +202,12 @@ class Dimention {
 	}
 }
 
-function mid_point($str){
-	$c = explode(',',max_min($str));
-	return round(($c[0] + $c[1])/2);
-}
-
 function max_min($str){
 		$array = explode (',', $str);
 		$c = [];
 		$c[] = min($array);
 		$c[] = max($array);
+	
 		return implode(',', $c);
 }
 
@@ -169,16 +217,7 @@ function v_scale($judges)
 	foreach($judges as $judge){
 		$vector[] = $judge->getscale();	
 	}
-
-	$vector2 = [];
-	asort($vector);
-	$vector = array_unique($vector);
-
-	foreach ($vector as $num) {
-		$vector2[] = $num;
-	}
-
-	return array_unique($vector2);
+	return array_unique($vector);
 }
 
 function getHigherSelectionScale($judges)
@@ -200,8 +239,21 @@ function getSelectionScale($item)
 
 function Normalize($values, $CurrentSelectionScale, $MaxSelectionScale)
 {
-	$result = 0;
-			$result = $values * ($MaxSelectionScale - 1) / ($CurrentSelectionScale - 1);
+	
+	$result = [];
+	foreach($values as $value){
+		$sub = [];
+		if(is_array($value)){
+			foreach($value as $subValue){
+				$sub[] = round($subValue * ($MaxSelectionScale - 1) / ($CurrentSelectionScale - 1),2);
+			}
+			$result[] = $sub;
+		}
+		else
+		{
+			$result[] = round($value * ($MaxSelectionScale - 1) / ($CurrentSelectionScale - 1),2);
+		}
+	}
 	return $result;
 }
 
@@ -215,6 +267,7 @@ function ArrayToString($value)
 		return implode(',', $value);
 	}
 }
+
 
 function completeTuple($value,$sel)
 {
@@ -234,7 +287,7 @@ function Tuple($value)
 	else
 	{
 		$value = implode('', $value);
-		return "$value";
+		return "$value,$value";
 	}
 }
 
@@ -244,7 +297,7 @@ function elementOfSet($value, $sel)
 	$c = [];
 	for($i = 0;$i < count($a); $i++ ){
 		if(strpos($a[$i],'.')){
-			$c[] = 's<sub>' . round($a[$i]) . '</sub><sup>' . $sel . '</sup>, ' . round(($a[$i] - round($a[$i])),2);
+			$c[] = 's<sub>' . round($a[$i]) . '</sub><sup>' . $sel . '</sup>, ' . ($a[$i] - round($a[$i]));
 		}else {
 			$c[] = 's<sub>' . $a[$i] . '</sub><sup>' . $sel . '</sup> ' . ',0';
 		}
@@ -257,16 +310,22 @@ function elementOfSet($value, $sel)
 
 function TupleAdd($value1, $value2)
 {
-	$c = 0;
-	$c = $value1 + $value2;
-	return $c;
+	$a = explode(',', $value1);
+	$b = explode(',', $value2);
+	$c = [];
+	$c[] = $a[0] + $b[0] ;
+	$c[] = $a[1] + $b[1] ;
+
+	return implode(',', $c);
 }
 
 function TupleDiv($value, $div)
 {
-	$c= 0;
-	$c = $value / $div ;
-	return  $c;
+	$a   = explode(',', $value);
+	$c   = [];
+	$c[] = round($a[0] / $div , 2) ;
+	$c[] = round($a[1] / $div , 2);
+	return implode(',', $c);
 }
 
 function TupleLinguisticDiv($value)
@@ -295,13 +354,12 @@ $normalized_judges = [];
 $dimentions        = [];
 
 error_reporting(0);
-$hEvaluation       = fopen('responses.csv', 'r');
-$hDimentions       = fopen('dimensions.csv', 'r');
-$hQuestionnaire    = fopen('description.csv', 'r');
+$hEvaluation       = fopen('evaluation.csv', 'r');
+$hDimentions       = fopen('dimensiones.csv', 'r');
+$hQuestionnaire    = fopen('items.csv', 'r');
 error_reporting(1);
 
 $columnCount       = 0;
-$j = 0;
 while(!feof($hEvaluation)){
 	$row = fgets($hEvaluation);
 	$cols= explode(';', $row);
@@ -320,15 +378,14 @@ while(!feof($hEvaluation)){
 
 	for($i = 2; $i < count($cols); $i += 5){
 		$item = new Item();
-		$item->setClarity(mid_point(max_min($cols[$i])));
-		$item->setWriting(mid_point(max_min($cols[$i + 1])));
-		$item->setBelonging(mid_point(max_min($cols[$i + 2])));
-		$item->setScale(mid_point(max_min($cols[$i + 3])));
-		$item->setWeight(mid_point(max_min($cols[$i + 4])));
+		$item->setClarity(max_min($cols[$i]));
+		$item->setWriting(max_min($cols[$i + 1]));
+		$item->setBelonging(max_min($cols[$i + 2]));
+		$item->setScale(max_min($cols[$i + 3]));
+		$item->setWeight(max_min($cols[$i + 4]));
 		$judge->addItem($item);
 	}
 	$judges[] = $judge;
-	
 }
 
 $dimentions = [];
@@ -380,7 +437,7 @@ if($hQuestionnaire !== false){
 
 	while(!feof($hQuestionnaire)){
 		$rows++;
-		$items[] = utf8_encode(fgets($hQuestionnaire));
+		$items[] = fgets($hQuestionnaire);
 	}
 
 	if($judges[0]->ItemsCount() == $rows){
@@ -417,7 +474,6 @@ function mcm_judges($judges){
  
  $lcm = 0;
  $vector = v_scale($judges);
-
  if(count($vector)>2){
 		$fst =  mcm(($vector[0]-1),($vector[1]-1));
 		return  mcm($fst,($vector[2]-1));
@@ -427,16 +483,12 @@ function mcm_judges($judges){
 }
 
 function weight_criteria($value, $value2){
+
+	$a   = explode(',', $value);
 	$c   = [];
-	if(strpos($value1,',')){
-		$a   = explode(',', $value);
-		$c[] = $a[0] * $value2 ;
-	    $c[] = $a[1] * $value2 ;
-	    return implode(',',$c);
-	}
-	
-	$c = $value * $value2 ;
-	return $c;
+	$c[] = $a[0] * $value2 ;
+	$c[] = $a[1] * $value2 ;
+	return implode(',', $c);
 
 }
 
@@ -450,7 +502,6 @@ function score($value){
 }
 
 $mcm = mcm_judges($judges)+1;
-
 foreach($judges as $judge){
 	$normalized_judge = new Judge();
 	$CSS              = $judge->getscale();
@@ -477,21 +528,22 @@ $itemCount = $aJudge->ItemsCount();
 $rowCount  = count($judges);
 
 
-echo '<div id="etapa1">';
+
+echo '<div id="etapa1" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
-	echo '<table border=1 class="tabla .modo1">';
-	echo '<tr><th class="th_question" colspan="5">Q' . ($j + 1) . ": " . $table['item'][$j] .  '</th></tr>';
-	echo '<tr class="alt tr_criteria"><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
+	echo '<table border=1>';
+	echo '<tr><th colspan="5">Q' . ($j + 1) . ": " . $table['item'][$j] .  '</th></tr>';
+	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
 
-		$clarity   = $item->getClarity();
-		$writing   = $item->getWriting();
-		$belonging = $item->getBelonging();
-		$scale     = $item->getScale();
+		$clarity   = ArrayToString($item->getClarity());
+		$writing   = ArrayToString($item->getWriting());
+		$belonging = ArrayToString($item->getBelonging());
+		$scale     = ArrayToString($item->getScale());
 
-		//echo "<tr><td>J" . ($i + 1) . "</td><td>" . round($clarity,2)  . "</td><td>" . round($writing,2) ."</td><td>" . round($belonging,2)  . "</td><td>" . round($scale,2) . "</td></tr>";
+		//echo "<tr><td>J" . ($i + 1) . "</td><td>" . $clarity  . "</td><td>" . $writing  ."</td><td>" . $belonging  . "</td><td>" . $scale . "</td></tr>";
 		echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, $mcm)  . "</td><td>" . completeTuple($writing, $mcm)   ."</td><td>" . completeTuple($belonging, $mcm)   . "</td><td>" . completeTuple($scale, $mcm)  . "</td></tr>";
 	}
 
@@ -522,43 +574,47 @@ for($j = 0; $j < $itemCount; $j++){
 
 
 
-	$sClarity   = '0';
-	$sWriting   = '0';
-	$sBelonging = '0';
-	$sScale     = '0';
+	$sClarity   = '0,0';
+	$sWriting   = '0,0';
+	$sBelonging = '0,0';
+	$sScale     = '0,0';
 	$judge_weight = [];
 
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
-		$item      = $judge->Item($j);	
-		$clarity   = weight_criteria($item->getClarity(),$dimentions[0]->judgeValue[$i]);
+		$item      = $judge->Item($j);
+		$clarity   = Tuple($item->getClarity());
+		$clarity   = weight_criteria($clarity,$dimentions[0]->judgeValue[$i]);
 		$sClarity  = TupleAdd($sClarity, $clarity);
-		$writing   = weight_criteria($item->getWriting(),$dimentions[0]->judgeValue[$i]);
+		$writing   = Tuple($item->getWriting());
+		$writing   = weight_criteria($writing,$dimentions[0]->judgeValue[$i]);
 		$sWriting  = TupleAdd($writing, $sWriting);
-		$belonging   = weight_criteria($item->getBelonging(),$dimentions[0]->judgeValue[$i]);
+		$belonging = Tuple($item->getBelonging());
+		$belonging   = weight_criteria($belonging,$dimentions[0]->judgeValue[$i]);
 		$sBelonging= TupleAdd($belonging, $sBelonging);
-		$scale   = weight_criteria($item->getScale(),$dimentions[0]->judgeValue[$i]);
+		$scale     = Tuple($item->getScale());
+		$scale   = weight_criteria($scale,$dimentions[0]->judgeValue[$i]);
 		$sScale    = TupleAdd($scale, $sScale);
 	}
 	$clarities[] = $sClarity;
 	$writings[] = $sWriting;
 	$belongings[] = $sBelonging;
 	$scales[] = $sScale;
+
 }
 
-echo "<br>";
-echo '<table id="final" border=1 class="tabla">';
-echo '<tr class="alt"><th colspan="6">Agregation</th></tr>';
-echo '<tr ><th>Item</th><th>Clarity</th><th>Writing</th><th>   Presence   </th><th>   Scale   </th><th>   Score   </th></tr>';
+echo '<table id="final" border=1 class="oculto">';
+echo '<tr><th colspan="6">Agregation</th></tr>';
+echo '<tr><th>Item</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th><th>Score</th></tr>';
 $sScore = [];
 $question = [];
 $claritiesHSS = [];
 for($j = 0; $j < $itemCount; $j++){
-	$score = "0";
-	$CC  = Normalize($clarities[$j],$mcm,7);
-	$CW  = Normalize($writings[$j],$mcm,7);
-	$CP  = Normalize($belongings[$j],$mcm,7);
-	$CAS = Normalize($scales[$j],$mcm,7);
+	$score = "0,0";
+	$CC  = implode(',', Normalize(explode(',',$clarities[$j]),$mcm,$HSS));
+	$CW  = implode(',', Normalize(explode(',',$writings[$j]),$mcm,$HSS));
+	$CP  = implode(',', Normalize(explode(',',$belongings[$j]),$mcm,$HSS));
+	$CAS = implode(',', Normalize(explode(',',$scales[$j]),$mcm,$HSS));
 
 	$score = TupleAdd($CC, $score);
 	$score = TupleAdd($CW, $score);
@@ -567,7 +623,7 @@ for($j = 0; $j < $itemCount; $j++){
 	$score = TupleDiv($score,4);
 	$sScore[] = $score; 
 	//echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $CC . '</td><td>' . $CW . '</td><td>' . $CP . '</td><td>' . $CAS . '</td><td>' .$score. '</td></tr>';
-	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . completeTuple($CC, 7) . '</td><td>' . completeTuple($CW, 7) . '</td><td>' . completeTuple($CP, 7) . '</td><td>' . completeTuple($CAS, 7) . '</td><td>' .completeTuple($score, 7). '</td></tr>';
+	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . completeTuple($CC, $HSS) . '</td><td>' . completeTuple($CW, $HSS) . '</td><td>' . completeTuple($CP, $HSS) . '</td><td>' . completeTuple($CAS, $HSS) . '</td><td>' .completeTuple($score, $HSS). '</td></tr>';
 }
 echo '</table>';
 
@@ -577,6 +633,8 @@ $table['CP'] = array_merge($table,$belongings);
 $table['CAS'] = array_merge($table,$scales);
 $table['SCORE'] = array_merge($table,$sScore);
 
+
+print_r($table['items']);
 function linguisticLabel($criteria, $index){
 
 	global $table;
@@ -599,4 +657,5 @@ function linguisticLabel($criteria, $index){
 }
 echo "</body></html>";
 ?>
+
 
