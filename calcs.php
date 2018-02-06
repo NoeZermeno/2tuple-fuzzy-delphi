@@ -23,7 +23,11 @@
 				});
 		});
 </script>
+
+
 <?php
+
+echo "<!DOCTYPE html> <html> <head> <title>Tables</title> </head> <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/> <body>";
 
 class Judge
 {
@@ -264,12 +268,13 @@ function ArrayToString($value)
 	}
 }
 
+
 function completeTuple($value,$sel)
 {
 	$a = explode(',',$value);
 	$c = [];
 	for($i = 0;$i < count($a); $i++ ){
-		$c[] = '(' . elementOfSet($a[$i], $sel) . ' , 0)';
+		$c[] = '(' . elementOfSet($a[$i], $sel) . ')';
 	}
 	return implode(',', $c);
 }
@@ -291,10 +296,15 @@ function elementOfSet($value, $sel)
 	$a = explode(',',$value);
 	$c = [];
 	for($i = 0;$i < count($a); $i++ ){
-		$c[] = 's<sub>' . $a[$i] . '</sub><sup>' . $sel . '</sup> ';
+		if(strpos($a[$i],'.')){
+			$c[] = 's<sub>' . round($a[$i]) . '</sub><sup>' . $sel . '</sup>, ' . ($a[$i] - round($a[$i]));
+		}else {
+			$c[] = 's<sub>' . $a[$i] . '</sub><sup>' . $sel . '</sup> ' . ',0';
+		}
+
+		
 	}
 	return implode(',', $c);
-	return 's<sub>' . $value . '</sub><sup>' . $sel . '</sup>' ;
 }
 
 
@@ -346,7 +356,7 @@ $dimentions        = [];
 error_reporting(0);
 $hEvaluation       = fopen('evaluation.csv', 'r');
 $hDimentions       = fopen('dimensiones.csv', 'r');
-$hQuestionnaire    = fopen('cuestionario.csv', 'r');
+$hQuestionnaire    = fopen('items.csv', 'r');
 error_reporting(1);
 
 $columnCount       = 0;
@@ -416,6 +426,26 @@ if($hDimentions !== false){
 			$dimention->judgeValue[] = round(($weightJ[$i]/$acum),2);
 		}
 		$dimentions[] = $dimention;
+	}
+}
+
+$table = [];
+
+if($hQuestionnaire !== false){
+	$rowsCount = 0;
+	$items = [];
+
+	while(!feof($hQuestionnaire)){
+		$rows++;
+		$items[] = fgets($hQuestionnaire);
+	}
+
+	if($judges[0]->ItemsCount() == $rows){
+		global $table;
+		$table['item'] = array_merge($table,$items);
+	}else{
+		echo "does not match the number of items";
+		break;
 	}
 }
 
@@ -493,15 +523,16 @@ foreach($judges as $judge){
 	$normalized_judges[] = $normalized_judge;
 }
 
-
 $aJudge    = $normalized_judges[0];
 $itemCount = $aJudge->ItemsCount();
 $rowCount  = count($judges);
 
+
+
 echo '<div id="etapa1" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
 	echo '<table border=1>';
-	echo '<tr><th colspan="5">Item ' . ($j + 1) . '</th></tr>';
+	echo '<tr><th colspan="5">Q' . ($j + 1) . ": " . $table['item'][$j] .  '</th></tr>';
 	echo '<tr><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
@@ -512,7 +543,8 @@ for($j = 0; $j < $itemCount; $j++){
 		$belonging = ArrayToString($item->getBelonging());
 		$scale     = ArrayToString($item->getScale());
 
-		echo "<tr><td>J" . ($i + 1) . "</td><td>" . $clarity  . "</td><td>" . $writing  ."</td><td>" . $belonging  . "</td><td>" . $scale . "</td></tr>";
+		//echo "<tr><td>J" . ($i + 1) . "</td><td>" . $clarity  . "</td><td>" . $writing  ."</td><td>" . $belonging  . "</td><td>" . $scale . "</td></tr>";
+		echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, $mcm)  . "</td><td>" . completeTuple($writing, $mcm)   ."</td><td>" . completeTuple($belonging, $mcm)   . "</td><td>" . completeTuple($scale, $mcm)  . "</td></tr>";
 	}
 
 
@@ -590,12 +622,11 @@ for($j = 0; $j < $itemCount; $j++){
 	$score = TupleAdd($CAS, $score);
 	$score = TupleDiv($score,4);
 	$sScore[] = $score; 
-	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $CC . '</td><td>' . $CW . '</td><td>' . $CP . '</td><td>' . $CAS . '</td><td>' .$score. '</td></tr>';
+	//echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $CC . '</td><td>' . $CW . '</td><td>' . $CP . '</td><td>' . $CAS . '</td><td>' .$score. '</td></tr>';
+	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . completeTuple($CC, $HSS) . '</td><td>' . completeTuple($CW, $HSS) . '</td><td>' . completeTuple($CP, $HSS) . '</td><td>' . completeTuple($CAS, $HSS) . '</td><td>' .completeTuple($score, $HSS). '</td></tr>';
 }
 echo '</table>';
 
-$table = [];
-$table['item'] = array_merge($table,$question);
 $table['CC'] = array_merge($table,$clarities);
 $table['CW'] = array_merge($table,$writings);
 $table['CP'] = array_merge($table,$belongings);
@@ -603,6 +634,7 @@ $table['CAS'] = array_merge($table,$scales);
 $table['SCORE'] = array_merge($table,$sScore);
 
 
+print_r($table['items']);
 function linguisticLabel($criteria, $index){
 
 	global $table;
@@ -622,7 +654,8 @@ function linguisticLabel($criteria, $index){
     if ($criteria == 'item'){
         return $table['item'][$index];
     }
-
 }
-
+echo "</body></html>";
 ?>
+
+
