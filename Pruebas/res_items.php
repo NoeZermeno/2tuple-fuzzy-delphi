@@ -27,6 +27,8 @@
 		<script type="text/javascript">
 			
             //Filter for the Trim tool: Filters the data table according to the selected color (button).
+
+
 			function fun(value){
 
 				for (var x = 1; x < 7; x++) {
@@ -77,7 +79,7 @@
 	    			"scrollCollapse": true,
 	    			"paging": false,
 					"order": [[0, "asc"]],
-					"searching": false,
+					"searching": true,
 					"columnDefs": [
 						{
 							"targets": [1],
@@ -111,7 +113,7 @@
 		</section>
 
 		<div class="options_bar">
-			<table >
+			<table>
 				<tr>
 					<td>
 						<div class="Visualization_select" id="consensus">
@@ -188,21 +190,21 @@
 						   <label name="EC" id = "EC">0</label>
 						</div>
 					</td>
-					<td class="w20">
+					<!--<td class="w20">
 						<div class="options_bar" id="Total_score">
-							<p> Questionnaire Total Score</p>
-							<h3>(Very correct , -0.45 )</h3>
+							<p> Questionnaire Total Score: <h4>(Very correct , -0.45 )</h4></p>
+							
 						</div>
 					</td>
 					<td>
 						<div id="datos_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="datos"></label></div>
-					</td>
+					</td>-->
 				</tr>
 			</table>
 		</div>
-		<div>
-			
 		
+
+		<div id="divDataTable">
 		<table id="datos" class="display" cellspacing="0" width="100%">
 			<thead >
 				<tr>
@@ -219,136 +221,12 @@
 			</thead>
 
 			<tbody id=tableDatosBody>
-				<?php
-				function randomFloat($min = 0, $max = 1) {
-	 		    return $min + mt_rand() / mt_getrandmax() * ($max - $min);
-				}
-
-				$sClarity = [];
-				$sPresence = [];
-
-				$_2_tuplas = 0;
-				$_2_tuplasC = 0;
-				$_2_tuplasP = 0;
-				$label_output="";
+				
+				<?php 
+				$label_output="";   //Variable temporal mientras se obtienen los resultados finales
+					
+					/*--Row creation--*/
 					for ($y = 1; $y <= $total; $y++) {
-						//$nivel = rand(1, $max);
-
-
-
-						/*$mean = round(randomFloat(3,6),2);
-						$CoV = round(randomFloat(0,0.7),2);
-
-						 if ($mean >5.4){
-						 	$_2_tuplas = "(S<sub>6</sub>, " . round(($mean-6),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Excelent";
-						 	$nivel =7;
-						 } elseif ($mean>4.9) {
-						 	$_2_tuplas = "(S<sub>5</sub>, " . round(($mean-5),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>5</sub>, " . round((round(randomFloat(3,6),2)-5),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Very Correct";
-						 	$nivel = 6;
-						 }elseif ($mean>4.4) {
-						 	$_2_tuplas = "(S<sub>5</sub>, " . round(($mean-5),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>5</sub>, " . round((round(randomFloat(3,6),2)-5),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Very Correct";
-						 	$nivel = 6;
-						 }elseif ($mean>3.9) {
-						 	$_2_tuplas = "(S<sub>4</sub>, " . round(($mean-4),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>4</sub>, " . round((round(randomFloat(3,6),2)-4),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Correct";
-						 	$nivel = 5;
-						 }elseif ($mean>3.4) {
-						 	$_2_tuplas = "(S<sub>4</sub>, " . round(($mean-4),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>4</sub>, " . round((round(randomFloat(3,6),2)-4),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Correct";
-
-						 	$nivel = 5;
-						 }elseif ($mean>2.9) {
-						 	$_2_tuplas = "(S<sub>3</sub>, " . round(($mean-3),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>3</sub>, " . round((round(randomFloat(3,6),2)-3),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Moderate";
-						 	$nivel = 4;
-						 }elseif ($mean>2.4) {
-						 	$_2_tuplas = "(S<sub>3</sub>, " . round(($mean-3),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>3</sub>, " . round((round(randomFloat(3,6),2)-3),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Moderate";
-						 	$nivel = 4;
-						 }elseif ($mean>1.9) {
-						 	$_2_tuplas = "(S<sub>2</sub>, " . round(($mean-2),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>2</sub>, " . round((round(randomFloat(3,6),2)-2),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Incorrect";
-						 	$nivel = 3;
-						 }elseif ($mean>1.4) {
-						 	$_2_tuplas = "(S<sub>2</sub>, " . round(($mean-2),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>2</sub>, " . round((round(randomFloat(3,6),2)-2),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Incorrect";
-						 	$nivel = 3;
-						 }elseif ($mean>0.9) {
-						 	$_2_tuplas = "(S<sub>1</sub>, " . round(($mean-1),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>1</sub>, " . round((round(randomFloat(3,6),2)-1),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Very Incorrect";
-						 	$nivel = 2;
-						 }elseif ($mean>0.5) {
-						 	$_2_tuplas = "(S<sub>1</sub>, " . round(($mean-1),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>1</sub>, " . round((round(randomFloat(3,6),2)-1),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Very Incorrect";
-						 	$nivel = 2;
-						 }else{
-						 	$_2_tuplas = "(S<sub>0</sub>, " . round(($mean-0),2)  . ")";
-						 	$_2_tuplasC = "(S<sub>0</sub>, " . round((round(randomFloat(3,6),2)-0),2)  . ")";
-						 	$_2_tuplasP = "(S<sub>6</sub>, " . round((round(randomFloat(3,6),2)-6),2)  . ")";
-						 	$label_output = "Lousy";
-						 	$nivel = 1;
-						 }
-
-
-
-							$items = [];
-							$items[] = "Las actividades planteadas por el profesorado a través de los videos aumentaron mi interés por lo contenidos del curso.
-							Escala Tipo A"; 
-							$items[] = "La comunicación con mis compañeros a través de las actividades colaborativas aumentaron mi interés por lo contenidos del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "El uso de videos me ha facilitado el intercambio de información sobre los contenidos del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "El trabajo colaborativo me ha facilitado el intercambio de información sobre los contenidos del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "El uso de videos me ha facilitado la asociación de ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "El trabajo colaborativo me ha facilitado la asociación de ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "El uso de videos me ha facilitado la aplicación de nuevas ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "El trabajo colaborativo me ha facilitado la aplicación de nuevas ideas relacionadas con los contenidos del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "Trabajando colaborativamente he podido expresar mis emociones.Escala a utilizar: Tipo A"; 
-							$items[] = "Trabajando colaborativamente he podido demostrar gratitud con algún miembro del grupo.Escala a utilizar: Tipo A"; 
-							$items[] = "Trabajando colaborativamente he podido expresarme libremente y sin riesgos.Escala a utilizar: Tipo A"; 
-							$items[] = "Me sentí cómodo interactuando con otros participantes del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "Trabajando colaborativamente me he sentido unido al grupo.Escala a utilizar: Tipo A"; 
-							$items[] = "Sentí que mi punto de vista fue reconocido por otros participantes del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "En los videos se expresaban claramente los contenidos y la organización del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "Trabajando colaborativamente he obtenido información sobre los contenidos y la organización del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "En los videos se animaba a consultar los contenidos del curso y fuentes externas para generar conocimientos entre todos.Escala a utilizar: Tipo A"; 
-							$items[] = "Trabajando colaborativamente se ha promovido y se ha animado la construcción de conocimientos.Escala a utilizar: Tipo A"; 
-							$items[] = "A través de los videos se me han dado orientaciones explícitas para centrarme en los contenidos del curso.Escala a utilizar: Tipo A"; 
-							$items[] = "A través del trabajo colaborativo he obtenido orientaciones explícitas para centrarme en los contenidos del curso.Escala a utilizar: Tipo A";
-							$items[] = "Estoy satisfecho con las actividades propuestas en el curso.Escala a utilizar: Tipo B"; 
-							$items[] = "Estoy satisfecho con la información aportada por mis compañeros.Escala a utilizar: Tipo B"; 
-							$items[] = "Estoy satisfecho con las respuestas recibidas a mis preocupaciones, preguntas y necesidades relacionadas con los temas tratados en el curso.Escala a utilizar: Tipo B"; 
-							$items[] = "Estoy satisfecho porque pude expresar mis preocupaciones, preguntas y necesidades relacionadas con los temas tratados en el curso.Escala a utilizar: Tipo B"; 
-							$items[] = "Estoy satisfecho con los acuerdos adoptados en las actividades colaborativas.
-							Escala a utilizar: Tipo B";
-							$items[] = "Estoy satisfecho con los resúmenes realizados en las actividades del curso.Escala a utilizar: Tipo B"; 
-							$items[] = "Considero que he alcanzado los objetivos del curso.Escala a utilizar: Tipo B"; 
-							$items[] = "Estoy satisfecho con las conclusiones extraidas en las actividades colaborativas.Escala a utilizar: Tipo B"; 
-*/
-
 				?>
 				<tr>
 					<td class="col_1" > <?php echo $y; ?></td>
@@ -375,10 +253,10 @@
 				<tr>
 					<th>Showing 10 of 45</th>
 					<th align="right">Results</th>
-					<th><?php echo $_2_tuplasC; ?></th>
-					<th><?php echo $_2_tuplas; ?></th>
-					<th><?php echo $_2_tuplasP; ?></th>
-					<th><?php echo $_2_tuplas; ?></th>
+					<th><?php echo "Falta"; ?></th>
+					<th><?php echo "Falta"; ?></th>
+					<th><?php echo "Falta"; ?></th>
+					<th><?php echo "Falta"; ?></th>
 					<th>(Very correct , -0.45 )</th>
 					<th></th>
 					<th></th>
