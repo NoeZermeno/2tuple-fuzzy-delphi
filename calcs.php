@@ -198,6 +198,24 @@ class Dimention {
 	}
 }
 
+function max_min($str){
+		$array = explode (',', $str);
+		$c = [];
+		$c[] = min($array);
+		$c[] = max($array);
+	
+		return implode(',', $c);
+}
+
+function v_scale($judges)
+{
+	$vector = [];
+	foreach($judges as $judge){
+		$vector[] = $judge->getscale();	
+	}
+	return array_unique($vector);
+}
+
 function getHigherSelectionScale($judges)
 {
 	$higher = 0;
@@ -217,18 +235,19 @@ function getSelectionScale($item)
 
 function Normalize($values, $CurrentSelectionScale, $MaxSelectionScale)
 {
+	
 	$result = [];
 	foreach($values as $value){
 		$sub = [];
 		if(is_array($value)){
 			foreach($value as $subValue){
-				$sub[] = $subValue * ($MaxSelectionScale - 1) / ($CurrentSelectionScale - 1);
+				$sub[] = round($subValue * ($MaxSelectionScale - 1) / ($CurrentSelectionScale - 1),2);
 			}
 			$result[] = $sub;
 		}
 		else
 		{
-			$result[] = $value * ($MaxSelectionScale - 1) / ($CurrentSelectionScale - 1);
+			$result[] = round($value * ($MaxSelectionScale - 1) / ($CurrentSelectionScale - 1),2);
 		}
 	}
 	return $result;
@@ -348,17 +367,15 @@ while(!feof($hEvaluation)){
 	$judge->setscale($cols[1]);
 
 	for($i = 2; $i < count($cols); $i += 5){
-
 		$item = new Item();
-		$item->setClarity($cols[$i]);
-		$item->setWriting($cols[$i + 1]);
-		$item->setBelonging($cols[$i + 2]);
-		$item->setScale($cols[$i + 3]);
-		$item->setWeight($cols[$i + 4]);
+		$item->setClarity(max_min($cols[$i]));
+		$item->setWriting(max_min($cols[$i + 1]));
+		$item->setBelonging(max_min($cols[$i + 2]));
+		$item->setScale(max_min($cols[$i + 3]));
+		$item->setWeight(max_min($cols[$i + 4]));
 		$judge->addItem($item);
 	}
 	$judges[] = $judge;
-
 }
 
 $dimentions = [];
@@ -402,30 +419,75 @@ if($hDimentions !== false){
 	}
 }
 
+function mcd($a,$b) {
 
-//var_dump($dimentions);
+		while (($a % $b) != 0) {
+		  $c = $b;
 
-//a new array of judges with standardized values is created
+		  $b = $a % $b;
+
+		  $a = $c;
+
+		}
+		return $b;
+	}
+
+	function mcm($a,$b) {
+
+		return ($a * $b) / mcd($a,$b);
+
+	}
+
 $HSS = getHigherSelectionScale($judges);
 
+function mcm_judges($judges){
+ 
+ $lcm = 0;
+ $vector = v_scale($judges);
+ if(count($vector)>2){
+		$fst =  mcm(($vector[0]-1),($vector[1]-1));
+		return  mcm($fst,($vector[2]-1));
+	}else{
+		return  mcm(($vector[0]-1),($vector[1]-1));
+	}
+}
+
+function weight_criteria($value, $value2){
+
+	$a   = explode(',', $value);
+	$c   = [];
+	$c[] = $a[0] * $value2 ;
+	$c[] = $a[1] * $value2 ;
+	return implode(',', $c);
+
+}
+
+function score($value){
+	$a   = explode(',', $value);
+	$b   = explode(',', $value2);
+	$c   = [];
+	$c[] = ($a[0] )/2;
+	$c[] = ($a[1] + $b[0])/2;
+	return implode(',', $c);
+}
+
+$mcm = mcm_judges($judges)+1;
 foreach($judges as $judge){
 	$normalized_judge = new Judge();
 	$CSS              = $judge->getscale();
 	foreach($judge->Items() as $item){
 
 		$normalized_item = new Item();
-		$newValue        = Normalize($item->getClarity(), $CSS, $HSS);
+		$newValue        = Normalize($item->getClarity(), $CSS, $mcm );
 		$normalized_item->setClarity( $newValue );
-		$newValue        = Normalize($item->getWriting(), $CSS, $HSS);
+		$newValue        = Normalize($item->getWriting(), $CSS, $mcm );
 		$normalized_item->setWriting( $newValue );
-		$newValue        = Normalize($item->getBelonging(), $CSS, $HSS);
+		$newValue        = Normalize($item->getBelonging(), $CSS, $mcm );
 		$normalized_item->setBelonging( $newValue );
-		$newValue        = Normalize($item->getScale(), $CSS, $HSS);
+		$newValue        = Normalize($item->getScale(), $CSS, $mcm);
 		$normalized_item->setScale( $newValue );
 		$normalized_item->setWeight($item->getWeight());
-
 		$normalized_item->setSelectionScale($item->getSelectionScale());
-		//var_dump($normalized_item);
 		$normalized_judge->addItem($normalized_item);
 	}
 	$normalized_judges[] = $normalized_judge;
@@ -436,7 +498,7 @@ $aJudge    = $normalized_judges[0];
 $itemCount = $aJudge->ItemsCount();
 $rowCount  = count($judges);
 
-/*echo '<div id="etapa1" class="oculto">';
+echo '<div id="etapa1" class="oculto">';
 for($j = 0; $j < $itemCount; $j++){
 	echo '<table border=1>';
 	echo '<tr><th colspan="5">Item ' . ($j + 1) . '</th></tr>';
@@ -456,19 +518,18 @@ for($j = 0; $j < $itemCount; $j++){
 
 	echo '</table>';
 }
-echo '</div>';*/
+echo '</div>';
+
 
 for($j = 0; $j < $itemCount; $j++){
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
-
 		$clarity   = Tuple($item->getClarity());
 		$writing   = Tuple($item->getWriting());
 		$belonging = Tuple($item->getBelonging());
 		$scale     = Tuple($item->getScale());
 	}
-
 }
 
 
@@ -477,18 +538,9 @@ $writings  = [];
 $belongings= [];
 $scales    = [];
 
-
-function weight_criteria($value, $value2){
-
-	$a   = explode(',', $value);
-	$c   = [];
-	$c[] = $a[0] * $value2 ;
-	$c[] = $a[1] * $value2 ;
-	return implode(',', $c);
-
-}
-
 for($j = 0; $j < $itemCount; $j++){
+
+
 
 	$sClarity   = '0,0';
 	$sWriting   = '0,0';
@@ -519,32 +571,26 @@ for($j = 0; $j < $itemCount; $j++){
 
 }
 
-function score($value){
-	$a   = explode(',', $value);
-	$b   = explode(',', $value2);
-	$c   = [];
-	$c[] = ($a[0] )/2;
-	$c[] = ($a[1] + $b[0])/2;
-	return implode(',', $c);
-
-}
-
-
 echo '<table id="final" border=1 class="oculto">';
 echo '<tr><th colspan="6">Agregation</th></tr>';
 echo '<tr><th>Item</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th><th>Score</th></tr>';
-$score = "0,0";
 $sScore = [];
 $question = [];
+$claritiesHSS = [];
 for($j = 0; $j < $itemCount; $j++){
-	$question[] = "A$j";
-	$score = TupleAdd($clarities[$j], $score);
-	$score = TupleAdd($writings[$j], $score);
-	$score = TupleAdd($belongings[$j], $score);
-	$score = TupleAdd($scales[$j], $score);
+	$score = "0,0";
+	$CC  = implode(',', Normalize(explode(',',$clarities[$j]),$mcm,$HSS));
+	$CW  = implode(',', Normalize(explode(',',$writings[$j]),$mcm,$HSS));
+	$CP  = implode(',', Normalize(explode(',',$belongings[$j]),$mcm,$HSS));
+	$CAS = implode(',', Normalize(explode(',',$scales[$j]),$mcm,$HSS));
+
+	$score = TupleAdd($CC, $score);
+	$score = TupleAdd($CW, $score);
+	$score = TupleAdd($CP, $score);
+	$score = TupleAdd($CAS, $score);
 	$score = TupleDiv($score,4);
 	$sScore[] = $score; 
-	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $clarities[$j] . '</td><td>' . $writings[$j] . '</td><td>' . $belongings[$j] . '</td><td>' . $scales[$j] . '</td><td>' .$score. '</td></tr>';
+	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $CC . '</td><td>' . $CW . '</td><td>' . $CP . '</td><td>' . $CAS . '</td><td>' .$score. '</td></tr>';
 }
 echo '</table>';
 
