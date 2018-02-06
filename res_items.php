@@ -17,11 +17,11 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Filtros</title>
-		<link rel="stylesheet" type="text/css" href="estilo.css">
+		<link rel="stylesheet" type="text/css" href="style_results.css">
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"><link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="estilo_barra.css">
+		<link rel="stylesheet" type="text/css" href="style_trim.css">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
-		<script type="text/javascript" src="jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="JS/jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 			
 		<script type="text/javascript">
