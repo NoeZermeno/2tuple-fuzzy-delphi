@@ -10,7 +10,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="CSS/style01.css">
 	<script type="text/javascript" src="JS/val-and-fun.js"></script>
- </head>
+</head>
 
 <body>
   <div id="container">
@@ -26,28 +26,28 @@
     	<section class="main">
         <div class="imagen">
   		    <img src="images/A03.png" >
-  		</div>
-		<br>
+  		  </div>
+		    <br>
         <h3>Select your file that has the database of your questionnaire</h3>
         <h5>Files must have a .cvs extension</h5>
       	<br/>
       	<form action='calc.php' method='post' enctype="multipart/form-data">
-         	<label>Iteration : </label>
-           		<select name="selector">
+         	  <label>Iteration : </label>
+           		   <select name="selector">
                      <option value="1" selected="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
                      <option value="5">5</option>
-           		</select>
-              <br><br>
+           		  </select>
+                <br><br>
             <input type="checkbox" name="heading" value="1">Use headings<br><br>
 
             <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onclick="show1()" onChange="ext_cont(this)">
             <br><br>
             <div>
                <label>Importing Result file CSV :</label> <input type='file' name='file2' size='20'onChange="ext_cont(this)">
-            	<br><br>
+            	 <br><br>
             </div>
             <div>
                <label>Importing Expert weight file CSV :</label> <input type='file' name='file3' size='20'onChange="ext_cont(this)">
@@ -57,7 +57,7 @@
             <input type='reset' name='cancel1' class="buttonsA1" value='clear form' onclick="hide1()">
             <div id='but01' style='display:none;'>
                  <input type='submit'  name='submit' class="boton3" value='Import & Analyze'>
-			</div>
+			      </div>
         </form>
         <br/><br/>
     	</section>
