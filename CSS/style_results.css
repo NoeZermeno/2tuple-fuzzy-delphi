@@ -137,7 +137,7 @@ padding: 5px;
 	border: 1px solid #F40303;
 }
 
-table#niveles {
+table#levels {
     /*border: 1px solid #000;*/
     width: 90%;
     height: 20px;
@@ -155,42 +155,42 @@ table#niveles {
 }
 
 
-.nivel1 {
+.level1 {
 	
 	background-color: #FFB6AE;
 /*	background-color: rgba(139,0,0,.6);*/
 	font: bold;
 }
-.nivel2 {
+.level2 {
 	background-color: #FFE1AE;
 /*	background-color: rgba(255,0,0,.6);*/
 		font: bold;
 }
-.nivel3 {
+.level3 {
 	background-color: #FFF4E1;
 /*	background-color: rgba(255,165,0,.6);*/
 	font: bold;
 }
 
-.nivel4 {
+.level4 {
 	background-color: #FDFEE0;
 /*	background-color: rgba(255,255,0,.6);*/
 	font: bold;
 }
 
-.nivel5 {
+.level5 {
 	background-color: #FAFCAF;
 /*	background-color: rgba(173,255,47,.6);*/
 	font: bold;
 }
 
-.nivel6 {
+.level6 {
 	background-color: #DCF9E4;
 /*	background-color: rgba(124,252,0,.6);*/
 	font: bold;
 }
 
-.nivel7 {
+.level7 {
 	background-color: #B0F2C2;
 /*	background-color: rgba(0,128,0,.6);*/
 	font: bold;
@@ -207,7 +207,7 @@ table#niveles {
 input#rango {
     width: 80%;
 }
-.oculto {
+.hidden {
 	display: none;
 }
 

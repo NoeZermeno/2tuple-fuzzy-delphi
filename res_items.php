@@ -2,24 +2,24 @@
     include ("item.php");
 	$max = 7;
 	$total =46;
-	$niveles = '<table id="niveles">';
-	$niveles .= '<tr>';
+	$levels = '<table id="levels">';
+	$levels .= '<tr>';
 	$count = '';
 	for ($x = 1; $x <= $max; $x++) {
-		$niveles .= '<td class="nivel' . $x . '">' . 's<sub>' .$x. '</sub>'.  '</td>';		
+		$levels .= '<td class="level' . $x . '">' . 's<sub>' .$x. '</sub>'.  '</td>';		
 	}
-	$niveles .= '</tr>';
-	$niveles .= '</table>';
+	$levels .= '</tr>';
+	$levels .= '</table>';
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Filtros</title>
-		<link rel="stylesheet" type="text/css" href="style_results.css">
+		<title>Final Results</title>
+		<link rel="stylesheet" type="text/css" href="CSS/style_results.css">
+		<link rel="stylesheet" type="text/css" href="CSS/style_trim.css">
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"><link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="style_trim.css">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 		<script type="text/javascript" src="JS/jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -33,9 +33,9 @@
 
 				for (var x = 1; x < 7; x++) {
                     if (x < value) {
-						$('#datos td.nivel' + x).parent('tr').addClass('oculto');
+						$('#data td.level' + x).parent('tr').addClass('hidden');
 					} else {
-							$('#datos td.nivel' + x).parent('tr').removeClass('oculto');
+							$('#data td.level' + x).parent('tr').removeClass('hidden');
 					}
                 }
 			}
@@ -54,7 +54,7 @@
             function hideColumns(sel){
                
                 if (sel=="allInformation") {
-                    for (i=3 ; i<=$('#tableDatosBody tr:last td').length ; i++){
+                    for (i=3 ; i<=$('#tableDataB tr:last td').length ; i++){
                         $('.col_' + i).show();		
                     }	
                 }else {
@@ -73,7 +73,7 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var oTablaDatos = $('#datos').DataTable({
+				var oTableData = $('#data').DataTable({
 					"scrollResize": true,
 	    			"scrollY": 450,
 	    			"scrollCollapse": true,
@@ -116,7 +116,7 @@
 			<table>
 				<tr>
 					<td>
-						<div class="Visualization_select" id="consensus">
+						<div class="Visualization_select" id="Consensus">
 							<p> Visualization options: </p>
 							<div class="styled-select semi-square">
 							  <select onchange="hideColumns(this.value);">
@@ -190,22 +190,22 @@
 						   <label name="EC" id = "EC">0</label>
 						</div>
 					</td>
-					<!--<td class="w20">
+					<td class="w20">
 						<div class="options_bar" id="Total_score">
 							<p> Questionnaire Total Score: <h4>(Very correct , -0.45 )</h4></p>
 							
 						</div>
 					</td>
 					<td>
-						<div id="datos_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="datos"></label></div>
-					</td>-->
+						<div id="data_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder=""  aria-controls="data"></label></div>
+					</td>
 				</tr>
 			</table>
 		</div>
 		
 
 		<div id="divDataTable">
-		<table id="datos" class="display" cellspacing="0" width="100%">
+		<table id="data" class="display" cellspacing="0" width="100%">
 			<thead >
 				<tr>
 					<th class="col_1">Num</th>
@@ -220,7 +220,7 @@
 				</tr>
 			</thead>
 
-			<tbody id=tableDatosBody>
+			<tbody id=tableDataBody>
 				
 				<?php 
 				$label_output="";   //Variable temporal mientras se obtienen los resultados finales
@@ -245,7 +245,7 @@
 						 }
 						 ?>
 				 	</td>
-				 	<td class=" nivel<?php echo linguisticLabel($y-1,'level'); ?> texto_sombra col_9" > <?php echo linguisticLabel($y-1,'Total'); ?></td>
+				 	<td class=" level<?php echo linguisticLabel($y-1,'level'); ?> texto_sombra col_9" > <?php echo linguisticLabel($y-1,'Total'); ?></td>
 				</tr>
 
 				<?php } ?>
