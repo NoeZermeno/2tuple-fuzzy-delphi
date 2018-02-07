@@ -12,6 +12,17 @@
 
 <?php
 
+if (!empty($_POST))
+{	
+	if (isset($_POST['file1'])) {
+		$responses  = $_POST['file1'];
+    echo "Responses: " . $responses . "<br>";
+}
+	$responses = 'responses.csv',
+}else{
+	echo "NOT VALUES";
+}
+
 class Judge
 {
 	private $items = [];
@@ -295,9 +306,10 @@ $normalized_judges = [];
 $dimentions        = [];
 
 error_reporting(0);
-$hEvaluation       = fopen('responses.csv', 'r');
+$hEvaluation       = fopen($responses 'r');
 $hDimentions       = fopen('dimensions.csv', 'r');
 $hQuestionnaire    = fopen('description.csv', 'r');
+
 error_reporting(1);
 
 $columnCount       = 0;
