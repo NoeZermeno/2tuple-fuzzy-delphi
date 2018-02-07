@@ -26,4 +26,5 @@ function ext_cont(f){
         t.value='';
         f.parentNode.replaceChild(t,f);
         alert('The file extension is not valid. Please enter a file »name.csv«');
+		hide1();
 }
