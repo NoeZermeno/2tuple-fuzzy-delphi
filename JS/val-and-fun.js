@@ -20,7 +20,8 @@ function ext_cont(f){
         var v=f.value.split('.').pop().toLowerCase();
         for(var i=0,n;n=ext[i];i++){
             if(n.toLowerCase()==v)
-                return
+                {show1();
+				return}
               }
         var t=f.cloneNode(true);
         t.value='';
