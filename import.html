@@ -43,17 +43,21 @@
                      <option value="5">5</option>
            		  </select>
                 <br><br>
-            <input type="checkbox" name="heading" value="1">Use headings<br><br>
-
-            <label>Importing Responses file CSV :</label> <input type='file' name='file1' size='20' onChange="ext_cont(this)">
-            <br><br>
+           <input type="checkbox" name="heading1" value="1">Use headings<br>
+            <label>Importing Response file CSV :</label> <input type='file' name='file1' size='20' onChange="ext_cont(this)">  
+            <br>
             <div>
-               <label>Importing Description file CSV :</label> <input type='file' name='file2' size='20'onChange="ext_cont(this)">
-            	 <br><br>
+               <br>
+               <input type="checkbox" name="heading2" value="1">Use headings
+               <br>
+               <label>Importing Description file CSV :</label> <input type='file' name='file2' size='20'onChange="ext_cont(this)">              <br>
             </div>
-            <div>
-               <label>Importing Dimensions file CSV :</label> <input type='file' name='file3' size='20'onChange="ext_cont(this)">
-               <br><br>
+           <div>
+               <br>
+               <input type="checkbox" name="heading3" value="1">Use headings
+               <br>
+               <label>Importing Expert weight file CSV :</label> <input type='file' name='file3' size='20'onChange="ext_cont(this)"> 
+               <br>
             </div>
             <br>
             <input type='reset' name='cancel1' class="buttonsA1" value='clear form' onclick="hide1()">
