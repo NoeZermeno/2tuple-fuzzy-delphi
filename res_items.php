@@ -19,10 +19,18 @@
 		<title>Final Results</title>
 		<link rel="stylesheet" type="text/css" href="CSS/style_results.css">
 		<link rel="stylesheet" type="text/css" href="CSS/style_trim.css">
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"><link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/af-2.2.2/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/cr-1.4.1/fc-3.2.4/fh-3.1.3/kt-2.3.2/r-2.2.1/rg-1.0.2/rr-1.2.3/sc-1.4.4/sl-1.2.5/datatables.min.css"/>
+		<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+		<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 		<script type="text/javascript" src="JS/jquery-1.12.4.js"></script>
-		<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/af-2.2.2/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/cr-1.4.1/fc-3.2.4/fh-3.1.3/kt-2.3.2/r-2.2.1/rg-1.0.2/rr-1.2.3/sc-1.4.4/sl-1.2.5/datatables.min.js"></script>
+		<script type="text/javascript" src="DataTables/datatables.min.js"></script>
+
+		
 			
 		<script type="text/javascript">
 			
@@ -54,7 +62,7 @@
             function hideColumns(sel){
                
                 if (sel=="allInformation") {
-                    for (i=3 ; i<=$('#tableDataB tr:last td').length ; i++){
+                    for (i=3 ; i<=$('#tableDataBody tr:last td').length ; i++){
                         $('.col_' + i).show();		
                     }	
                 }else {
@@ -79,7 +87,7 @@
 	    			"scrollCollapse": true,
 	    			"paging": false,
 					"order": [[0, "asc"]],
-					"searching": true,
+					"searching": false,
 					"columnDefs": [
 						{
 							"targets": [1],
@@ -177,19 +185,19 @@
 					</td>
 					<td class="w10">
 						<div class="options_bar" id = "Consistency_Index">
-						  <p>Satisfiable Consensus Level: </p>
+						  <p>Satisfiable Consistency Level: </p>
 						   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);"><br>
                           
 						   <label name="CI" id = "CI">0</label>
 						</div>
 					</td>
-					<td class="w10">
+<!--					<td class="w10">
 						<div class="options_bar" id = "Panel_Expert">
 						  <p>Expert Panel Confidence: </p>
 						   <input type="range" min="0" max="1"  step = ".1" value="0" class="slider" id="expert_confidence" onchange="show_valueE(this.value);"><br>
 						   <label name="EC" id = "EC">0</label>
 						</div>
-					</td>
+					</td>-->
 					<td class="w20">
 						<div class="options_bar" id="Total_score">
 							<p> Questionnaire Total Score: <h4>(Very correct , -0.45 )</h4></p>
@@ -198,7 +206,7 @@
 					</td>
 					<td>
 						<div id="data_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder=""  aria-controls="data"></label></div>
-					</td>
+					</td>-->
 				</tr>
 			</table>
 		</div>
