@@ -12,8 +12,12 @@
 
 <?php
 
-
-$responses = $_FILES["file1"]["tmp_name"];
+if (!isset($_POST['submit'])) {
+	header('Location: index.html');
+}
+    $responses = $_FILES["file1"]["tmp_name"];
+    $dimensions = $_FILES["file2"]["tmp_name"];
+    $description = $_FILES["file3"]["tmp_name"];
 
 class Judge
 {
@@ -299,8 +303,8 @@ $dimentions        = [];
 
 error_reporting(0);
 $hEvaluation       = fopen($responses ,'r');
-$hDimentions       = fopen('dimensions.csv', 'r');
-$hQuestionnaire    = fopen('description.csv', 'r');
+$hDimentions       = fopen($dimensions, 'r');
+$hQuestionnaire    = fopen($description, 'r');
 
 error_reporting(1);
 
@@ -316,7 +320,9 @@ while(!feof($hEvaluation)){
 	}
 
 	if(count($cols) != $columnCount){
-		continue;
+		header("Location: errors.php?error_mensaje=0");
+		exit();
+		//continue;
 	}
 
 	$judge = new Judge();
@@ -328,7 +334,7 @@ while(!feof($hEvaluation)){
 		$item->setWriting(mid_point(max_min($cols[$i + 1])));
 		$item->setBelonging(mid_point(max_min($cols[$i + 2])));
 		$item->setScale(mid_point(max_min($cols[$i + 3])));
-		$item->setWeight(mid_point(max_min($cols[$i + 4])));
+		$item->setWeight($cols[$i + 4]);
 		$judge->addItem($item);
 	}
 	$judges[] = $judge;
@@ -348,7 +354,8 @@ if($hDimentions !== false){
 		//We determine by means of the number of columns in the first row whether the number of judges matches the number of previously processed judges.
 		if((count($cols) - 3) !== count($judges) ){
 			//we remove 3 columns from the calculation because they have dimensional data
-			break;
+			header("Location: errors.php?error_mensaje=1");
+			exit();
 		}
 
 		if(strpos($row, 'dimension') !== false){
@@ -360,8 +367,7 @@ if($hDimentions !== false){
 			continue;
 		}
 		
-		$dimention = new Dimention();
-		
+		$dimention = new Dimention();	
 		//$dimention->questions = &question;//where the questionnaire will be saved remains to be determined
 		for ($i = 3; $i < $columnCount; $i++) {
 			$value = $cols[$i];
@@ -370,10 +376,18 @@ if($hDimentions !== false){
 		}
 
 		for ($i = 0 ; $i <count($weightJ); $i++){
-			$dimention->judgeValue[] = round(($weightJ[$i]/$acum),2);
+			$dimention->judgeValue[] = round(($weightJ[$i]/$acum),3);
 		}
 		$dimentions[] = $dimention;
 	}
+}
+else{
+	$dimention = new Dimention();
+	
+	for ($i = 0 ; $i < count($judges); $i++){
+				$dimention->judgeValue[] = 1/count($judges);
+		}
+		$dimentions[] = $dimention;
 }
 
 $table = [];
@@ -391,10 +405,17 @@ if($hQuestionnaire !== false){
 		global $table;
 		$table['item'] = array_merge($table,$items);
 	}else{
-		echo "does not match the number of items";
-		break;
+		header("Location: errors.php?error_mensaje=2");
+		exit();
 	}
+}else{
+	$items = [];
+	for($i = 1; $i <= $judges[0]->ItemsCount();$i++){
+		$items[] = 'I<sub>' . $i . '</sub>';
+	}
+	$table['item'] = array_merge($table,$items);
 }
+
 
 function mcd($a,$b) {
 
@@ -410,9 +431,7 @@ function mcd($a,$b) {
 	}
 
 	function mcm($a,$b) {
-
 		return ($a * $b) / mcd($a,$b);
-
 	}
 
 $HSS = getHigherSelectionScale($judges);
@@ -484,8 +503,8 @@ $rowCount  = count($judges);
 echo '<div id="etapa1">';
 for($j = 0; $j < $itemCount; $j++){
 	echo '<table border=1 class="tabla .modo1">';
-	echo '<tr><th class="th_question" colspan="5">Q' . ($j + 1) . ": " . $table['item'][$j] .  '</th></tr>';
-	echo '<tr class="alt tr_criteria"><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th></tr>';
+	echo '<tr><th class="th_question" colspan="6">' . ($j + 1) . ": " . $table['item'][$j] .  '</th></tr>';
+	echo '<tr class="alt tr_criteria"><th>Juez</th><th>Clarity</th><th>Writing</th><th>Presence</th><th>Scale</th><th>Relevance</th></tr>';
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
@@ -494,9 +513,10 @@ for($j = 0; $j < $itemCount; $j++){
 		$writing   = $item->getWriting();
 		$belonging = $item->getBelonging();
 		$scale     = $item->getScale();
+		$relevance     = $item->getWeight();
 
 		//echo "<tr><td>J" . ($i + 1) . "</td><td>" . round($clarity,2)  . "</td><td>" . round($writing,2) ."</td><td>" . round($belonging,2)  . "</td><td>" . round($scale,2) . "</td></tr>";
-		echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, $mcm)  . "</td><td>" . completeTuple($writing, $mcm)   ."</td><td>" . completeTuple($belonging, $mcm)   . "</td><td>" . completeTuple($scale, $mcm)  . "</td></tr>";
+		echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, $mcm)  . "</td><td>" . completeTuple($writing, $mcm)   ."</td><td>" . completeTuple($belonging, $mcm)   . "</td><td>" . completeTuple($scale, $mcm)  . "</td><td>" . $relevance  . "</td></tr>";
 	}
 
 
@@ -513,23 +533,26 @@ for($j = 0; $j < $itemCount; $j++){
 		$writing   = Tuple($item->getWriting());
 		$belonging = Tuple($item->getBelonging());
 		$scale     = Tuple($item->getScale());
+		$relevance     = Tuple($item->getWeight());
 	}
 }
 
 
-$clarities = [];
-$writings  = [];
-$belongings= [];
-$scales    = [];
+$clarities 	= [];
+$writings  	= [];
+$belongings	= [];
+$scales    	= [];
+$relevance  = [];
 
 for($j = 0; $j < $itemCount; $j++){
 
 
 
-	$sClarity   = '0';
-	$sWriting   = '0';
-	$sBelonging = '0';
-	$sScale     = '0';
+	$sClarity     = '0';
+	$sWriting     = '0';
+	$sBelonging   = '0';
+	$sScale       = '0';
+	$sRelevance   = '0';
 	$judge_weight = [];
 
 	for($i = 0; $i < count($normalized_judges); $i++){
@@ -543,17 +566,22 @@ for($j = 0; $j < $itemCount; $j++){
 		$sBelonging= TupleAdd($belonging, $sBelonging);
 		$scale   = weight_criteria($item->getScale(),$dimentions[0]->judgeValue[$i]);
 		$sScale    = TupleAdd($scale, $sScale);
+		$relevance   = round($item->getWeight()*$dimentions[0]->judgeValue[$i],3);
+		$sRelevance  = TupleAdd($relevance, $sRelevance);
+
 	}
+
 	$clarities[] = $sClarity;
 	$writings[] = $sWriting;
 	$belongings[] = $sBelonging;
 	$scales[] = $sScale;
+	$relevances[] = $sRelevance;
 }
 
 echo "<br>";
 echo '<table id="final" border=1 class="tabla">';
-echo '<tr class="alt"><th colspan="6">Agregation</th></tr>';
-echo '<tr ><th>Item</th><th>Clarity</th><th>Writing</th><th>   Presence   </th><th>   Scale   </th><th>   Score   </th></tr>';
+echo '<tr class="alt"><th colspan="7">Agregation</th></tr>';
+echo '<tr ><th>Item</th><th>Clarity</th><th>Writing</th><th>   Presence   </th><th>   Scale   </th><th>   Score   </th><th>   Relevance  </th></tr>';
 $sScore = [];
 $question = [];
 $claritiesHSS = [];
@@ -563,6 +591,7 @@ for($j = 0; $j < $itemCount; $j++){
 	$CW  = Normalize($writings[$j],$mcm,7);
 	$CP  = Normalize($belongings[$j],$mcm,7);
 	$CAS = Normalize($scales[$j],$mcm,7);
+	$CR  = $relevances[$j];
 
 	$score = TupleAdd($CC, $score);
 	$score = TupleAdd($CW, $score);
@@ -571,7 +600,7 @@ for($j = 0; $j < $itemCount; $j++){
 	$score = TupleDiv($score,4);
 	$sScore[] = $score; 
 	//echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $CC . '</td><td>' . $CW . '</td><td>' . $CP . '</td><td>' . $CAS . '</td><td>' .$score. '</td></tr>';
-	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . completeTuple($CC, 7) . '</td><td>' . completeTuple($CW, 7) . '</td><td>' . completeTuple($CP, 7) . '</td><td>' . completeTuple($CAS, 7) . '</td><td>' .completeTuple($score, 7). '</td></tr>';
+	echo '<tr><td>I<sub>' . ($j + 1) . '<sub></td><td>' . completeTuple($CC, 7) . '</td><td>' . completeTuple($CW, 7) . '</td><td>' . completeTuple($CP, 7) . '</td><td>' . completeTuple($CAS, 7) . '</td><td>' .completeTuple($score, 7). '</td><td>' . $CR . '</td></tr>';
 }
 echo '</table>';
 
@@ -580,6 +609,7 @@ $table['CW'] = array_merge($table,$writings);
 $table['CP'] = array_merge($table,$belongings);
 $table['CAS'] = array_merge($table,$scales);
 $table['SCORE'] = array_merge($table,$sScore);
+$table['Wr'] = array_merge($table,$relevances);
 
 function linguisticLabel($criteria, $index){
 
