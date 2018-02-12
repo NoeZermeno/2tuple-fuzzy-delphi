@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <META charset="UTF-8">
+  <meta >
+  <title>Page to upload files CSV</title>
+  <link rel="stylesheet" href="style01.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
+ 	<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="CSS/style01.css">
+	<script type="text/javascript" src="JS/val-and-fun.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    	<header class="cont_menu">
+      		<nav class="menu">
+        	  <ul>
+              <li><a href="index.html">HOME</a></li>
+              <li><a href="annex.html">ANNEX</a></li>
+          		<li><a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" target="_blank">SOURCE CODE</a></li>
+        	  </ul>
+      		</nav>
+    	</header>
+
+    	<section class="main">
+        <div class="imagen">
+  		    <img src="images/A03.png" >
+  		  </div>
+		   <div align="center">
+         <br>
+         <h3>Select your file that has the database of your questionnaire</h3>
+         <h5>Files must have a .cvs extension</h5>
+         <br/>
+        <form action='calcs1.php' method='post' enctype="multipart/form-data">
+         	  <label>Iteration : </label>
+           		   <select name="selector">
+                     <option value="1" selected="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+           		  </select>
+                <br><br>
+            <input type="checkbox" name="heading" value="1">Use headings<br><br>
+
+            <label>Importing Responses file CSV :</label> <input type='file' name='file1' size='20' onclick="show1()" onChange="ext_cont(this)">
+            <br><br>
+            <div>
+               <label>Importing Description file CSV :</label> <input type='file' name='file2' size='20' onChange="ext_cont(this)">
+            	 <br><br>
+            </div>
+            <div>
+               <label>Importing Dimensions file CSV :</label> <input type='file' name='file3' size='20' onChange="ext_cont(this)">
+               <br><br>
+            </div>
+            <br>
+            <input type='reset' name='cancel1' class="buttonsA1" value='clear form' onclick="hide1()">
+              <div id='but01' style='display:none;'>
+                  <input type="submit" name='submit' class="boton3" value='Import & Analyze' onclick="calc.php"> 
+                <!-- <a class="boton3" href="calcs.php">Import & Analyze</a> -->
+			        </div>
+        </form>
+      </div>
+       <br/><br/>
+      </section>
+ 	</div> <!--End container-->
+
+  <div class="clearfooter"></div>
+
+  <footer>
+    <div class="foot">
+      		<a href="" title=""><div class="icon-github iconos"></div></a>
+			<a href="https://www.ugr.es/servicios/correo-electronico" title="correo_UGR"><div class="icon-mail iconos"> </div></a>
+			<a href="https://www.youtube.com/user/UGRmedios" title="medios_UGR"><div class="icon-youtube iconos"> </div></a>
+			<a href="https://twitter.com/canalugr" title="twitter_UGR"><div class="icon-twitter iconos"></div></a>
+			<a href="https://www.facebook.com/universidadgranada/" title="facebook_UGR"><div class="icon-facebook iconos"></div></a>
+    		<p>License CC-By-NC-SA University of Granada Contact: rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p>
+    </div>
+  </footer>
+</body>
+</html>
