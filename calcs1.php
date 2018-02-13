@@ -8,14 +8,14 @@ if (!isset($_POST['submit'])) {
 }
 	$max = 7;
 	$total =2;
-	$levels = '<table id="levels">';
+	/*$levels = '<table id="levels">';
 	$levels .= '<tr>';
 	$count = '';
 	for ($x = 1; $x <= $max; $x++) {
-		$levels .= '<td class="nivel' . $x . '">' . 's<sub>' .$x. '</sub>'.  '</td>';		
+		$levels .= '<td class="nivel' . $x . '">' . 's<sub>' .$x. '</sub>'.  '</td>';
 	}
 	$levels .= '</tr>';
-	$levels .= '</table>';
+	$levels .= '</table>';*/
 
 	$table = [];
 
@@ -26,7 +26,7 @@ if (!isset($_POST['submit'])) {
     <link rel="stylesheet" href="CSS/styles.css">
     <link rel="stylesheet" href="CSS/menu_tools_style.css">
 
-    
+
     <link rel="stylesheet" href="CSS/style_trim.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
@@ -56,17 +56,14 @@ if (!isset($_POST['submit'])) {
         // Filter visualization options: allows filtering according to the selected criteria.
         function hideColumns(sel) {
             if (sel == 0) {
-                for (i = 3; i <= $('#tableDatosBody tr:last td').length; i++) {
-                    $('.col_' + i).show();
-                }
-            }
-            else {
-                for (i = 3; i <= 6; i++) {
-                    if (i != sel) {
-                        $('.col_' + sel).show();
-                        $('.col_' + i).hide();
-                    }
-                }
+              for (var i = 1; i <= 6; i++) {
+								$('.col_' + i).show();
+            	}
+            } else {
+							for (var i = 1; i <= 6; i++) {
+								$('.col_' + i).hide();
+							}
+							$('.col_' + sel).show();
             }
         }
     </script>
@@ -91,7 +88,7 @@ if (!isset($_POST['submit'])) {
 </head>
 
     <body>
-       
+
 
 
 
@@ -110,14 +107,14 @@ $description = $_FILES["file3"]["tmp_name"];
 
 $max = 7;
 $total = 0 ;
-$levels = '<table id="levels">';
+/*$levels = '<table id="levels">';
 $levels .= '<tr>';
 $count = '';
 for ($x = 1; $x <= $max; $x++) {
-	$levels .= '<td class="nivel' . $x . '">' . 's<sub>' .$x. '</sub>'.  '</td>';		
+	$levels .= '<td class="nivel' . $x . '">' . 's<sub>' .$x. '</sub>'.  '</td>';
 }
 $levels .= '</tr>';
-$levels .= '</table>';
+$levels .= '</table>';*/
 
 class Judge
 {
@@ -274,7 +271,7 @@ function v_scale($judges)
 {
 	$vector = [];
 	foreach($judges as $judge){
-		$vector[] = $judge->getscale();	
+		$vector[] = $judge->getscale();
 	}
 
 	$vector2 = [];
@@ -356,7 +353,7 @@ function elementOfSet($value, $sel)
 			$c[] = 's<sub>' . $a[$i] . '</sub><sup>' . $sel . '</sup> ' . ',0';
 		}
 
-		
+
 	}
 	return implode(',', $c);
 }
@@ -438,7 +435,7 @@ while(!feof($hEvaluation)){
 		$judge->addItem($item);
 	}
 	$judges[] = $judge;
-	
+
 }
 
 $dimentions = [];
@@ -466,8 +463,8 @@ if($hDimentions !== false){
 		if(count($cols) != $columnCount){
 			continue;
 		}
-		
-		$dimention = new Dimention();	
+
+		$dimention = new Dimention();
 		//$dimention->questions = &question;//where the questionnaire will be saved remains to be determined
 		for ($i = 3; $i < $columnCount; $i++) {
 			$value = $cols[$i];
@@ -483,7 +480,7 @@ if($hDimentions !== false){
 }
 else{
 	$dimention = new Dimention();
-	
+
 	for ($i = 0 ; $i < count($judges); $i++){
 				$dimention->judgeValue[] = 1/count($judges);
 		}
@@ -511,7 +508,7 @@ if($hQuestionnaire !== false){
 }else{
 	$items = [];
 	global $total;
-	$total = $judges[0]->ItemsCount(); 
+	$total = $judges[0]->ItemsCount();
 	for($i = 1; $i <= $judges[0]->ItemsCount();$i++){
 		$items[] = 'I<sub>' . $i . '</sub>';
 	}
@@ -539,7 +536,7 @@ function mcd($a,$b) {
 $HSS = getHigherSelectionScale($judges);
 
 function mcm_judges($judges){
- 
+
  $lcm = 0;
  $vector = v_scale($judges);
 
@@ -559,7 +556,7 @@ function weight_criteria($value, $value2){
 	    $c[] = $a[1] * $value2 ;
 	    return implode(',',$c);
 	}
-	
+
 	$c = $value * $value2 ;
 	return $c;
 
@@ -726,7 +723,7 @@ for($j = 0; $j < $itemCount; $j++){
 	$score = TupleAdd($CP, $score);
 	$score = TupleAdd($CAS, $score);
 	$score = TupleDiv($score,4);
-	$sScore[] = $score; 
+	$sScore[] = $score;
 //	echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $CC . '</td><td>' . $CW . '</td><td>' . $CP . '</td><td>' . $CAS . '</td><td>' .$score. '</td></tr>';
 //	echo '<tr><td>I<sub>' . ($j + 1) . '<sub></td><td>' . completeTuple($CC, 7) . '</td><td>' . completeTuple($CW, 7) . '</td><td>' . completeTuple($CP, 7) . '</td><td>' . completeTuple($CAS, 7) . '</td><td>' .completeTuple($score, 7). '</td><td>' . $CR . '</td></tr>';
 }
@@ -751,7 +748,7 @@ function linguisticLabel($criteria, $index){
 	if ($criteria == 'SCORE'){
         return $table['SCORE'][$index];
 	}
-    
+
     if ($criteria == 'level'){
         return round($table['SCORE'][$index]+1);
     }
@@ -791,24 +788,24 @@ $tableS  = [];
 		//print_r($consensus);
 
 		if($consensus < .5) return true;
-		else return false; 
+		else return false;
 }
 ?>
 
  <main>
             <nav class="menu" id="nav_bar">
-                
+
                     <div class='cssmenu' id="tools_menu">
                         <ul>
                             <li class="li_menu" ><a>Visualizations</a>
                                 <ul class="ul_menu">
                                     <li class="visualization" value="0" onclick="hideColumns(this.value)">All Information</li>
-                                    <li class="visualization" value="3" onclick="hideColumns(this.value)">Collective Clarity</li>
-                                    <li class="visualization" value="4" onclick="hideColumns(this.value)">Collective Writting</li>
-                                    <li class="visualization" value="5" onclick="hideColumns(this.value)">Collective Presence</li>
-                                    <li class="visualization" value="6" onclick="hideColumns(this.value)">Collective Answering Scale</li>
-                                    <li class="visualization" value="7" onclick="hideColumns(this.value)">Average Revelance</li>
-                                    <li class="visualization" value="8" onclick="hideColumns(this.value)">Consensus</li>
+                                    <li class="visualization" value="1" onclick="hideColumns(this.value)">Collective Clarity</li>
+                                    <li class="visualization" value="2" onclick="hideColumns(this.value)">Collective Writting</li>
+                                    <li class="visualization" value="3" onclick="hideColumns(this.value)">Collective Presence</li>
+                                    <li class="visualization" value="4" onclick="hideColumns(this.value)">Collective Answering Scale</li>
+                                    <li class="visualization" value="5" onclick="hideColumns(this.value)">Average Revelance</li>
+                                    <li class="visualization" value="6" onclick="hideColumns(this.value)">Consensus</li>
                                 </ul>
                             </li>
                             <li class="li_menu"><a > Trim Tool</a>
@@ -850,7 +847,7 @@ $tableS  = [];
                             </li>
                         </ul>
                     </div>
-                
+
                 <div class="cssmenu" id="page_menu">
                     <ul>
                         <li class="li_menu"><a href="index.html" title="">HOME</a></li>
@@ -862,61 +859,64 @@ $tableS  = [];
             <header>
                 <!--<img src="images/header_logo.png" alt="logo" id="logo">-->
                 <h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> </header>
-            <section id="table_content">
+
+
+
+						<section id="table_content">
                 <table id="datos" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th class="col_1">Num</th>
-                            <th class="col_2">Item</th>
-                            <th class="col_3">Collective Clarity</th>
-                            <th class="col_4">Collective Writing</th>
-                            <th class="col_5">Collective Presence</th>
-                            <th class="col_6">Collective Scale</th>
-                            <th class="col_6">Collective Relevance</th>
-                            <th class="col_7">Score</th>
-                            <th class="col_8">Consensus</th>
-                            <th class="col_9">Final Results</th>
+                            <th>Num</th>
+                            <th>Item</th>
+                            <th class="col_1">Collective Clarity</th>
+                            <th class="col_2">Collective Writing</th>
+                            <th class="col_3">Collective Presence</th>
+                            <th class="col_4">Collective Scale</th>
+                            <th class="col_5">Collective Relevance</th>
+                            <th>Score</th>
+                            <th class="col_6">Consensus</th>
+                            <th>Final Results</th>
                         </tr>
                     </thead>
                     <tbody id=tableDatosBody>
-               <?php 
+               <?php
 				$label_output="";   //Variable temporal mientras se obtienen los resultados finales
-					
+
 					/*--Row creation--*/
 					for ($y = 1; $y <= $total; $y++) {
 				?>
                             <tr>
-                                <td class="col_1">
+                                <td>
                                     <?php echo $y; ?>
                                 </td>
-                                <td class="col_2" id="questions">
+                                <td id="questions">
                                     <?php echo linguisticLabel('item',$y-1); ?>
                                 </td>
-                                <td class="col_3" id="cClarity">
+                                <td class="col_1" id="cClarity">
                                     <?php echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
                                     <?php //echo linguisticLabel('CC',$y-1);?>
                                 </td>
-                                <td class="col_4" id="cWriting">
+                                <td class="col_2" id="cWriting">
                                     <?php echo completeTuple(Normalize(linguisticLabel('CW',$y-1),13,7),7); ?>
                                     <?php //echo linguisticLabel('CW',$y-1) ?>
                                 </td>
-                                <td class="col_5" id="cPresence">
+                                <td class="col_3" id="cPresence">
                                     <?php echo completeTuple(Normalize(linguisticLabel('CP',$y-1),13,7),7);?>
                                     <?php //echo linguisticLabel('CP',$y-1);?>
                                 </td>
-                                <td class="col_6" id="cScale">
+                                <td class="col_4" id="cScale">
                                     <?php echo completeTuple(Normalize(linguisticLabel('CAS',$y-1),13,7),7); ?>
                                     <?php //echo linguisticLabel('CAS',$y-1); ?>
                                 </td>
                                 </td>
-                                <td class="" id="cRelevance">
+                                <td class="col_5" id="cRelevance">
                                     <?php echo linguisticLabel('CR',$y-1); ?>
                                 </td>
-                                <td class="col_7" id="score">
+                                <td id="score">
                                     <?php echo completeTuple(Normalize(linguisticLabel('SCORE',$y-1),13,7),7);?>
                                     <?php //echo linguisticLabel('SCORE',$y-1);?>
                                 </td>
-                                <td class="col_8">
+                                <td class="col_6">
                                     <?php if(consensus($y-1)){
                                     		echo  "<img src='images/check.png' width=25px>";
 						 				}else{
@@ -924,7 +924,7 @@ $tableS  = [];
 						 				}
 									?>
 						  </td>
-                                <td class=" level<?php echo linguisticLabel('level',$y-1); ?> texto_sombra col_9">
+                                <td class=" level<?php echo linguisticLabel('level',$y-1); ?> texto_sombra">
                                     <?php echo lLabel(linguisticLabel('SCORE',$y-1)); ?>
                                 </td>
                             </tr>
@@ -933,26 +933,22 @@ $tableS  = [];
                                     <tr>
                                         <th>Showing 10 of 45</th>
                                         <th align="right">Results</th>
-                                        <th>
-                                            <?php echo "Falta"; ?>
-                                        </th>
-                                        <th>
-                                            <?php echo "Falta"; ?>
-                                        </th>
-                                        <th>
-                                            <?php echo "Falta"; ?>
-                                        </th>
-                                        <th>
-                                            <?php echo "Falta"; ?>
-                                        </th>
-                                        <th>(Very correct , -0.45 )</th>
+                                        <th class="col_1"><?php echo "Falta"; ?></th>
+                                        <th class="col_2"><?php echo "Falta"; ?></th>
+                                        <th class="col_3"><?php echo "Falta"; ?></th>
+                                        <th class="col_4"><?php echo "Falta"; ?></th>
+                                        <th class="col_5">(Very correct , -0.45 )</th>
                                         <th></th>
-                                        <th></th>
+                                        <th class="col_6"></th>
+																				<th></th>
                                     </tr>
                                 </tfoot>
                     </tbody>
                 </table>
             </section>
+
+
+
             <footer>
                <div class="footer_text"><p>License CC-By-NC-SA University of Granada Contact: <br> rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p> </div>
                 <div class="icons">
