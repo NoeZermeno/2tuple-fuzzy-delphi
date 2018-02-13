@@ -25,6 +25,8 @@ if (!isset($_POST['submit'])) {
     <title>GRID</title>
     <link rel="stylesheet" href="CSS/styles.css">
     <link rel="stylesheet" href="CSS/menu_tools_style.css">
+
+    
     <link rel="stylesheet" href="CSS/style_trim.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
@@ -78,7 +80,7 @@ if (!isset($_POST['submit'])) {
                 , "order": [
                     [0, "asc"]
                 ]
-                , "searching": false
+                , "searching": true
                 , "columnDefs": [{
                     "targets": [1]
                     , "visible": true
@@ -729,7 +731,7 @@ for($j = 0; $j < $itemCount; $j++){
 }
 //echo '</table>';
 
-echo "<br>";
+//echo "<br>";
 $table['CC'] = array_merge($table,$clarities);
 $table['CW'] = array_merge($table,$writings);
 $table['CP'] = array_merge($table,$belongings);
@@ -764,12 +766,12 @@ function linguisticLabel($criteria, $index){
 ?>
 
  <main>
-            <nav class="menu" id="nav_page_menu">
-                <div id="tools_menu_prueba">
-                    <div class='cssmenu'>
+            <nav class="menu" id="nav_bar">
+                
+                    <div class='cssmenu' id="tools_menu">
                         <ul>
-                            <li class="tools_menu"><a href="">Visualizations</a>
-                                <ul class="tools_menu">
+                            <li class="li_menu" ><a>Visualizations</a>
+                                <ul class="ul_menu">
                                     <li class="visualization" value="0" onclick="hideColumns(this.value)">All Information</li>
                                     <li class="visualization" value="3" onclick="hideColumns(this.value)">Collective Clarity</li>
                                     <li class="visualization" value="4" onclick="hideColumns(this.value)">Collective Writting</li>
@@ -779,9 +781,9 @@ function linguisticLabel($criteria, $index){
                                     <li class="visualization" value="8" onclick="hideColumns(this.value)">Consensus</li>
                                 </ul>
                             </li>
-                            <li class="tools_menu"><a href=""> Trim Tool</a>
+                            <li class="li_menu"><a > Trim Tool</a>
                                 <ul>
-                                    <li class=li_menu>
+                                    <li class=li_li_menu>
                                         <div class="options_bar" id="Consistency">
                                             <p> Trim Tool: visualizes crop items below the following label</p>
                                             <div class='btns'>
@@ -804,9 +806,9 @@ function linguisticLabel($criteria, $index){
                                     </li>
                                 </ul>
                             </li>
-                            <li class="tools_menu"> <a href="">Satisfiable Consistency</a>
+                            <li class="li_menu"> <a>Satisfiable Consistency</a>
                                 <ul>
-                                    <li class=li_menu>
+                                    <li class=li_li_menu>
                                         <div class="options_bar" id="Consistency_Index">
                                             <p>Satisfiable Consensus Level: </p>
                                             <input type="range" min="0" max="1" step=".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
@@ -818,12 +820,13 @@ function linguisticLabel($criteria, $index){
                             </li>
                         </ul>
                     </div>
-                </div>
-                <div class="cssmenu">
+                
+                <div class="cssmenu" id="page_menu">
                     <ul>
-                        <li class="tools_menu"><a href="" title="">HOME</a></li>
-                        <li class="tools_menu"><a href="" title="">IMPORT</a></li>
-                        <li class="tools_menu"><a href="" title="">ABOUT US</a></li>
+                        <li class="li_menu"><a href="index.html" title="">HOME</a></li>
+                        <li class="li_menu"><a href="import.html" title="">IMPORT</a></li>
+                        <li class="li_menu"><a href="" title="">ANNEX</a></li>
+                        <li class="li_menu"><a href="" title="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">SOURCE cODE</a></li>
                     </ul>
             </nav>
             <header>
@@ -842,7 +845,7 @@ function linguisticLabel($criteria, $index){
                             <th class="col_6">Collective Relevance</th>
                             <th class="col_7">Score</th>
                             <th class="col_8">Consensus</th>
-                            <th class="col_9">Total</th>
+                            <th class="col_9">Final Results</th>
                         </tr>
                     </thead>
                     <tbody id=tableDatosBody>

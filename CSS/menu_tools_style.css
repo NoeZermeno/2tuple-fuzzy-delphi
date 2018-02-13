@@ -263,7 +263,7 @@
 
 
 
-.li_menu {
+.li_li_menu {
     text-transform: uppercase;
     border-radius: 5px;
     font-size: 13px;
@@ -315,3 +315,13 @@
      background: rgba(0,0,0,0.3);
    
 }
+
+a{
+     cursor: pointer; 
+  }
+
+#page_menu{
+       display: flex;
+       justify-content: flex-end;        
+}
+
