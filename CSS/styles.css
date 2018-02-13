@@ -12,8 +12,8 @@ main{
         "page_menu"        
         "table_content_grid"        
         "footer_grid";
-    grid-template-columns: 1fr;
-    grid-template-rows: 50px 1fr 2fr 50px;
+    
+    grid-template-rows: 50px 70px auto 50px;
     height: 100vh;
     
 }
@@ -49,7 +49,7 @@ nav#nav_bar{
     box-shadow: inset 0 -3px 0 #484848, inset 0 -3px 3px #484848, inset 0 2px 2px #b2b2b2, inset 1px 0 2px #484848, inset -1px 0 2px #b2b2b2, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
     height: 50px;
     grid-template-areas: "tools_menu page_menu";
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(0%, 100%);
     z-index: 1;
 }
 
@@ -57,13 +57,17 @@ nav#nav_bar{
 
 header{
     grid-area: header_grid;
-    background-color: #484848;
+    background-color: #0e5376;
     color: white;
 }
 
 section:first-of-type{
     grid-area: table_content_grid;
+    display: flex;
     z-index: 0;
+    
+    justify-content: center;
+    align-items: center: 
     
 }
 
@@ -100,10 +104,10 @@ h1{
     text-align: center;
 }
 
-#table_content{
-    display: grid;
+#table_content  {
+    display: flex;
     margin-top: 5px;
-    
+    width: 80%;
 }
 
 
@@ -191,3 +195,4 @@ h1{
 ul.ul_menu{
     background-color: #0e5376; 
 }
+
