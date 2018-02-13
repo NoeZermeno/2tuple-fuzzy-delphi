@@ -476,7 +476,7 @@ if($hDimentions !== false){
 		}
 
 		for ($i = 0 ; $i <count($weightJ); $i++){
-			$dimention->judgeValue[] = round(($weightJ[$i]/$acum),3);
+			$dimention->judgeValue[] = ($weightJ[$i]/$acum);
 		}
 		$dimentions[] = $dimention;
 	}
@@ -683,13 +683,14 @@ for($j = 0; $j < $itemCount; $j++){
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
-		$clarity   = round(Normalize(weight_criteria($item->getClarity(),$dimentions[0]->judgeValue[$i]),13,7),2);
+
+		$clarity   = weight_criteria($item->getClarity(),$dimentions[0]->judgeValue[$i]);
 		$sClarity  = TupleAdd($sClarity, $clarity);
-		$writing   = round(Normalize(weight_criteria($item->getWriting(),$dimentions[0]->judgeValue[$i]),13,7),2);
+		$writing   = weight_criteria($item->getWriting(),$dimentions[0]->judgeValue[$i]);
 		$sWriting  = TupleAdd($writing, $sWriting);
-		$belonging   = round(Normalize(weight_criteria($item->getBelonging(),$dimentions[0]->judgeValue[$i]),13,7),2);
+		$belonging   = weight_criteria($item->getBelonging(),$dimentions[0]->judgeValue[$i]);
 		$sBelonging= TupleAdd($belonging, $sBelonging);
-		$scale   = round(Normalize(weight_criteria($item->getScale(),$dimentions[0]->judgeValue[$i]),13,7),2);
+		$scale   = weight_criteria($item->getScale(),$dimentions[0]->judgeValue[$i]);
 		$sScale    = TupleAdd($scale, $sScale);
 		$relevance   = round($item->getWeight()*$dimentions[0]->judgeValue[$i],3);
 		$sRelevance  = TupleAdd($relevance, $sRelevance);
@@ -741,9 +742,6 @@ $table['SCORE'] = array_merge($table,$sScore);
 $table['Wr'] = array_merge($table,$relevances);
 
 function linguisticLabel($criteria, $index){
-	//echo "Index: " . $index . " Criteria:  " . $criteria .  "<br>";
-	//print_r($table);
-	//echo "<br>";
 	global $table;
 
 	if($criteria != 'Total' && $criteria != 'level' &&  $criteria != 'item'  && $criteria != 'SCORE' ){
@@ -763,6 +761,38 @@ function linguisticLabel($criteria, $index){
     }
 }
 
+function consensus($index){
+global $itemCount;
+global $normalized_judges;
+global $table;
+global $dimentions;
+$sum = 0;
+$tableS  = [];
+
+		for($i = 0; $i < count($normalized_judges); $i++){
+			$judge     = $normalized_judges[$i];
+			$item      = $judge->Item($index);
+			$clarity   = $item->getClarity();
+			$writing   = $item->getWriting();
+			$presence  = $item->getBelonging();
+			$scale     = $item->getScale();
+			$tableS['CC'][$i]   =  pow($table['CC'][$index] - $clarity,2);
+			$tableS['CW'][$i]   =  pow($table['CW'][$index] - $writing,2);
+			$tableS['CP'][$i]   =  pow($table['CP'][$index] - $presence,2);
+			$tableS['CAS'][$i]  =  pow($table['CAS'][$index] - $scale,2);
+		}
+
+		// get rho and average
+		for($i = 0; $i < count($normalized_judges); $i++){
+			$sum  += sqrt($tableS['CC'][$i] + $tableS['CW'][$i] +  $tableS['CP'][$i] + $tableS['CAS'][$i]) * $dimentions[0]->judgeValue[$i] ;
+		}
+		//get consensus index
+		$consensus = $sum/$table['SCORE'][$index];
+		//print_r($consensus);
+
+		if($consensus < .5) return true;
+		else return false; 
+}
 ?>
 
  <main>
@@ -863,31 +893,36 @@ function linguisticLabel($criteria, $index){
                                     <?php echo linguisticLabel('item',$y-1); ?>
                                 </td>
                                 <td class="col_3" id="cClarity">
-                                    <?php echo completeTuple(linguisticLabel('CC',$y-1),7);?>
+                                    <?php echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
+                                    <?php //echo linguisticLabel('CC',$y-1);?>
                                 </td>
                                 <td class="col_4" id="cWriting">
-                                    <?php echo completeTuple(linguisticLabel('CW',$y-1),7); ?>
+                                    <?php echo completeTuple(Normalize(linguisticLabel('CW',$y-1),13,7),7); ?>
+                                    <?php //echo linguisticLabel('CW',$y-1) ?>
                                 </td>
                                 <td class="col_5" id="cPresence">
-                                    <?php echo completeTuple(linguisticLabel('CP',$y-1),7);?>
+                                    <?php echo completeTuple(Normalize(linguisticLabel('CP',$y-1),13,7),7);?>
+                                    <?php //echo linguisticLabel('CP',$y-1);?>
                                 </td>
                                 <td class="col_6" id="cScale">
-                                    <?php echo completeTuple(linguisticLabel('CAS',$y-1),7); ?>
+                                    <?php echo completeTuple(Normalize(linguisticLabel('CAS',$y-1),13,7),7); ?>
+                                    <?php //echo linguisticLabel('CAS',$y-1); ?>
                                 </td>
                                 </td>
                                 <td class="" id="cRelevance">
                                     <?php echo linguisticLabel('CR',$y-1); ?>
                                 </td>
                                 <td class="col_7" id="score">
-                                    <?php echo completeTuple(linguisticLabel('SCORE',$y-1),7);?>
+                                    <?php echo completeTuple(Normalize(linguisticLabel('SCORE',$y-1),13,7),7);?>
+                                    <?php //echo linguisticLabel('SCORE',$y-1);?>
                                 </td>
                                 <td class="col_8">
-                                    <?php
-											if ($label_output=="Excelent" || $label_output=="Very Correct" ) {
-											 	echo  "<img src='images/check.png' width=25px>";
-											 }else{
-											 	echo  "<img src='images/no_check.png' width=25px>";
-											 }?>
+                                    <?php if(consensus($y-1)){
+                                    		echo  "<img src='images/check.png' width=25px>";
+						 				}else{
+						 					echo  "<img src='images/no_check.png' width=25px>";
+						 				}
+									?>
 						  </td>
                                 <td class=" level<?php echo linguisticLabel('level',$y-1); ?> texto_sombra col_9">
                                     <?php echo lLabel(linguisticLabel('SCORE',$y-1)); ?>
