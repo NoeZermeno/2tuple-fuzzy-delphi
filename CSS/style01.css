@@ -311,3 +311,32 @@ footer p {
 	background-color: #fff;
 	height: 50px;
 }
+
+
+/*
+  Estilos propios by Rosana
+*/
+
+#celda {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+#celda td, #celda th {
+    border: 1px solid #ddd;
+    padding: 2px;
+}
+
+#celda tr:nth-child(even){background-color: #f2f2f2;}
+
+#celda tr:hover {background-color: #ddd;}
+
+#celda th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    background-color: #ff5821;
+    color: white;
+    opacity: 0.6;
+}
