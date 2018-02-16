@@ -32,6 +32,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 	<script type="text/javascript" src="JS/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	
 	<script type="text/javascript">
         //Filter for the Trim tool: Filters the data table according to the selected color (button).
         function fun(value) {
@@ -957,13 +958,15 @@ function consensus($index){
 	<footer>
 		<div class="footer_text"><p>License CC-By-NC-SA University of Granada Contact: <br> rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p> </div>
 		<div class="icons">
-			<div class="icon-github">
-				<a href="" title=""></a>
-			</div>
-			<div class="icon-twitter">
-				<a href="https://twitter.com/canalugr" title="twitter_UGR"></a>
-			</div>
+			
+				<a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" class="icon-github"></a>
+			
+			
+				<a href="https://twitter.com/DaSCI_es" title="twitter_DaSCI" class="icon-twitter"></a>
+				
+			
 		</div>
+
 	</footer>
 </main>
 </body>
