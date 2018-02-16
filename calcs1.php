@@ -486,7 +486,8 @@ else{
 	$dimentions[] = $dimention;
 }
 
-
+ print_r(count($judges[0]));
+ echo "__________________________";
 //$table = [];
 if($hQuestionnaire !== false){
 	$rowsCount = 0;
@@ -571,9 +572,7 @@ function score($value){
 }
 
 function lLabel($str){
-	
 	$rounded  = round($str);
-	echo "hola: " .$rounded;
 	switch($rounded){
 		case 0: return "(Pésimo, " . round(($str - $rounded),2) . ")";
 		break;
@@ -897,8 +896,8 @@ function consensus($index){
 							<?php echo linguisticLabel('item',$y-1); ?>
 						</td>
 						<td class="col_1" id="cClarity">
-							<?php echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
-							<?php //echo linguisticLabel('CC',$y-1);?>
+							<?php //echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
+							<?php echo Normalize(linguisticLabel('CC',$y-1),13,7);?>
 						</td>
 						<td class="col_2" id="cWriting">
 							<?php echo completeTuple(Normalize(linguisticLabel('CW',$y-1),13,7),7); ?>
@@ -928,8 +927,8 @@ function consensus($index){
 						}
 						?>
 					</td>
-					<td class=" level<?php echo linguisticLabel('level',$y-1); ?>">
-						<?php echo lLabel(linguisticLabel('SCORE',$y-1)); ?>
+					<td class=" level<?php echo Normalize(linguisticLabel('level',$y-1),13,7); ?>">
+						<?php echo lLabel(Normalize(linguisticLabel('SCORE',$y-1),13,7)); ?>
 					</td>
 				</tr>
 				<?php } ?>
