@@ -62,7 +62,7 @@
     	$(document).ready(function () {
     		var oTablaDatos = $('#datos').DataTable({
     			"scrollResize": true
-    			, "scrollY": 450
+    			, "scrollY": 250
     			, "scrollCollapse": true
     			, "paging": false
     			, "order": [
@@ -389,13 +389,13 @@ $normalized_judges = [];
 $dimentions        = [];
 
 error_reporting(0);
-$hEvaluation       = fopen($responses ,'r');
-$hDimentions       = fopen($dimensions, 'r');
-$hQuestionnaire    = fopen($description, 'r');
+$hEvaluation       = fopen($responses ,'r');  //Open responses file
+$hDimentions       = fopen($dimensions, 'r');	//Open dimension file
+$hQuestionnaire    = fopen($description, 'r');  //Open description file
 
 error_reporting(1);
 
-$columnCount       = 0;
+$columnCount= 0;
 $j = 0;
 while(!feof($hEvaluation)){
 	$row = fgets($hEvaluation);
@@ -807,8 +807,9 @@ function item_score(){
 	foreach ($table_collective as $value){
 		$item_score += $value;
 	}
-
-	echo $item_score/4;
+	
+	printf ("%.2f", $item_score/4);
+	//echo $item_score/4;
 }
 
 
@@ -862,7 +863,8 @@ function consensus($index){
 	}
 		//get consensus index
 	$consensus = 1-$sum/$mcm;
-		echo ($consensus);
+	printf("%.2f", $consensus);	
+	//echo ($consensus);
 
 	if($consensus < .5) return true;
 	else return false;
@@ -935,7 +937,12 @@ function consensus($index){
 									</nav>
 									<header>
 										<!--<img src="images/header_logo.png" alt="logo" id="logo">-->
-										<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> </header>
+										<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
+           								 <h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
+           								 <img src="images/UGR_logo_white.png" alt="logo_UGR" height="70px" id="logo_UGR"> 
+									</header>
+									
+									
 
 
 
@@ -975,26 +982,26 @@ function consensus($index){
 						</td>
 						<td class="col_1" id="cClarity">
 							<?php //echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
-							<?php echo Normalize(linguisticLabel('CC',$y-1),$mcm,$output_scale);?>
+							<?php printf("%.2f", Normalize(linguisticLabel('CC',$y-1),$mcm,$output_scale));?>
 						</td>
 						<td class="col_2" id="cWriting">
-							<?php echo Normalize(linguisticLabel('CW',$y-1),$mcm,$output_scale); ?>
+							<?php printf("%.2f", Normalize(linguisticLabel('CW',$y-1),$mcm,$output_scale)); ?>
 							<?php //echo linguisticLabel('CW',$y-1) ?>
 						</td>
 						<td class="col_3" id="cPresence">
-							<?php echo Normalize(linguisticLabel('CP',$y-1),$mcm,$output_scale);?>
+							<?php printf("%.2f", Normalize(linguisticLabel('CP',$y-1),$mcm,$output_scale));?>
 							<?php //echo linguisticLabel('CP',$y-1);?>
 						</td>
 						<td class="col_4" id="cScale">
-							<?php echo Normalize(linguisticLabel('CAS',$y-1),$mcm,$output_scale); ?>
+							<?php printf("%.2f", Normalize(linguisticLabel('CAS',$y-1),$mcm,$output_scale)); ?>
 							<?php //echo linguisticLabel('CAS',$y-1); ?>
 						</td>
 					</td>
 					<td class="col_5" id="cRelevance">
-						<?php echo linguisticLabel('CR',$y-1); ?>
+						<?php printf("%.2f", linguisticLabel('CR',$y-1)); ?>
 					</td>
 					<td id="score">
-						<?php echo Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale);?>
+						<?php printf("%.2f", Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale));?>
 						<?php //echo linguisticLabel('SCORE',$y-1);?>
 					</td>
 					<td class="col_6">
@@ -1014,11 +1021,11 @@ function consensus($index){
 					<tr>
 						<th align="right">items</th>
 						<th align="right">Results</th>
-						<th class="col_1"><?php echo collective_criteria('CC'); ?></th>
-						<th class="col_2"><?php echo collective_criteria('CW'); ?></th>
-						<th class="col_3"><?php echo collective_criteria('CP'); ?></th>
-						<th class="col_4"><?php echo collective_criteria('CAS'); ?></th>
-						<th class="col_5"><?php item_score(); ?></th>
+						<th class="col_1"><?php printf("%.2f", collective_criteria('CC')); ?></th>
+						<th class="col_2"><?php printf("%.2f", collective_criteria('CW')); ?></th>
+						<th class="col_3"><?php printf("%.2f", collective_criteria('CP')); ?></th>
+						<th class="col_4"><?php printf("%.2f", collective_criteria('CAS')); ?></th>
+						<th class="col_5"></th>
 						<th></th>
 						<th class="col_6"></th>
 						<th></th>
@@ -1044,6 +1051,11 @@ function consensus($index){
 		</div>
 
 	</footer>
+	<div id="show_result">
+										<h2 class ="subtitle"> 
+											QUESTIONNAIRE TOTAL SCORE = <?php echo item_score(); ?>
+										</h2>
+									</div>
 </main>
 </body>
 

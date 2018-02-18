@@ -4,17 +4,21 @@
     border: 0;
     font-family: 'Open Sans', sans-serif;
 }
+body{
+    background-color: #efefef;
+}
 main{
     background-color: #efefef;
     display: grid;
     grid-gap: 0px;
     grid-template-areas: 
         "header_grid"
-        "page_menu"        
+        "page_menu"  
+        "show_result"     
         "table_content_grid"        
         "footer_grid";
     
-    grid-template-rows: 50px 70px auto 50px;
+    grid-template-rows: 80px 70px 20px auto 50px;
     height: 100vh;
     
 }
@@ -59,7 +63,14 @@ nav#nav_bar{
 header{
     grid-area: header_grid;
     background-color: #0e5376;
-    color: white;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+#show_result{
+    grid-area: show_result;
+    color: #0e5376;
 }
 
 section:first-of-type{
