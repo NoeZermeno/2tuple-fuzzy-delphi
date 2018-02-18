@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <META charset="UTF-8">
-  <meta >
+  <meta>
   <title>Import CSV data</title>
   <link rel="stylesheet" href="style01.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
- 	<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+  <link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="CSS/style01.css">
-	<script type="text/javascript" src="JS/val-and-fun.js"></script>
+  <script type="text/javascript" src="JS/val-and-fun.js"></script>
 </head>
 
 <body>
   <div id="container">
-    	<header class="cont_menu">
-      		<nav class="menu">
-        	  <ul>
-              <li><a href="index.html">HOME</a></li>
-              <li><a href="annex.html">ANNEX</a></li>
-          		<li><a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" target="_blank">SOURCE CODE</a></li>
-        	  </ul>
-      		</nav>
-    	</header>
+    <header class="cont_menu">
+      <nav class="menu">
+        <ul>
+          <li>
+            <a href="index.html">HOME</a>
+          </li>
+          <li>
+            <a href="annex.html">ANNEX</a>
+          </li>
+          <li>
+            <a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" target="_blank">SOURCE CODE</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-    	<section class="main">
-        <div class="imagen">
-  		    <img src="images/A03.png" >
-  		  </div>
-		   <div align="center">
-         <br>
-         <h3>Import the .cvs files of your questionnaire</h3>
-         <h5>Items' responses is mandatory. Other files are optional.</h5>
-         <br/>
+    <section class="main">
+      <div class="imagen">
+        <img src="images/A03.png">
+      </div>
+      <div align="center">
+        <br>
+        <h3>Import the .cvs files of your questionnaire</h3>
+        <h5>Items' responses is mandatory. Other files are optional.</h5>
+        <br/>
         <form action='calcs1.php' method='post' enctype="multipart/form-data">
-            <table width="95%" align="center" border="0" id="celda">
+          <table width="95%" align="center" border="0" id="celda">
             <tr>
               <th>Items' Responses</th>
               <th>Items' Description</th>
@@ -42,51 +49,70 @@
             </tr>
             <tr>
               <td>
-                <input type="checkbox" name="heading1" value="1"> Use headings<br><br>
-                <label>Select Responses file:</label> <input type='file' name='file1' size='20' onChange="ext_cont(this)">
+                <input type="checkbox" name="heading1" value="1"> Use headings
+                <br>
+                <br>
+                <label>Select Responses file:</label>
+                <input type='file' name='file1' size='20' onChange="ext_cont(this)">
               </td>
               <td>
-                <input type="checkbox" name="heading2" value="1"> Use headings<br><br>
-                <label>Select Description file:</label> <input type='file' name='file2' size='20' onChange="ext_cont(this)">
+                <input type="checkbox" name="heading2" value="1"> Use headings
+                <br>
+                <br>
+                <label>Select Description file:</label>
+                <input type='file' name='file2' size='20' onChange="ext_cont(this)">
               </td>
               <td>
-                <input type="checkbox" name="heading3" value="1"> Use headings<br><br>
-                <label>Select Dimensions file:</label> <input type='file' name='file3' size='20' onChange="ext_cont(this)">
+                <input type="checkbox" name="heading3" value="1"> Use headings
+                <br>
+                <br>
+                <label>Select Dimensions file:</label>
+                <input type='file' name='file3' size='20' onChange="ext_cont(this)">
               </td>
             </tr>
             <tr>
-              <td colspan="2"><label>Current iteration: </label>
-                 <select name="selector">
-                     <option value="1" selected="1">1</option>
-                     <option value="2">2</option>
-                     <option value="3">3</option>
-                     <option value="4">4</option>
-                     <option value="5">5</option>
-                </select>                
+              <td colspan="2">
+                <label>Current iteration: </label>
+                <select name="selector">
+                  <option value="1" selected="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
               </td>
-              <td><input type='reset' name='cancel1' class="buttonsA1" value='Clear' onclick="hide1()">   </td>
+              <td>
+                <input type='reset' name='cancel1' class="buttonsA1" value='Clear' onclick="hide1()"> </td>
             </tr>
-            </table>
-            <br><br>
-            <div id='but01' style='display:none'>
-                  <input type="submit" name='submit' class="boton3" value='Import &amp; Analyze' onclick="calc_tab.php"> 
-                <!-- <a class="boton3" href="calcs.php">Import & Analyze</a> -->
-            </div>
-            
+          </table>
+          <br>
+          <br>
+          <div id='but01' style='display:none'>
+            <input type="submit" name='submit' class="boton3" value='Import &amp; Analyze' onclick="calc_tab.php">
+            <!-- <a class="boton3" href="calcs.php">Import & Analyze</a> -->
+          </div>
+
         </form>
       </div>
-       <br/><br/>
-      </section>
- 	</div> <!--End container-->
+      <br/>
+      <br/>
+    </section>
+  </div>
+  <!--End container-->
 
   <div class="clearfooter"></div>
 
   <footer>
     <div class="foot">
-     		<a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" target="_blank"><div class="icon-github iconos"></div></a>
-  			<a href="https://twitter.com/dasci_es" title="twitter_DaSCI"><div class="icon-twitter iconos"></div></a>
-    		<p>University of Granada License CC-By-NC-SA</p>
+      <a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" target="_blank">
+        <div class="icon-github iconos"></div>
+      </a>
+      <a href="https://twitter.com/dasci_es" title="twitter_DaSCI">
+        <div class="icon-twitter iconos"></div>
+      </a>
+      <p>University of Granada License CC-By-NC-SA</p>
     </div>
   </footer>
 </body>
+
 </html>

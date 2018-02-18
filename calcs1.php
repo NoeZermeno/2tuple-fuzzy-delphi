@@ -36,7 +36,7 @@
         		}
         	}
         }
-        //
+        
         function show_valueS(x) {
         	document.getElementById("CI").innerHTML = x;
         }
@@ -79,13 +79,6 @@
 </head>
 
 <body>
-
-
-
-
-
-
-
 	<?php
 /*
 	if (!isset($_POST['submit'])) {
@@ -113,47 +106,14 @@ class Judge
 	private $scale;
 
 	//propiedades
-
-	public function setweight($weight)
-	{
-		$this->weight = $weight;
-	}
-
-	public function getweight()
-	{
-		return $this->weight;
-	}
-
-	public function setscale($scale)
-	{
-		$this->scale = $scale;
-	}
-
-	public function getscale()
-	{
-		return $this->scale;
-	}
-
-	public function addItem($item)
-	{
-		$this->items[] = $item;
-	}
-
-	public function Items()
-	{
-		return $this->items;
-	}
-
-	public function Item($index)
-	{
-		return $this->items[$index];
-	}
-
-	public function ItemsCount()
-	{
-		return count($this->items);
-	}
-
+	public function setweight($weight) { $this->weight = $weight;}
+	public function getweight()	{ return $this->weight;	}
+	public function setscale($scale) {	$this->scale = $scale; }
+	public function getscale() { return $this->scale;}
+	public function addItem($item) 	{ $this->items[] = $item;}
+	public function Items() { return $this->items; }
+	public function Item($index) { return $this->items[$index]; }
+	public function ItemsCount() { return count($this->items); }
 }
 
 class Item
@@ -165,83 +125,26 @@ class Item
 	private $weight = 0;
 	private $sScale = 0;
 
-	public function setClarity($value)
-	{
-		$this->clarity = $value;
-	}
-
-	public function getClarity()
-	{
-		return $this->clarity;
-	}
-
-	public function setWriting($value)
-	{
-
-		$this->writing = $value;
-	}
-
-	public function getWriting()
-	{
-		return $this->writing;
-	}
-
-	public function setBelonging($value)
-	{
-		$this->belonging = $value;
-	}
-
-	public function getBelonging()
-	{
-		return $this->belonging;
-	}
-
-	public function setScale($value)
-	{
-
-		$this->scale = $value;
-	}
-
-	public function getScale()
-	{
-		return $this->scale;
-	}
-
-	public function setWeight($value)
-	{
-		$this->weight = $value;
-	}
-
-	public function getWeight()
-	{
-		return $this->weight;
-	}
-
-	public function setSelectionScale($value)
-	{
-		$this->sScale = $value;
-	}
-
-	public function getSelectionScale()
-	{
-		return $this->sScale;
-	}
-
+	public function setClarity($value) { $this->clarity = $value; }
+	public function getClarity() { return $this->clarity; }
+	public function setWriting($value) { $this->writing = $value; }
+	public function getWriting() { return $this->writing; }
+	public function setBelonging($value) { $this->belonging = $value; }
+	public function getBelonging() { return $this->belonging; }
+	public function setScale($value) { $this->scale = $value; }
+	public function getScale() { return $this->scale; }
+	public function setWeight($value) { $this->weight = $value; }
+	public function getWeight() { return $this->weight; }
+	public function setSelectionScale($value) { $this->sScale = $value;	}
+	public function getSelectionScale() { return $this->sScale;	}
 }
 
 class Dimention {
 	public $questions  = [];
 	public $judgeValue = [];
 
-	public function getJudgeValues()
-	{
-		return $this->judgeValue;
-	}
-
-	public function getJudgeValue($index)
-	{
-		return $this->judgeValue[$index];
-	}
+	public function getJudgeValues() { return $this->judgeValue; }
+	public function getJudgeValue($index) { return $this->judgeValue[$index];}
 }
 
 function mid_point($str){
@@ -342,8 +245,6 @@ function elementOfSet($value, $sel)
 		}else {
 			$c[] = 's<sub>' . $a[$i] . '</sub><sup>' . $sel . '</sup> ' . ',0';
 		}
-
-
 	}
 	return implode(',', $c);
 }
@@ -425,7 +326,6 @@ while(!feof($hEvaluation)){
 		$judge->addItem($item);
 	}
 	$judges[] = $judge;
-
 }
 
 $dimentions = [];
@@ -511,11 +411,8 @@ function mcd($a,$b) {
 
 	while (($a % $b) != 0) {
 		$c = $b;
-
 		$b = $a % $b;
-
 		$a = $c;
-
 	}
 	return $b;
 }
@@ -527,10 +424,8 @@ function mcm($a,$b) {
 $HSS = getHigherSelectionScale($judges);
 
 function mcm_judges($judges){
-
 	$lcm = 0;
 	$vector = v_scale($judges);
-
 	if(count($vector)>2){
 		$fst =  mcm(($vector[0]-1),($vector[1]-1));
 		return  mcm($fst,($vector[2]-1));
@@ -547,10 +442,8 @@ function weight_criteria($value, $value2){
 		$c[] = $a[1] * $value2 ;
 		return implode(',',$c);
 	}
-
 	$c = $value * $value2 ;
 	return $c;
-
 }
 
 function score($value){
@@ -596,10 +489,7 @@ function level($str){
 		}
 		break;
 	}
-
 }
-
-
 
 function lLabel($str){
 	$rounded  = round($str);
@@ -636,7 +526,6 @@ function lLabel($str){
 		}
 		break;
 	}
-
 }
 
 $mcm = mcm_judges($judges)+1;
@@ -736,7 +625,6 @@ for($j = 0; $j < $itemCount; $j++){
 		$sScale    = TupleAdd($scale, $sScale);
 		$relevance   = round($item->getWeight()*$dimentions[0]->judgeValue[$i],3);
 		$sRelevance  = TupleAdd($relevance, $sRelevance);
-
 	}
 
 	$clarities[] = $sClarity;
@@ -798,7 +686,6 @@ function collective_criteria($criteria){
 	 $table_collective[$criteria]  = $sum_criteria/$total; 
 	 return $sum_criteria/$total;
 }
-
 
 function item_score(){
 	global $table_collective;
@@ -873,7 +760,6 @@ function consensus($index){
 
 <main>
 	<nav class="menu" id="nav_bar">
-
 		<div class='cssmenu' id="tools_menu">
 			<ul>
 				<li class="li_menu" ><a>Visualizations Options</a>
@@ -894,169 +780,151 @@ function consensus($index){
 								<p> Trim Tool: visualizes crop items below the following label</p>
 								<div class='btns'>
 									<label>
-										<input checked='' name='button-group' type='radio' value=1 class="bc" onclick="fun(this.value)"> <span class='btn first'>S<sub>0</sub></span> </label>
-										<label>
-											<input name='button-group' type='radio' value=2 class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>1</sub></span> </label>
-											<label>
-												<input name='button-group' type='radio' value=3 class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>2</sub></span> </label>
-												<label>
-													<input name='button-group' type='radio' value='4' class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>3</sub></span> </label>
-													<label>
-														<input name='button-group' type='radio' value='5' class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>4</sub></span> </label>
-														<label>
-															<input name='button-group' type='radio' value='6' class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>5</sub></span> </label>
-															<label>
-																<input name='button-group' type='radio' value='7' class="bc" onclick="fun(this.value)"> <span class='btn last'>S<sub>6</sub></span> </label>
-															</div>
-														</div>
-													</li>
-												</ul>
-											</li>
-											<li class="li_menu"> <a>Satisfiable Consistency</a>
-												<ul>
-													<li class=li_li_menu>
-														<div class="options_bar" id="Consistency_Index">
-															<p>Satisfiable Consensus Level: </p>
-															<input type="range" min="0" max="1" step=".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
-															<br>
-															<label name="CI" id="CI">0</label>
-														</div>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</div>
+									<input checked='' name='button-group' type='radio' value=1 class="bc" onclick="fun(this.value)"> <span class='btn first'>S<sub>0</sub></span> </label>
+									<label>
+									<input name='button-group' type='radio' value=2 class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>1</sub></span> </label>
+									<label>
+									<input name='button-group' type='radio' value=3 class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>2</sub></span> </label>
+									<label>
+									<input name='button-group' type='radio' value='4' class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>3</sub></span> </label>
+									<label>
+									<input name='button-group' type='radio' value='5' class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>4</sub></span> </label>
+									<label>
+									<input name='button-group' type='radio' value='6' class="bc" onclick="fun(this.value)"> <span class='btn'>S<sub>5</sub></span> </label>
+									<label>
+									<input name='button-group' type='radio' value='7' class="bc" onclick="fun(this.value)"> <span class='btn last'>S<sub>6</sub></span> </label>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li class="li_menu"> <a>Satisfiable Consistency</a>
+					<ul>
+						<li class=li_li_menu>
+							<div class="options_bar" id="Consistency_Index">
+								<p>Satisfiable Consensus Level: </p>
+								<input type="range" min="0" max="1" step=".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
+								<br>
+								<label name="CI" id="CI">0</label>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 
-									<div class="cssmenu" id="page_menu">
-										<ul>
-											<li class="li_menu"><a href="index.html" title="">HOME</a></li>
-											<li class="li_menu"><a href="import.html" title="">IMPORT</a></li>
-											<li class="li_menu"><a href="" title="">ANNEX</a></li>
-											<li class="li_menu"><a href="" title="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">SOURCE cODE</a></li>
-										</ul>
-									</nav>
-									<header>
-										<!--<img src="images/header_logo.png" alt="logo" id="logo">-->
-										<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
-           								 <h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
-           								 <img src="images/UGR_logo_white.png" alt="logo_UGR" height="70px" id="logo_UGR"> 
-									</header>
-									
-									
+		<div class="cssmenu" id="page_menu">
+			<ul>
+				<li class="li_menu"><a href="index.html" title="">HOME</a></li>
+				<li class="li_menu"><a href="import.html" title="">IMPORT</a></li>
+				<li class="li_menu"><a href="" title="">ANNEX</a></li>
+				<li class="li_menu"><a href="" title="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">SOURCE cODE</a></li>
+			</ul>
+		</nav>
+		<header>
+			<!--<img src="images/header_logo.png" alt="logo" id="logo">-->
+			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
+				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
+				<img src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" id="logo_UGR"> 
+		</header>
+		<section id="main_content">
+			<div id="table_content">
+				<table id="datos" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>Num</th>
+							<th>Item</th>
+							<th class="col_1">Collective Clarity</th>
+							<th class="col_2">Collective Writing</th>
+							<th class="col_3">Collective Presence</th>
+							<th class="col_4">Collective Scale</th>
+							<th class="col_5">Collective Relevance</th>
+							<th>Score</th>
+							<th class="col_6">Consensus</th>
+							<th>Final Results</th>
+						</tr>
+					</thead>
+					<tbody id=tableDatosBody>
+						<?php
+						$label_output="";   //Variable temporal mientras se obtienen los resultados finales
 
-
-
-										<section id="main_content">
-											<div id="table_content">
-												
-											
-											<table id="datos" class="display" cellspacing="0" width="100%">
-												<thead>
-													<tr>
-														<th>Num</th>
-														<th>Item</th>
-														<th class="col_1">Collective Clarity</th>
-														<th class="col_2">Collective Writing</th>
-														<th class="col_3">Collective Presence</th>
-														<th class="col_4">Collective Scale</th>
-														<th class="col_5">Collective Relevance</th>
-														<th>Score</th>
-														<th class="col_6">Consensus</th>
-														<th>Final Results</th>
-													</tr>
-												</thead>
-												<tbody id=tableDatosBody>
-													<?php
-				$label_output="";   //Variable temporal mientras se obtienen los resultados finales
-
-				/*--Row creation--*/
-				for ($y = 1; $y <= $total; $y++) {
-					?>
-					<tr>
-						<td>
-							<?php  if( $y < 10 ) echo "I<sub>0" . $y . "<sub>"; else echo "I<sub>" . $y . "<sub>"; 
+						/*--Row creation--*/
+						for ($y = 1; $y <= $total; $y++) {
 							?>
-						</td>
-						<td id="questions">
-							<?php echo linguisticLabel('item',$y-1); ?>
-						</td>
-						<td class="col_1" id="cClarity">
-							<?php //echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
-							<?php printf("%.2f", Normalize(linguisticLabel('CC',$y-1),$mcm,$output_scale));?>
-						</td>
-						<td class="col_2" id="cWriting">
-							<?php printf("%.2f", Normalize(linguisticLabel('CW',$y-1),$mcm,$output_scale)); ?>
-							<?php //echo linguisticLabel('CW',$y-1) ?>
-						</td>
-						<td class="col_3" id="cPresence">
-							<?php printf("%.2f", Normalize(linguisticLabel('CP',$y-1),$mcm,$output_scale));?>
-							<?php //echo linguisticLabel('CP',$y-1);?>
-						</td>
-						<td class="col_4" id="cScale">
-							<?php printf("%.2f", Normalize(linguisticLabel('CAS',$y-1),$mcm,$output_scale)); ?>
-							<?php //echo linguisticLabel('CAS',$y-1); ?>
-						</td>
-					</td>
-					<td class="col_5" id="cRelevance">
-						<?php printf("%.2f", linguisticLabel('CR',$y-1)); ?>
-					</td>
-					<td id="score">
-						<?php printf("%.2f", Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale));?>
-						<?php //echo linguisticLabel('SCORE',$y-1);?>
-					</td>
-					<td class="col_6">
-						<?php consensus($y-1);/*if(consensus($y-1)){
-							echo  "<img src='images/check.png' width=25px>";
-						}else{
-							echo  "<img src='images/no_check.png' width=25px>";
-						}*/
-						?>
-					</td>
-					<td class=" level<?php echo level(Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale)); ?>">
-						<?php lLabel(Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale)); ?>
-					</td>
-				</tr>
-				<?php } ?>
-				<tfoot>
-					<tr>
-						<th align="right">items</th>
-						<th align="right">Results</th>
-						<th class="col_1"><?php printf("%.2f", collective_criteria('CC')); ?></th>
-						<th class="col_2"><?php printf("%.2f", collective_criteria('CW')); ?></th>
-						<th class="col_3"><?php printf("%.2f", collective_criteria('CP')); ?></th>
-						<th class="col_4"><?php printf("%.2f", collective_criteria('CAS')); ?></th>
-						<th class="col_5"></th>
-						<th></th>
-						<th class="col_6"></th>
-						<th></th>
-					</tr>
-				</tfoot>
-			</tbody>
-		</table>
-		</div>
-	</section>
-
-
-
-	<footer>
-		<div class="footer_text"><p>License CC-By-NC-SA University of Granada Contact: <br> rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p> </div>
-		<div class="icons">
-			
+							<tr>
+								<td>
+									<?php  if( $y < 10 ) echo "I<sub>0" . $y . "<sub>"; else echo "I<sub>" . $y . "<sub>"; 
+									?>
+								</td>
+								<td id="questions">
+									<?php echo linguisticLabel('item',$y-1); ?>
+								</td>
+								<td class="col_1" id="cClarity">
+									<?php //echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
+									<?php printf("%.2f", Normalize(linguisticLabel('CC',$y-1),$mcm,$output_scale));?>
+								</td>
+								<td class="col_2" id="cWriting">
+									<?php printf("%.2f", Normalize(linguisticLabel('CW',$y-1),$mcm,$output_scale)); ?>
+									<?php //echo linguisticLabel('CW',$y-1) ?>
+								</td>
+								<td class="col_3" id="cPresence">
+									<?php printf("%.2f", Normalize(linguisticLabel('CP',$y-1),$mcm,$output_scale));?>
+									<?php //echo linguisticLabel('CP',$y-1);?>
+								</td>
+								<td class="col_4" id="cScale">
+									<?php printf("%.2f", Normalize(linguisticLabel('CAS',$y-1),$mcm,$output_scale)); ?>
+									<?php //echo linguisticLabel('CAS',$y-1); ?>
+								</td>
+								<td class="col_5" id="cRelevance">
+									<?php printf("%.2f", linguisticLabel('CR',$y-1)); ?>
+								</td>
+								<td id="score">
+									<?php printf("%.2f", Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale));?>
+									<?php //echo linguisticLabel('SCORE',$y-1);?>
+								</td>
+								<td class="col_6">
+									<?php consensus($y-1);/*if(consensus($y-1)){
+									echo  "<img src='images/check.png' width=25px>";
+									}else{
+									echo  "<img src='images/no_check.png' width=25px>";
+									}*/
+									?>
+								</td>
+								<td class=" level<?php echo level(Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale)); ?>">
+									<?php lLabel(Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale)); ?>
+								</td>
+							</tr>
+						<?php } ?>  
+					</tbody>
+					<tfoot>
+						<tr>
+							<th align="right">items</th>
+							<th align="right">Results</th>
+							<th class="col_1"><?php printf("%.2f", collective_criteria('CC')); ?></th>
+							<th class="col_2"><?php printf("%.2f", collective_criteria('CW')); ?></th>
+							<th class="col_3"><?php printf("%.2f", collective_criteria('CP')); ?></th>
+							<th class="col_4"><?php printf("%.2f", collective_criteria('CAS')); ?></th>
+							<th class="col_5"></th>
+							<th class="col_6"></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</section>
+		<footer>
+			<div class="footer_text"><p>License CC-By-NC-SA University of Granada Contact: <br> rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p> </div>
+			<div class="icons">
 				<a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" class="icon-github"></a>
-			
-			
 				<a href="https://twitter.com/DaSCI_es" title="twitter_DaSCI" class="icon-twitter"></a>
-				
-			
+			</div>
+		</footer>
+		<div id="show_result">
+			<h2 class ="subtitle"> QUESTIONNAIRE TOTAL SCORE = <?php echo item_score(); ?>
+			</h2>
 		</div>
-
-	</footer>
-	<div id="show_result">
-										<h2 class ="subtitle"> 
-											QUESTIONNAIRE TOTAL SCORE = <?php echo item_score(); ?>
-										</h2>
-									</div>
-</main>
+	</main>
 </body>
 
 </html>
