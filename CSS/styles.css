@@ -1,45 +1,39 @@
-*{
+* {
     padding: 0;
     margin: 0;
     border: 0;
     font-family: 'Open Sans', sans-serif;
 }
-body{
+
+body {
     background-color: #efefef;
 }
-main{
+
+main {
     background-color: #efefef;
     display: grid;
     grid-gap: 0px;
-    grid-template-areas: 
-        "header_grid"
-        "page_menu"  
-        "show_result"     
-        "table_content_grid"        
-        "footer_grid";
-    
+    grid-template-areas: "header_grid" "page_menu" "show_result" "table_content_grid" "footer_grid";
     grid-template-rows: 80px 70px 20px auto 50px;
     height: 100vh;
-    
 }
-    
-div{
+
+div {
     align-items: center;
     display: block;
     justify-content: center;
 }
 
-main > *{  
+main>* {
     align-items: center;
     display: flex;
     font-family: 'Open Sans', Helvetica, sans-serif;
     justify-content: center;
 }
- 
-nav#nav_bar{
+
+nav#nav_bar {
     grid-area: page_menu;
     display: grid;
-    
     background-color: #0e5376;
     justify-content: flex-end;
     width: auto;
@@ -58,9 +52,7 @@ nav#nav_bar{
     z-index: 1;
 }
 
-
-
-header{
+header {
     grid-area: header_grid;
     background-color: #0e5376;
     color: #fff;
@@ -68,19 +60,17 @@ header{
     margin: 0;
 }
 
-#show_result{
+#show_result {
     grid-area: show_result;
     color: #0e5376;
 }
 
-section:first-of-type{
+section:first-of-type {
     grid-area: table_content_grid;
     display: flex;
     z-index: 0;
-    
     justify-content: center;
-    align-items: center: 
-    
+    align-items: center;
 }
 
 footer {
@@ -89,110 +79,109 @@ footer {
     background-color: #484848;
     color: white;
     font-size: 12px;
-    text-align: center;    
-    grid-template-areas: 
-        "footer-text icons";
+    text-align: center;
+    grid-template-areas: "footer-text icons";
     grid-template-columns: 3fr 1fr;
-        
-    
 }
 
-h1{
+h1 {
     font-size: 1.5em;
 }
 
+h2.text_error{
+    font-size: 2em;
+    color: #0e5376;
+    text-shadow: 2px 2px #888;
+}
 
-
-
-#logo, #title{
+#logo,
+#title {
     width: 80%;
     text-align: center;
-    
 }
 
-
-#consensus, #Consistency, #Consistency_Index, #Panel_Expert{
-    
+h2 #consensus,
+#Consistency,
+#Consistency_Index,
+#Panel_Expert {
     text-align: center;
 }
 
-#table_content  {
+#table_content {
     display: flex;
     margin-top: 5px;
     width: 80%;
 }
 
-
 .level1 {
-	
-	background-color: #FFB6AE;
-	font: bold;
+    background-color: #FFB6AE;
+    font: bold;
 }
+
 .level2 {
-	background-color: #FFE1AE;
-		font: bold;
+    background-color: #FFE1AE;
+    font: bold;
 }
+
 .level3 {
-	background-color: #FFF4E1;
-	font: bold;
+    background-color: #FFF4E1;
+    font: bold;
 }
 
 .level4 {
-	background-color: #FDFEE0;
-	font: bold;
+    background-color: #FDFEE0;
+    font: bold;
 }
 
 .level5 {
-	background-color: #FAFCAF;
-	font: bold;
+    background-color: #FAFCAF;
+    font: bold;
 }
 
 .level6 {
-	background-color: #DCF9E4;
-	font: bold;
+    background-color: #DCF9E4;
+    font: bold;
 }
 
 .level7 {
-	background-color: #B0F2C2;
-	font: bold;
-}    
+    background-color: #B0F2C2;
+    font: bold;
+}
 
-#datos{
+#datos {
     font-size: 12px;
     text-align: center;
 }
 
-#questions{
+#questions {
     text-align: left;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
-
-.icons{
+.icons {
     display: flex;
     grid-area: icons;
-	color: white; 
-	font-size: 25px;
-	justify-content: flex-end;
+    color: white;
+    font-size: 25px;
+    justify-content: flex-end;
 }
-.icons >div{
+
+.icons>div {
     margin-right: 10px;
 }
 
-.footer_text{
+.footer_text {
     justify-content: center;
 }
 
-
-
-.options_bar > p{
+.options_bar>p {
     margin: 15px;
 }
 
-.menu ul{
+.menu ul {
     margin: 0;
     list-style: none;
     padding: 0;
@@ -200,18 +189,18 @@ h1{
     justify-content: flex-end;
 }
 
-.menu li.li_menu:hover{
-    background: rgba(0,0,0,0.3); 
+.menu li.li_menu:hover {
+    background: rgba(0, 0, 0, 0.3);
 }
 
-ul.ul_menu{
+ul.ul_menu {
     background-color: #0e5376;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
-
-.icon-github, .icon-twitter{
-      text-decoration: none;
-      color: white;
-      padding-right: 15px;
-  }
+.icon-github,
+.icon-twitter {
+    text-decoration: none;
+    color: white;
+    padding-right: 15px;
+}

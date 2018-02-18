@@ -56,16 +56,16 @@ if (isset($_GET['error_mensaje'])){
      echo "Error: ".$mensaje{$_GET['error_mensaje']};
   } else {
   	 if($_GET['error_mensaje'] == 0) {
-  	 	echo "Does not match headers <br>";
+  	 	echo "<h2 class='text_error'> Does not match headers</h2>";
   	 }
   	 if($_GET['error_mensaje'] == 1) {
-  	 	echo "Does not match number of Judges<br>";
+  	 	echo "<h2 class='text_error'>Does not match number of Judges</h2>";
   	 }
   	 if($_GET['error_mensaje'] == 2) {
-  	 	echo "Does not match number of Items<br>";
+  	 	echo "<h2 class='text_error'>Does not match number of Items</h2>";
   	 }
      if($_GET['error_mensaje'] == 3) {
-  	 	echo "The file that has been uploaded has headers<br>";
+  	 	echo "<h2 class='text_error'>The file that has been uploaded has headers</h2>";
   	 }
   }
 }
