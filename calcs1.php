@@ -16,14 +16,14 @@
 	<title>GRID</title>
 	<link rel="stylesheet" href="CSS/styles.css">
 	<link rel="stylesheet" href="CSS/menu_tools_style.css">
-	
+
 	<link rel="stylesheet" href="CSS/style_trim.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 	<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 	<script type="text/javascript" src="JS/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	
+
 	<script type="text/javascript">
         //Filter for the Trim tool: Filters the data table according to the selected color (button).
         function fun(value) {
@@ -36,7 +36,7 @@
         		}
         	}
         }
-        
+
         function show_valueS(x) {
         	document.getElementById("CI").innerHTML = x;
         }
@@ -84,6 +84,28 @@
 	if (!isset($_POST['submit'])) {
 		header('Location: index.html');
 	}*/
+
+	if (!isset($_POST['submit'])) {
+		header('Location: index.html');
+	}
+
+	if(isset($_POST['heading1'])){
+    		$check1 = $_POST['heading1']; #check if the header was selected, value = 1
+		}else{
+    		$check1 = 0;#if it was not selected, value = 0
+		}
+
+	if(isset($_POST['heading2'])){
+    		$check2 = $_POST['heading2']; #check if the header was selected, value = 1
+		}else{
+    		$check2 = 0;#if it was not selected, value = 0
+		}
+
+	if(isset($_POST['heading3'])){
+    		$check3 = $_POST['heading3']; #check if the header was selected, value = 1
+		}else{
+    		$check3 = 0;#if it was not selected, value = 0
+		}
 
 	$responses = $_FILES["file1"]["tmp_name"];
 	$description = $_FILES["file2"]["tmp_name"];
@@ -298,34 +320,60 @@ error_reporting(1);
 
 $columnCount= 0;
 $j = 0;
-while(!feof($hEvaluation)){
-	$row = fgets($hEvaluation);
-	$cols= explode(';', $row);
+if ($check1 == 1) {
+	while(!feof($hEvaluation))
+	{	$row = fgets($hEvaluation);
+		$cols= explode(';', $row);
 
-	if(strpos($row, 'criteria') !== false){
-		$columnCount = count($cols);
-		continue;
+		if(strpos($row, 'criteria') !== false){
+			$columnCount = count($cols);
+			continue;
+		}
+
+		if(count($cols) != $columnCount){
+			header("Location: errors.php?error_mensaje=0");
+			exit();
+			//continue;
+		}
+
+		$judge = new Judge();
+		$judge->setscale($cols[1]);
+
+		for($i = 2 ; $i < count($cols); $i += 5){
+			$item = new Item();
+			$item->setClarity(mid_point(max_min($cols[$i])));
+			$item->setWriting(mid_point(max_min($cols[$i + 1])));
+			$item->setBelonging(mid_point(max_min($cols[$i + 2])));
+			$item->setScale(mid_point(max_min($cols[$i + 3])));
+			$item->setWeight($cols[$i + 4]);
+			$judge->addItem($item);
+		}
+		$judges[] = $judge;
 	}
+} elseif($check1 == 0){
+	while(!feof($hEvaluation))
+	{	$row = fgets($hEvaluation);
+		$cols= explode(';', $row);
 
-	if(count($cols) != $columnCount){
-		header("Location: errors.php?error_mensaje=0");
-		exit();
-		//continue;
+		$judge = new Judge();
+		$judge->setscale($cols[1]);
+		if(strpos($row, 's' ) !== false){
+					$columnCount = count($cols);
+					header("Location: errors.php?error_mensaje=3");
+					exit();
+				}
+
+		for($i = 2 ; $i < count($cols); $i += 5){
+			$item = new Item();
+			$item->setClarity(mid_point(max_min($cols[$i])));
+			$item->setWriting(mid_point(max_min($cols[$i + 1])));
+			$item->setBelonging(mid_point(max_min($cols[$i + 2])));
+			$item->setScale(mid_point(max_min($cols[$i + 3])));
+			$item->setWeight($cols[$i + 4]);
+			$judge->addItem($item);
+		}
+		$judges[] = $judge;
 	}
-
-	$judge = new Judge();
-	$judge->setscale($cols[1]);
-
-	for($i = 2; $i < count($cols); $i += 5){
-		$item = new Item();
-		$item->setClarity(mid_point(max_min($cols[$i])));
-		$item->setWriting(mid_point(max_min($cols[$i + 1])));
-		$item->setBelonging(mid_point(max_min($cols[$i + 2])));
-		$item->setScale(mid_point(max_min($cols[$i + 3])));
-		$item->setWeight($cols[$i + 4]);
-		$judge->addItem($item);
-	}
-	$judges[] = $judge;
 }
 
 $dimentions = [];
@@ -458,7 +506,7 @@ function score($value){
 function level($str){
 	$rounded  = round($str);
 	switch($rounded){
-		case 0: 
+		case 0:
 		{	echo "1";
 			//return "(Pésimo, " . round(($str - $rounded),2) . ")";
 		}
@@ -495,7 +543,7 @@ function lLabel($str){
 	$rounded  = round($str);
 
 	switch($rounded){
-		case 0: 
+		case 0:
 		{	//echo "1";
 			return "(Dreadful, " . round(($str - $rounded),2) . ")";
 		}
@@ -677,13 +725,13 @@ function collective_criteria($criteria){
 	global $total;
 	global $table;
 	global $table_collective;
-	$sum_criteria = 0 ; 
+	$sum_criteria = 0 ;
 
 	for ($i = 0 ; $i <$total ;  $i++){
 		$sum_criteria += $table[$criteria][$i] * $table['CR'][$i] ;
 	}
 
-	 $table_collective[$criteria]  = $sum_criteria/$total; 
+	 $table_collective[$criteria]  = $sum_criteria/$total;
 	 return $sum_criteria/$total;
 }
 
@@ -694,7 +742,7 @@ function item_score(){
 	foreach ($table_collective as $value){
 		$item_score += $value;
 	}
-	
+
 	printf ("%.2f", $item_score/4);
 	//echo $item_score/4;
 }
@@ -703,7 +751,7 @@ function item_score(){
 function linguisticLabel($criteria, $index){
 
 	global $table;
-	
+
 	if($criteria != 'Total' && $criteria != 'level' &&  $criteria != 'item'  && $criteria != 'SCORE' ){
 		return $table[$criteria][$index];
 	}
@@ -750,7 +798,7 @@ function consensus($index){
 	}
 		//get consensus index
 	$consensus = 1-$sum/$mcm;
-	printf("%.2f", $consensus);	
+	printf("%.2f", $consensus);
 	//echo ($consensus);
 
 	if($consensus < .5) return true;
@@ -824,8 +872,8 @@ function consensus($index){
 		<header>
 			<!--<img src="images/header_logo.png" alt="logo" id="logo">-->
 			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
-				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
-				<img src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" id="logo_UGR"> 
+				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1>
+				<img src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" id="logo_UGR">
 		</header>
 		<section id="main_content">
 			<div id="table_content">
@@ -853,7 +901,7 @@ function consensus($index){
 							?>
 							<tr>
 								<td>
-									<?php  if( $y < 10 ) echo "I<sub>0" . $y . "<sub>"; else echo "I<sub>" . $y . "<sub>"; 
+									<?php  if( $y < 10 ) echo "I<sub>0" . $y . "<sub>"; else echo "I<sub>" . $y . "<sub>";
 									?>
 								</td>
 								<td id="questions">
@@ -894,7 +942,7 @@ function consensus($index){
 									<?php lLabel(Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale)); ?>
 								</td>
 							</tr>
-						<?php } ?>  
+						<?php } ?>
 					</tbody>
 					<tfoot>
 						<tr>
