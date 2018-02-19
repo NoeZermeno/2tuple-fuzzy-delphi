@@ -164,6 +164,14 @@ class Item
 class Dimention {
 	public $questions  = [];
 	public $judgeValue = [];
+	public $begin;
+	public $end;
+
+	public function setBegin($value) { $this->begin = $value; }
+	public function getBegin() { return $this->begin }
+
+	public function setBegin($value) { $this->end = $value; }
+	public function getBegin() { return $this->end }
 
 	public function getJudgeValues() { return $this->judgeValue; }
 	public function getJudgeValue($index) { return $this->judgeValue[$index];}
@@ -379,6 +387,8 @@ if ($check1 == 1) {
 $dimentions = [];
 if($hDimentions !== false){
 	$columnCount = 0;
+	$begin = [];
+	$end = [];
 	while(!feof($hDimentions)){
 
 		$acum = 0;
@@ -402,8 +412,11 @@ if($hDimentions !== false){
 			continue;
 		}
 
+		$begin = $cols[1];
+		$end = $cols[2];
 		$dimention = new Dimention();
 		//$dimention->questions = &question;//where the questionnaire will be saved remains to be determined
+
 		for ($i = 3; $i < $columnCount; $i++) {
 			$value = $cols[$i];
 			$weightJ[] = $value;
@@ -414,15 +427,19 @@ if($hDimentions !== false){
 			$dimention->judgeValue[] = ($weightJ[$i]/$acum);
 		}
 		$dimentions[] = $dimention;
+		e
 	}
 }
 else{
 	$dimention = new Dimention();
-
+	$dimention->begin = 1;
+	$dimension->end = $judges->ItemsCount();
 	for ($i = 0 ; $i < count($judges); $i++){
 		$dimention->judgeValue[] = 1/count($judges);
 	}
 	$dimentions[] = $dimention;
+	echo "Inicio: " . $dimention->begin . "<br>";
+	echo "End: " . $dimention->end . "<br>";
 }
 
 $total =  $judges[0]->ItemsCount();
