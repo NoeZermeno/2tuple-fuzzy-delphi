@@ -18,7 +18,7 @@
 	
 
 
-<main>
+<main class="main_internal">
 	<nav class="menu" id="nav_bar">
 		<div class='cssmenu' id="tools_menu">
 			
@@ -32,7 +32,7 @@
 				<li class="li_menu"><a href="" title="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">SOURCE cODE</a></li>
 			</ul>
 		</nav>
-		<header>
+		<header class="header_internal">
 			<!--<img src="images/header_logo.png" alt="logo" id="logo">-->
 			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
 				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
