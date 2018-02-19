@@ -23,7 +23,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 	<script type="text/javascript" src="JS/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
 	<script type="text/javascript">
         //Filter for the Trim tool: Filters the data table according to the selected color (button).
         function fun(value) {
@@ -331,7 +330,7 @@ error_reporting(1);
 
 $columnCount= 0;
 $j = 0;
-if ($check1 == 1) {
+
 	while(!feof($hEvaluation))
 	{	$row = fgets($hEvaluation);
 		$cols= explode(';', $row);
@@ -341,10 +340,13 @@ if ($check1 == 1) {
 			continue;
 		}
 
+		if(is_numeric($cols[1])){
+			$columnCount = count($cols);
+		}
+
 		if(count($cols) != $columnCount){
 			header("Location: errors.php?error_mensaje=0");
 			exit();
-			//continue;
 		}
 
 		$judge = new Judge();
@@ -361,31 +363,7 @@ if ($check1 == 1) {
 		}
 		$judges[] = $judge;
 	}
-} elseif($check1 == 0){
-	while(!feof($hEvaluation))
-	{	$row = fgets($hEvaluation);
-		$cols= explode(';', $row);
 
-		$judge = new Judge();
-		$judge->setscale($cols[1]);
-		if(strpos($row, 's' ) !== false){
-					$columnCount = count($cols);
-					header("Location: errors.php?error_mensaje=3");
-					exit();
-				}
-
-		for($i = 2 ; $i < count($cols); $i += 5){
-			$item = new Item();
-			$item->setClarity(mid_point(max_min($cols[$i])));
-			$item->setWriting(mid_point(max_min($cols[$i + 1])));
-			$item->setBelonging(mid_point(max_min($cols[$i + 2])));
-			$item->setScale(mid_point(max_min($cols[$i + 3])));
-			$item->setWeight($cols[$i + 4]);
-			$judge->addItem($item);
-		}
-		$judges[] = $judge;
-	}
-}
 
 $total =  $judges[0]->ItemsCount();
 $dimentions = [];
@@ -404,17 +382,23 @@ if($hDimentions !== false){
 		//echo "fila: "  .$row . "<br>";
 		$cols= explode(';', $row);
 
+
 		//We determine by means of the number of columns in the first row whether the number of judges matches the number of previously processed judges.
 		if((count($cols) - 3) !== count($judges) ){
 			//we remove 3 columns from the calculation because they have dimensional data
-			//echo "cols:  " . count($cols) . "<br>";
-			header("Location: errors.php?error_mensaje=1");
+			echo "cols:  " . count($cols) . "<br>";
+			//header("Location: errors.php?error_mensaje=1");
 			exit();
 		}
 
-		if(strpos($row, 'dimension') !== false){
+
+		if(strpos($row, 'dimension') !==false){
 			$columnCount = count($cols);
 			continue;
+		}
+
+		if(is_numeric($cols[1])){
+			$columnCount = count($cols);
 		}
 
 		if(count($cols) != $columnCount){
@@ -749,7 +733,6 @@ for($dim = 0; $dim < count($dimentions); $dim++){
 		$sRelevance   = '0';
 		$judge_weight = [];
 
-		print_r($dimentions[$dim]);
 		for($i = 0; $i < count($normalized_judges); $i++){
 
 			$judge     = $normalized_judges[$i];
