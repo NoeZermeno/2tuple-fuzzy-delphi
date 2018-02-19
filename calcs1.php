@@ -401,11 +401,13 @@ if($hDimentions !== false){
 		$acum = 0;
 		$weightJ = [];
 		$row = fgets($hDimentions);
+		//echo "fila: "  .$row . "<br>";
 		$cols= explode(';', $row);
 
 		//We determine by means of the number of columns in the first row whether the number of judges matches the number of previously processed judges.
 		if((count($cols) - 3) !== count($judges) ){
 			//we remove 3 columns from the calculation because they have dimensional data
+			//echo "cols:  " . count($cols) . "<br>";
 			header("Location: errors.php?error_mensaje=1");
 			exit();
 		}
@@ -697,6 +699,8 @@ $belongings	= [];
 $scales    	= [];
 $relevance  = [];
 
+/********************
+
 for($j = 0; $j < $itemCount; $j++){
 
 	$sClarity     = '0';
@@ -726,6 +730,48 @@ for($j = 0; $j < $itemCount; $j++){
 	$belongings[] = $sBelonging;
 	$scales[] = $sScale;
 	$relevances[] = $sRelevance;
+}
+
+
+
+********************/
+$dim = 0;
+
+for($dim = 0; $dim < count($dimentions); $dim++){
+
+
+	for($j = $dimentions[$dim]->begin; $j <= $dimentions[$dim]->end; $j++){
+
+		$sClarity     = '0';
+		$sWriting     = '0';
+		$sBelonging   = '0';
+		$sScale       = '0';
+		$sRelevance   = '0';
+		$judge_weight = [];
+
+		print_r($dimentions[$dim]);
+		for($i = 0; $i < count($normalized_judges); $i++){
+
+			$judge     = $normalized_judges[$i];
+			$item      = $judge->Item($j-1);
+			$clarity   = weight_criteria($item->getClarity(),$dimentions[$dim]->judgeValue[$i]);
+			$sClarity  = TupleAdd($sClarity, $clarity);
+			$writing   = weight_criteria($item->getWriting(),$dimentions[$dim]->judgeValue[$i]);
+			$sWriting  = TupleAdd($writing, $sWriting);
+			$belonging   = weight_criteria($item->getBelonging(),$dimentions[$dim]->judgeValue[$i]);
+			$sBelonging= TupleAdd($belonging, $sBelonging);
+			$scale   = weight_criteria($item->getScale(),$dimentions[$dim]->judgeValue[$i]);
+			$sScale    = TupleAdd($scale, $sScale);
+			$relevance   = round($item->getWeight()*$dimentions[$dim]->judgeValue[$i],3);
+			$sRelevance  = TupleAdd($relevance, $sRelevance);
+		}
+
+		$clarities[] = $sClarity;
+		$writings[] = $sWriting;
+		$belongings[] = $sBelonging;
+		$scales[] = $sScale;
+		$relevances[] = $sRelevance;
+	}
 }
 
 //echo '<table id="final" border=1 class="tabla">';
