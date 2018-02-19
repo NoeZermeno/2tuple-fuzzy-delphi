@@ -166,12 +166,15 @@ class Dimention {
 	public $judgeValue = [];
 	public $begin;
 	public $end;
+	public $end2;
 
 	public function setBegin($value) { $this->begin = $value; }
-	public function getBegin() { return $this->begin }
+	public function getBegin() { return $this->begin; }
 
-	public function setBegin($value) { $this->end = $value; }
-	public function getBegin() { return $this->end }
+	public function setEnd($value) { 
+		echo "valor: " . $value . "<br>";
+		$this->end = $value; }
+	public function getEnd() { return $this->end; }
 
 	public function getJudgeValues() { return $this->judgeValue; }
 	public function getJudgeValue($index) { return $this->judgeValue[$index];}
@@ -384,11 +387,15 @@ if ($check1 == 1) {
 	}
 }
 
+$total =  $judges[0]->ItemsCount();
 $dimentions = [];
+
 if($hDimentions !== false){
 	$columnCount = 0;
 	$begin = [];
 	$end = [];
+	$num_dimention = 0;
+	$first = true;
 	while(!feof($hDimentions)){
 
 		$acum = 0;
@@ -412,10 +419,27 @@ if($hDimentions !== false){
 			continue;
 		}
 
-		$begin = $cols[1];
-		$end = $cols[2];
 		$dimention = new Dimention();
-		//$dimention->questions = &question;//where the questionnaire will be saved remains to be determined
+		$dimention->begin = $cols[1];
+		$dimention->end = $cols[2];
+
+		if(($num_dimention+1) == 1 && $dimention->begin != 1 && $first == true){
+			echo "error from begin of questionnaire<br>";
+		}
+
+		if($dimentions->begin > $dimention->end ){
+			echo "error from begin and end";
+		}
+
+		if( (($dimention->begin) != $dimentions[$num_dimention-1]->end+1)  && $first == false ){
+			echo "error of consecutive items dimentions <br>";
+		}
+
+		if ( $dimention->end > $total){
+			echo "The number of items in dimentions file exceed in responses file<br>";
+		}
+		//print_r($dimentions);
+
 
 		for ($i = 3; $i < $columnCount; $i++) {
 			$value = $cols[$i];
@@ -427,29 +451,34 @@ if($hDimentions !== false){
 			$dimention->judgeValue[] = ($weightJ[$i]/$acum);
 		}
 		$dimentions[] = $dimention;
-		e
+		$num_dimention++;
+		$first = false;
 	}
 }
 else{
+	global $total;
 	$dimention = new Dimention();
 	$dimention->begin = 1;
-	$dimension->end = $judges->ItemsCount();
+	$dimention->end = $total;
+
 	for ($i = 0 ; $i < count($judges); $i++){
 		$dimention->judgeValue[] = 1/count($judges);
 	}
 	$dimentions[] = $dimention;
-	echo "Inicio: " . $dimention->begin . "<br>";
-	echo "End: " . $dimention->end . "<br>";
 }
 
-$total =  $judges[0]->ItemsCount();
+
+if ( $dimentions[count($dimentions)-1]->end <> $total){
+	echo "The number of items doesn's match with responses file<br>";
+}
+
+
 //echo "hQuestionnaire : " . $hQuestionnaire . "<br>";
 //$table = [];
 if($hQuestionnaire !== false){
 	$rowsCount = 0;
 	$items = [];
 	global $table;
-
 	while(!feof($hQuestionnaire)){
 		$rows++;
 		$items[] = utf8_encode(fgets($hQuestionnaire));
