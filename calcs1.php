@@ -62,7 +62,7 @@
     	$(document).ready(function () {
     		var oTablaDatos = $('#datos').DataTable({
     			"scrollResize": true
-    			, "scrollY": 250
+    			, "scrollY": 240
     			, "scrollCollapse": true
     			, "paging": false
     			, "order": [
@@ -806,7 +806,7 @@ function consensus($index){
 }
 ?>
 
-<main>
+<main class="main_internal">
 	<nav class="menu" id="nav_bar">
 		<div class='cssmenu' id="tools_menu">
 			<ul>
@@ -869,11 +869,13 @@ function consensus($index){
 				<li class="li_menu"><a href="" title="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">SOURCE cODE</a></li>
 			</ul>
 		</nav>
-		<header>
-			<!--<img src="images/header_logo.png" alt="logo" id="logo">-->
-			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
-				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1>
-				<img src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" id="logo_UGR">
+		<header class="header_internal">
+			<img id="logo_DaSCI" src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" >
+			<div id= "logo_tool">	 <img  src="images/internal_header.png"></div>
+			<img id="logo_UGR" src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" >
+<!--			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
+				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
+				<img src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" id="logo_UGR"> -->
 		</header>
 		<section id="main_content">
 			<div id="table_content">
