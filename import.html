@@ -20,7 +20,7 @@
 
 <main class="main_internal">
 	<nav class="menu" id="nav_bar">
-		<div class='cssmenu' id="tools_menu">
+		<div class="cssmenu2" id="tools_menu">
 			
 		</div>
 
@@ -31,6 +31,7 @@
 				<li class="li_menu"><a href="" title="">ANNEX</a></li>
 				<li class="li_menu"><a href="" title="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">SOURCE cODE</a></li>
 			</ul>
+			</div>
 		</nav>
 		<header class="header_internal">
 			<img id="logo_DaSCI" src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" >
@@ -44,13 +45,13 @@
 			<div align="center">
 				<br>
 				<h2 class="subtitle">Import the .cvs files of your questionnaire</h2>
-				<h5 class="subsubtitle">Items' responses is mandatory. Other files are optional.</h5>
+				<h5 class="subsubtitle">Items" responses is mandatory. Other files are optional.</h5>
 				<br/>
-				<form action='calcs1.php' method='post' enctype="multipart/form-data">
+				<form action="calcs1.php" method="post" enctype="multipart/form-data">
 				  <table id="celda">
 					<tr>
-					  <th class="th_import">Items' Responses</th>
-					  <th class="th_import">Items' Description</th>
+					  <th class="th_import">Items" Responses</th>
+					  <th class="th_import">Items" Description</th>
 					  <th class="th_import">Dimensions &amp; Weights</th>
 					</tr>
 					<tr>
@@ -59,21 +60,21 @@
 						<br>
 						<br>
 						<label>Select Responses file:</label>
-						<input type='file' name='file1' size='20' onChange="ext_cont(this)">
+						<input type="file" name="file1" size="20" onchange="ext_cont(this)">
 					  </td>
 					  <td  class="td_import">
 						<input type="checkbox" name="heading2" value="1"> Use headings
 						<br>
 						<br>
 						<label>Select Description file:</label>
-						<input type='file' name='file2' size='20' onChange="ext_cont(this)">
+						<input type="file" name="file2" size="20" onchange="ext_cont(this)">
 					  </td>
 					  <td  class="td_import">
 						<input type="checkbox" name="heading3" value="1"> Use headings
 						<br>
 						<br>
 						<label>Select Dimensions file:</label>
-						<input  type='file' name='file3' size='20' onChange="ext_cont(this)">
+						<input  type="file" name="file3" size="20" onchange="ext_cont(this)">
 					  </td>
 					</tr>
 					<tr>
@@ -88,13 +89,13 @@
 						</select>
 					  </td>
 					  <td>
-						<input type='reset' name='cancel1' class="buttonsA1" value='Clear Form' onclick="hide1()"> </td>
+						<input type="reset" name="cancel1" class="buttonsA1" value="Clear Form" onclick="hide1()"> </td>
 					</tr>
 				  </table>
 				  <br>
 				  <br>
-				  <div id='but01' style='display:none'>
-					<input type="submit" name='submit' class="analize_btn" value='Import &amp; Analyze' onclick="calc_tab.php">
+				  <div id="but01" style="display:none">
+					<input type="submit" name="submit" class="analize_btn" value="Import &amp; Analyze" onclick="calc_tab.php">
 					<!-- <a class="boton3" href="calcs.php">Import & Analyze</a> -->
 				  </div>
 		
