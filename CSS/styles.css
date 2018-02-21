@@ -60,9 +60,9 @@ nav#nav_bar{
     background-color: #0e5376;
     justify-content: flex-end;
     width: auto;
-    border-radius: 5px;
+    /*border-radius: 15px;*/
     font-family: 'Open Sans', Helvetica, sans-serif;
-    background: #1079ad;
+    background: #0e5376;
     background: -o-linear-gradient(top, #1079ad, #135b80);
     background: -ms-linear-gradient(top, #1079ad, #135b80);
     background: -webkit-linear-gradient(top, #1079ad, #135b80);

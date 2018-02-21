@@ -5,7 +5,7 @@
 
 	if (!isset($_POST['submit'])) {
 		header('Location: index.html');
-	}
+	}	
 	$max = 7;
 	$total = 0;
 
@@ -108,9 +108,11 @@
 
 	$responses = $_FILES["file1"]["tmp_name"];
 	$description = $_FILES["file2"]["tmp_name"];
-	$dimensions = $_FILES["file3"]["tmp_name"];
+	$dimensions_file = $_FILES["file3"]["tmp_name"];
 	$output_scale = 7;
 	$table_collective = [];
+
+	
 /*$levels = '<table id="levels">';
 $levels .= '<tr>';
 $count = '';
@@ -131,7 +133,8 @@ class Judge
 	public function getweight()	{ return $this->weight;	}
 	public function setscale($scale) {	$this->scale = $scale; }
 	public function getscale() { return $this->scale;}
-	public function addItem($item) 	{ $this->items[] = $item;}
+	public function addItem($item) 	{ $this->items[] = $item;
+	}
 	public function Items() { return $this->items; }
 	public function Item($index) { return $this->items[$index]; }
 	public function ItemsCount() { return count($this->items); }
@@ -160,7 +163,7 @@ class Item
 	public function getSelectionScale() { return $this->sScale;	}
 }
 
-class Dimention {
+class Dimension {
 	public $questions  = [];
 	public $judgeValue = [];
 	public $begin;
@@ -192,6 +195,7 @@ function max_min($str){
 	return implode(',', $c);
 }
 
+//Create a vector with the scale used by each judge and order it
 function v_scale($judges)
 {
 	$vector = [];
@@ -210,6 +214,7 @@ function v_scale($judges)
 	return array_unique($vector2);
 }
 
+//Get the largest scale used in the item
 function getHigherSelectionScale($judges)
 {
 	$higher = 0;
@@ -222,11 +227,13 @@ function getHigherSelectionScale($judges)
 	return $higher;
 }
 
+//Get the scale on which the selected judge rated the items
 function getSelectionScale($item)
 {
 	return $judge->getScale();
 }
 
+//Unify the values to the maximum scale REVISAR******************************************
 function Normalize($values, $CurrentSelectionScale, $MaxSelectionScale)
 {
 	$result = 0;
@@ -254,10 +261,11 @@ function completeTuple($value,$sel)
 	}
 	return implode(',', $c);
 }
-
+ //REVISAR NO SE QUE HACE**************
 function Tuple($value)
-{
+{ 
 	if(is_array($value[0])){
+		
 		return implode(',', $value[0]);
 	}
 	else
@@ -319,20 +327,21 @@ function TupleLinguisticDiv($value)
 
 $judges            = [];
 $normalized_judges = [];
-$dimentions        = [];
+$dimensions        = [];
 
 error_reporting(0);
 $hEvaluation       = fopen($responses ,'r');  //Open responses file
-$hDimentions       = fopen($dimensions, 'r');	//Open dimension file
+$hDimensions       = fopen($dimensions_file, 'r');	//Open dimension file
 $hQuestionnaire    = fopen($description, 'r');  //Open description file
 
-error_reporting(1);
+error_reporting(1);  
 
 $columnCount= 0;
 $j = 0;
 
 	while(!feof($hEvaluation))
-	{	$row = fgets($hEvaluation);
+	{	
+		$row = fgets($hEvaluation);
 		$cols= explode(';', $row);
 
 		if(strpos($row, 'criteria') !== false){
@@ -348,10 +357,12 @@ $j = 0;
 			header("Location: errors.php?error_mensaje=0");
 			exit();
 		}
-
+		
+		//The scale used by the judge is saved
 		$judge = new Judge();
 		$judge->setscale($cols[1]);
 
+		//Save the value of each criterion/weight in each item for each judge
 		for($i = 2 ; $i < count($cols); $i += 5){
 			$item = new Item();
 			$item->setClarity(mid_point(max_min($cols[$i])));
@@ -361,38 +372,44 @@ $j = 0;
 			$item->setWeight($cols[$i + 4]);
 			$judge->addItem($item);
 		}
-		$judges[] = $judge;
+		$judges[] = $judge;		
 	}
 
 
 $total =  $judges[0]->ItemsCount();
-$dimentions = [];
 
-if($hDimentions !== false){
+$dimensions = [];
+
+//Check if the dimension file is loaded
+if($hDimensions != false){
+
 	$columnCount = 0;
 	$begin = [];
 	$end = [];
-	$num_dimention = 0;
+	$num_dimension = 0;
 	$first = true;
-	while(!feof($hDimentions)){
 
+	//Cycle to obtain, standardize and save the weights of each judge by dimension
+	while(!feof($hDimensions)){
+		
 		$acum = 0;
 		$weightJ = [];
-		$row = fgets($hDimentions);
+		$row = fgets($hDimensions);
 		//echo "fila: "  .$row . "<br>";
 		$cols= explode(';', $row);
+		
 
-
-		//We determine by means of the number of columns in the first row whether the number of judges matches the number of previously processed judges.
+		//We determine by means of the number of columns in the first row whether the number 
+		//of judges matches the number of previously processed judges.
 		if((count($cols) - 3) !== count($judges) ){
 			//we remove 3 columns from the calculation because they have dimensional data
-			echo "cols:  " . count($cols) . "<br>";
+				echo "cols:  " . count($cols) . "<br>";
 			//header("Location: errors.php?error_mensaje=1");
 			exit();
 		}
 
-
-		if(strpos($row, 'dimension') !==false){
+		
+		if(strpos($row, 'dimension_file') !==false){
 			$columnCount = count($cols);
 			continue;
 		}
@@ -405,78 +422,90 @@ if($hDimentions !== false){
 			continue;
 		}
 
-		$dimention = new Dimention();
-		$dimention->begin = $cols[1];
-		$dimention->end = $cols[2];
+		//Dimension start and end items are saved
+		$dimension = new Dimension();
+		$dimension->begin = $cols[1];
+		$dimension->end = $cols[2];
 
-		if(($num_dimention+1) == 1 && $dimention->begin != 1 && $first == true){
+		/******Validations for the dimension file******/
+		//It is checked that the beginning of the 1st dimension starts in 1
+		if(($num_dimension+1) == 1 && $dimension->begin != 1 && $first == true){
 			echo "error from begin of questionnaire<br>";
 		}
-
-		if($dimentions->begin > $dimention->end ){
+		
+		//It is checked that the beginning of the dimension is not greater than its end.
+		if($dimensions->begin > $dimension->end ){
 			echo "error from begin and end";
 		}
-
-		if( (($dimention->begin) != $dimentions[$num_dimention-1]->end+1)  && $first == false ){
-			echo "error of consecutive items dimentions <br>";
+		//It is checked that the beginning of the following dimension is consecutive at the end of the previous one
+		if( (($dimension->begin) != $dimensions[$num_dimension-1]->end+1)  && $first == false ){
+			echo "error of consecutive items dimensions <br>";
 		}
-
-		if ( $dimention->end > $total){
-			echo "The number of items in dimentions file exceed in responses file<br>";
+		//It is checked that the end of the dimension is not equal to the total number of items.
+		if ( $dimension->end > $total){
+			echo "The number of items in dimensions file exceed in responses file<br>";
 		}
-		//print_r($dimentions);
+		//print_r($dimensions);
 
-
+		//The weight of each judge is saved per dimension
 		for ($i = 3; $i < $columnCount; $i++) {
 			$value = $cols[$i];
 			$weightJ[] = $value;
 			$acum += $value;
 		}
-
+		
+		//Normalization of the judges' weight.
 		for ($i = 0 ; $i <count($weightJ); $i++){
-			$dimention->judgeValue[] = ($weightJ[$i]/$acum);
+			$dimension->judgeValue[] = ($weightJ[$i]/$acum);
 		}
-		$dimentions[] = $dimention;
-		$num_dimention++;
+		
+		//The values of the dimension instance are saved.
+		$dimensions[] = $dimension;
+		$num_dimension++;
 		$first = false;
 	}
-}
+} //If the dimension file is not loaded all items are taken as a single dimension and the weight of the judges is equal for each one.
 else{
 	global $total;
-	$dimention = new Dimention();
-	$dimention->begin = 1;
-	$dimention->end = $total;
+	$dimension = new Dimension();
+	$dimension->begin = 1;
+	$dimension->end = $total;
 
 	for ($i = 0 ; $i < count($judges); $i++){
-		$dimention->judgeValue[] = 1/count($judges);
+		$dimension->judgeValue[] = 1/count($judges);
 	}
-	$dimentions[] = $dimention;
+	$dimensions[] = $dimension;
 }
 
-
-if ( $dimentions[count($dimentions)-1]->end <> $total){
+//Check that the number of items is the same in the dimension file and in the responses file.
+if ( $dimensions[count($dimensions)-1]->end <> $total){
 	echo "The number of items doesn's match with responses file<br>";
 }
 
 
 //echo "hQuestionnaire : " . $hQuestionnaire . "<br>";
 //$table = [];
+
+//Check if the description file is loaded
 if($hQuestionnaire !== false){
 	$rowsCount = 0;
 	$items = [];
 	global $table;
+	
+	//The description of each item is saved
 	while(!feof($hQuestionnaire)){
 		$rows++;
 		$items[] = utf8_encode(fgets($hQuestionnaire));
 	}
-
+	//Check that the number of items in the description file is equal to the responses file
 	if($judges[0]->ItemsCount() == $rows){
 		$table['item'] = array_merge($table,$items);
 	}else{
 		header("Location: errors.php?error_mensaje=2");
 		exit();
 	}
-}else{
+}//If the description file is not loaded, each item is assigned a consecutive number.
+else{
 	$items = [];
 	global $total;
 	$total = $judges[0]->ItemsCount();
@@ -486,8 +515,8 @@ if($hQuestionnaire !== false){
 	$table['item'] = array_merge($table,$items);
 }
 
-
-function mcd($a,$b) {
+// Highest common factor function
+function hcf($a,$b) {
 
 	while (($a % $b) != 0) {
 		$c = $b;
@@ -496,26 +525,29 @@ function mcd($a,$b) {
 	}
 	return $b;
 }
-
-function mcm($a,$b) {
-	return ($a * $b) / mcd($a,$b);
+// Lowest common multiple function
+function lcm($a,$b) {
+	return ($a * $b) / hcf($a,$b);
 }
 
+//The highest scale of all judges is obtained
 $HSS = getHigherSelectionScale($judges);
 
-function mcm_judges($judges){
-	$lcm = 0;
+//The minimum common multiple is the scale at which each judge's assessment must be unified.
+function lcm_judges($judges){
+	$lcm2 = 0;						//cambie este valor REVISAR ESTABA EN lcm pero no se utilza***********
 	$vector = v_scale($judges);
 	if(count($vector)>2){
-		$fst =  mcm(($vector[0]-1),($vector[1]-1));
-		return  mcm($fst,($vector[2]-1));
+		$fst =  lcm(($vector[0]-1),($vector[1]-1));
+		return  lcm($fst,($vector[2]-1));
 	}else{
-		return  mcm(($vector[0]-1),($vector[1]-1));
+		return  lcm(($vector[0]-1),($vector[1]-1));
 	}
 }
 
+//Obtains the value corresponding to the weight of the dimension  REVISAR SI ES POR CRITERIO O DIMENSION************+
 function weight_criteria($value, $value2){
-	$c   = [];
+	$c  = [];
 	if(strpos($value1,',')){
 		$a   = explode(',', $value);
 		$c[] = $a[0] * $value2 ;
@@ -608,23 +640,37 @@ function lLabel($str){
 	}
 }
 
-$mcm = mcm_judges($judges)+1;
-if($mcm < 12) { $mcm = 13;}
+function ConsistencyIndex($CC, $CW, $CB, $CS, $CIU){
+	$CI = 0;
+	
+	$CI += ($CC <$CIU) ? 0 : .25;
+	$CI += ($CW <$CIU) ? 0 : .25;
+	$CI += ($CB <$CIU) ? 0 : .25;
+	$CI += ($CS <$CIU) ? 0 : .25;
+	return $CI;
+}
 
+//Scale to be unified   REVISAR*****************************
+$lcm = lcm_judges($judges)+1;
+if($lcm < 12) { $lcm = 13;}  
+$CIU=12 * .75;   //Aqui se debe poner el valor que selecciona el usuario.
+
+//The values of each item are normalized 
+//CSS = Current Selection Scale
 foreach($judges as $judge){
 	$normalized_judge = new Judge();
 	$CSS              = $judge->getscale();
 	foreach($judge->Items() as $item){
-		//echo "mcm: " . $mcm . "<br>";
+		//echo "lcm: " . $lcm . "<br>";
 
-		$normalized_item = new Item();							//$mcm
-		$newValue        = Normalize($item->getClarity(), $CSS, $mcm);
-		$normalized_item->setClarity( $newValue );				//$mcm
-		$newValue        = Normalize($item->getWriting(), $CSS, $mcm);
-		$normalized_item->setWriting( $newValue );				//$mcm
-		$newValue        = Normalize($item->getBelonging(), $CSS, $mcm);
-		$normalized_item->setBelonging( $newValue );			//$mcm
-		$newValue        = Normalize($item->getScale(), $CSS, $mcm);
+		$normalized_item = new Item();							//$lcm
+		$newValue        = Normalize($item->getClarity(), $CSS, $lcm);
+		$normalized_item->setClarity( $newValue );				//$lcm
+		$newValue        = Normalize($item->getWriting(), $CSS, $lcm);
+		$normalized_item->setWriting( $newValue );				//$lcm
+		$newValue        = Normalize($item->getBelonging(), $CSS, $lcm);
+		$normalized_item->setBelonging( $newValue );			//$lcm
+		$newValue        = Normalize($item->getScale(), $CSS, $lcm);
 		$normalized_item->setScale( $newValue );
 		$normalized_item->setWeight($item->getWeight());
 		$normalized_item->setSelectionScale($item->getSelectionScale());
@@ -633,12 +679,16 @@ foreach($judges as $judge){
 	$normalized_judges[] = $normalized_judge;
 }
 
-$aJudge    = $normalized_judges[0];
+$aJudge    = $normalized_judges[0];   //REVISAR por que 0 ************************
+//Number of items
 $itemCount = $aJudge->ItemsCount();
+//Number of judges
 $rowCount  = count($judges);
 
 
 //echo '<div id="etapa1">';
+
+////***** REVISAR PARA QUE SIRVE ESTE CICLO	SI LO QUITAS NO PASA NADA CREO*/
 for($j = 0; $j < $itemCount; $j++){
 //	echo '<table border=1 class="tabla .modo1">';
 //	echo '<tr><th class="th_question" colspan="6">' . ($j + 1) . ": " . $table['item'][$j] .  '</th></tr>';
@@ -655,7 +705,7 @@ for($j = 0; $j < $itemCount; $j++){
 
 //		echo "<tr><td>J" . ($i + 1) . "</td><td>" . round($clarity,2)  . "</td><td>" . round($writing,2) ."</td><td>" . round($belonging,2)  . "</td><td>" . round($scale,2) . "</td></tr>";
 	//	echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, 7)  . "</td><td>" . completeTuple($writing, 7)   ."</td><td>" . completeTuple($belonging, 7)   . "</td><td>" . completeTuple($scale, 7)  . "</td><td>" . $relevance  . "</td></tr>";
-		//echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, $mcm)  . "</td><td>" . completeTuple($writing, $mcm)   ."</td><td>" . completeTuple($belonging, $mcm)   . "</td><td>" . completeTuple($scale, $mcm)  . "</td><td>" . $relevance  . "</td></tr>";
+		//echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, $lcm)  . "</td><td>" . completeTuple($writing, $lcm)   ."</td><td>" . completeTuple($belonging, $lcm)   . "</td><td>" . completeTuple($scale, $lcm)  . "</td><td>" . $relevance  . "</td></tr>";
 	}
 
 
@@ -663,8 +713,9 @@ for($j = 0; $j < $itemCount; $j++){
 }
 //echo '</div>';
 
-
+// REVISAR NO SE QUE HACE *********************
 for($j = 0; $j < $itemCount; $j++){
+	
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
@@ -674,6 +725,7 @@ for($j = 0; $j < $itemCount; $j++){
 		$scale     = Tuple($item->getScale());
 		$relevance     = $item->getWeight();
 	}
+	
 }
 
 
@@ -697,15 +749,15 @@ for($j = 0; $j < $itemCount; $j++){
 	for($i = 0; $i < count($normalized_judges); $i++){
 		$judge     = $normalized_judges[$i];
 		$item      = $judge->Item($j);
-		$clarity   = weight_criteria($item->getClarity(),$dimentions[0]->judgeValue[$i]);
+		$clarity   = weight_criteria($item->getClarity(),$dimensions[0]->judgeValue[$i]);
 		$sClarity  = TupleAdd($sClarity, $clarity);
-		$writing   = weight_criteria($item->getWriting(),$dimentions[0]->judgeValue[$i]);
+		$writing   = weight_criteria($item->getWriting(),$dimensions[0]->judgeValue[$i]);
 		$sWriting  = TupleAdd($writing, $sWriting);
-		$belonging   = weight_criteria($item->getBelonging(),$dimentions[0]->judgeValue[$i]);
+		$belonging   = weight_criteria($item->getBelonging(),$dimensions[0]->judgeValue[$i]);
 		$sBelonging= TupleAdd($belonging, $sBelonging);
-		$scale   = weight_criteria($item->getScale(),$dimentions[0]->judgeValue[$i]);
+		$scale   = weight_criteria($item->getScale(),$dimensions[0]->judgeValue[$i]);
 		$sScale    = TupleAdd($scale, $sScale);
-		$relevance   = round($item->getWeight()*$dimentions[0]->judgeValue[$i],3);
+		$relevance   = round($item->getWeight()*$dimensions[0]->judgeValue[$i],3);
 		$sRelevance  = TupleAdd($relevance, $sRelevance);
 	}
 
@@ -719,13 +771,16 @@ for($j = 0; $j < $itemCount; $j++){
 
 
 ********************/
-$dim = 0;
+$dim = 0;  //REVISAR SI ESTA ASIGNACION ES NECESARIA
 
-for($dim = 0; $dim < count($dimentions); $dim++){
-
-
-	for($j = $dimentions[$dim]->begin; $j <= $dimentions[$dim]->end; $j++){
-
+//Calculates the value of each judge by their weight for each criterion in each dimension. 
+//This cycle runs through every dimension
+for($dim = 0; $dim < count($dimensions); $dim++){
+	
+	//Scroll through each item of the current dimension.
+	//It finally calculates the summation for each criterion.
+	for($j = $dimensions[$dim]->begin; $j <= $dimensions[$dim]->end; $j++){
+		
 		$sClarity     = '0';
 		$sWriting     = '0';
 		$sBelonging   = '0';
@@ -733,27 +788,40 @@ for($dim = 0; $dim < count($dimentions); $dim++){
 		$sRelevance   = '0';
 		$judge_weight = [];
 
+		//Assessment of each judge for their weight in the current dimension.. 
 		for($i = 0; $i < count($normalized_judges); $i++){
 
 			$judge     = $normalized_judges[$i];
 			$item      = $judge->Item($j-1);
-			$clarity   = weight_criteria($item->getClarity(),$dimentions[$dim]->judgeValue[$i]);
-			$sClarity  = TupleAdd($sClarity, $clarity);
-			$writing   = weight_criteria($item->getWriting(),$dimentions[$dim]->judgeValue[$i]);
+			$clarity   = weight_criteria($item->getClarity(),$dimensions[$dim]->judgeValue[$i]);
+			$sClarity  = TupleAdd($clarity, $sClarity);
+			$writing   = weight_criteria($item->getWriting(),$dimensions[$dim]->judgeValue[$i]);
 			$sWriting  = TupleAdd($writing, $sWriting);
-			$belonging   = weight_criteria($item->getBelonging(),$dimentions[$dim]->judgeValue[$i]);
+			$belonging   = weight_criteria($item->getBelonging(),$dimensions[$dim]->judgeValue[$i]);
 			$sBelonging= TupleAdd($belonging, $sBelonging);
-			$scale   = weight_criteria($item->getScale(),$dimentions[$dim]->judgeValue[$i]);
+			$scale   = weight_criteria($item->getScale(),$dimensions[$dim]->judgeValue[$i]);
 			$sScale    = TupleAdd($scale, $sScale);
-			$relevance   = round($item->getWeight()*$dimentions[$dim]->judgeValue[$i],3);
-			$sRelevance  = TupleAdd($relevance, $sRelevance);
+			$relevance   = round($item->getWeight()*$dimensions[$dim]->judgeValue[$i],3);
+			$sRelevance  = TupleAdd($relevance, $sRelevance);  //REVISAR por que relevancia va a 2 tuplas
+			/*echo "<br>Claridad: ";
+			print_r ($sClarity);
+			echo "<br>Writing: ";
+			print_r ($sWriting);
+			echo "<br>Belonging: ";
+			print_r ($sBelonging);
+			echo "<br>Scale: ";
+			print_r ($sScale);
+			echo "<br>Relevance: ";
+			print_r ($sRelevance);*/
 		}
-
+		
+		//Save the sum for each criterion
 		$clarities[] = $sClarity;
 		$writings[] = $sWriting;
 		$belongings[] = $sBelonging;
 		$scales[] = $sScale;
 		$relevances[] = $sRelevance;
+		
 	}
 }
 
@@ -764,16 +832,21 @@ $sScore = [];
 $question = [];
 $claritiesHSS = [];
 $CR = [];
+$consistency="";
+
+
 for($j = 0; $j < $itemCount; $j++){
 	$score = "0";
-	//$CC  = Normalize($clarities[$j],$mcm,7);
+	//$CC  = Normalize($clarities[$j],$lcm,7);
 	$CC  = $clarities[$j];
 	$CW  = $writings[$j];
 	$CP  = $belongings[$j];
 	$CAS = $scales[$j];
 	$CR  = $relevances[$j];
 	//echo  "-->: " . $CR . "<br>";
-
+	
+	$consistency  = ConsistencyIndex($CC,$CW,$CP,$CAS,$CIU);
+	//echo "Consistency INDEX: $consistency";
 	$score = TupleAdd($CC, $score);
 	$score = TupleAdd($CW, $score);
 	$score = TupleAdd($CP, $score);
@@ -849,8 +922,8 @@ function consensus($index){
 	global $itemCount;
 	global $normalized_judges;
 	global $table;
-	global $dimentions;
-	global $mcm;
+	global $dimensions;
+	global $lcm;
 	$sum = 0;
 	$tableS  = [];
 
@@ -869,10 +942,10 @@ function consensus($index){
 
 		// get rho and average
 	for($i = 0; $i < count($normalized_judges); $i++){
-		$sum  += sqrt($tableS['CC'][$i] + $tableS['CW'][$i] +  $tableS['CP'][$i] + $tableS['CAS'][$i]) * $dimentions[0]->judgeValue[$i] ;
+		$sum  += sqrt($tableS['CC'][$i] + $tableS['CW'][$i] +  $tableS['CP'][$i] + $tableS['CAS'][$i]) * $dimensions[0]->judgeValue[$i] ;
 	}
 		//get consensus index
-	$consensus = 1-$sum/$mcm;
+	$consensus = 1-$sum/$lcm;
 	printf("%.2f", $consensus);
 	//echo ($consensus);
 
@@ -887,7 +960,7 @@ function consensus($index){
 			<ul>
 				<li class="li_menu" ><a>Visualizations Options</a>
 					<ul class="ul_menu">
-						<li class="visualization" value="0" onclick="hideColumns(this.value)">All Information</li>
+						<li class="visualization" id="1er_visualization" value="0" onclick="hideColumns(this.value)">All Information</li>
 						<li class="visualization" value="1" onclick="hideColumns(this.value)">Collective Clarity</li>
 						<li class="visualization" value="2" onclick="hideColumns(this.value)">Collective Writting</li>
 						<li class="visualization" value="3" onclick="hideColumns(this.value)">Collective Presence</li>
@@ -925,10 +998,12 @@ function consensus($index){
 					<ul>
 						<li class=li_li_menu>
 							<div class="options_bar" id="Consistency_Index">
-								<p>Satisfiable Consensus Level: </p>
-								<input type="range" min="0" max="1" step=".1" value="0" class="slider" id="Consistency_Index" onchange="show_valueS(this.value);">
+								<p>Satisfiable Consistency Level: </p>
+								<form name="consistency_form" method="POST">
+								<input type="range" name="consistency_level" min="0" max="1" step=".25" value=".75" class="slider" id="Consistency_Index"  onchange="show_valueS(this.value);">
 								<br>
-								<label name="CI" id="CI">0</label>
+								<label name="CI" id="CI">.75</label>
+								</form>
 							</div>
 						</li>
 					</ul>
@@ -986,25 +1061,25 @@ function consensus($index){
 								</td>
 								<td class="col_1" id="cClarity">
 									<?php //echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
-									<?php printf("%.2f", Normalize(linguisticLabel('CC',$y-1),$mcm,$output_scale));?>
+									<?php printf("%.2f", Normalize(linguisticLabel('CC',$y-1),$lcm,$output_scale));?>
 								</td>
 								<td class="col_2" id="cWriting">
-									<?php printf("%.2f", Normalize(linguisticLabel('CW',$y-1),$mcm,$output_scale)); ?>
+									<?php printf("%.2f", Normalize(linguisticLabel('CW',$y-1),$lcm,$output_scale)); ?>
 									<?php //echo linguisticLabel('CW',$y-1) ?>
 								</td>
 								<td class="col_3" id="cPresence">
-									<?php printf("%.2f", Normalize(linguisticLabel('CP',$y-1),$mcm,$output_scale));?>
+									<?php printf("%.2f", Normalize(linguisticLabel('CP',$y-1),$lcm,$output_scale));?>
 									<?php //echo linguisticLabel('CP',$y-1);?>
 								</td>
 								<td class="col_4" id="cScale">
-									<?php printf("%.2f", Normalize(linguisticLabel('CAS',$y-1),$mcm,$output_scale)); ?>
+									<?php printf("%.2f", Normalize(linguisticLabel('CAS',$y-1),$lcm,$output_scale)); ?>
 									<?php //echo linguisticLabel('CAS',$y-1); ?>
 								</td>
 								<td class="col_5" id="cRelevance">
 									<?php printf("%.2f", linguisticLabel('CR',$y-1)); ?>
 								</td>
 								<td id="score">
-									<?php printf("%.2f", Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale));?>
+									<?php printf("%.2f", Normalize(linguisticLabel('SCORE',$y-1),$lcm,$output_scale));?>
 									<?php //echo linguisticLabel('SCORE',$y-1);?>
 								</td>
 								<td class="col_6">
@@ -1015,8 +1090,8 @@ function consensus($index){
 									}*/
 									?>
 								</td>
-								<td class=" level<?php echo level(Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale)); ?>">
-									<?php lLabel(Normalize(linguisticLabel('SCORE',$y-1),$mcm,$output_scale)); ?>
+								<td class=" level<?php echo level(Normalize(linguisticLabel('SCORE',$y-1),$lcm,$output_scale)); ?>">
+									<?php lLabel(Normalize(linguisticLabel('SCORE',$y-1),$lcm,$output_scale)); ?>
 								</td>
 							</tr>
 						<?php } ?>
