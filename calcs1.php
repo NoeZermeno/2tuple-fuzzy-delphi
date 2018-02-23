@@ -1013,6 +1013,9 @@ function consensus($index){
 
 		<div class="cssmenu" id="page_menu">
 			<ul>
+				<!--<li class="li_menu"><a href="https://2tuplas.000webhostapp.com/index.html" title="">HOME</a></li>
+				<li class="li_menu"><a href="https://2tuplas.000webhostapp.com/import.html" title="">IMPORT</a></li>-->
+				
 				<li class="li_menu"><a href="index.html" title="">HOME</a></li>
 				<li class="li_menu"><a href="import.html" title="">IMPORT</a></li>
 				<li class="li_menu"><a href="" title="">ANNEX</a></li>
@@ -1114,7 +1117,7 @@ function consensus($index){
 			</div>
 		</section>
 		<footer>
-			<div class="footer_text"><p>License CC-By-NC-SA University of Granada Contact: <br> rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p> </div>
+			<p>University of Granada License CC-By-NC-SA</p>
 			<div class="icons">
 				<a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" class="icon-github"></a>
 				<a href="https://twitter.com/DaSCI_es" title="twitter_DaSCI" class="icon-twitter"></a>
