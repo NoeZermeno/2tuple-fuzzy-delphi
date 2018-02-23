@@ -1020,9 +1020,9 @@ function consensus($index){
 			</ul>
 		</nav>
 		<header class="header_internal">
-			<img id="logo_DaSCI" src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" >
+			<img id="logo_DaSCI" src="images/DaSCI_logo.png" alt="logo_DaSCI" height="85px" >
 			<div id= "logo_tool">	 <img  src="images/internal_header.png"></div>
-			<img id="logo_UGR" src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" >
+			<img id="logo_UGR" src="images/UGR_logo.png" alt="logo_UGR" height="85px" >
 <!--			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
 				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
 				<img src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" id="logo_UGR"> -->

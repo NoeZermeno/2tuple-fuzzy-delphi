@@ -49,18 +49,27 @@ main.main_internal {
 nav#nav_bar {
     grid-area: page_menu;
     display: grid;
-    background-color: #0e5376;
+    background-color: #fdc733;
     justify-content: flex-end;
     width: auto;
     /*border-radius: 15px;*/
     font-family: 'Open Sans', Helvetica, sans-serif;
-    background: #0e5376;
-    background: -o-linear-gradient(top, #1079ad, #135b80);
-    background: -ms-linear-gradient(top, #1079ad, #135b80);
-    background: -webkit-linear-gradient(top, #1079ad, #135b80);
-    background: -moz-linear-gradient(top, #1079ad, #135b80);
-    background: linear-gradient(to bottom, #1079ad, #135b80);
-    box-shadow: inset 0 -3px 0 #484848, inset 0 -3px 3px #484848, inset 0 2px 2px #b2b2b2, inset 1px 0 2px #484848, inset -1px 0 2px #b2b2b2, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
+    background: #fdc733;
+    background: -o-linear-gradient(top, #fdc733, #f8be20);
+    background: -ms-linear-gradient(top, #fdc733, #f8be20);
+    background: -webkit-linear-gradient(top, #fdc733, #f8be20);
+    background: -moz-linear-gradient(top, #fdc733, #f8be20);
+    background: linear-gradient(to bottom, #fdc733, #f8be20);
+    box-shadow: inset 0 -3px 0 #c0a404,
+    inset 0 -3px 3px #c0a404,
+    inset 0 2px 2px #f7d16a,
+    inset 1px 0 2px #c0a404,
+    inset -1px 0 2px #f7d16a,
+    0 1px 1px rgba(0, 0, 0, 0.1),
+    0 2px 2px rgba(0, 0, 0, 0.06),
+    0 3px 3px rgba(0, 0, 0, 0.17),
+    2px 1px 2px rgba(0, 0, 0, 0.05),
+    -2px 1px 2px rgba(0, 0, 0, 0.05);
     height: 50px;
     grid-template-areas: "tools_menu page_menu";
     grid-template-columns: minmax(0%, 100%);
@@ -95,13 +104,13 @@ ul.ul_menu {
 /********************/
 
 header.header_index {
-    grid-area: header_grid; 
+    grid-area: header_grid;
     background-color: #efefef;
     color: white;
 }
 
 header.header_internal {
-    background-color: #dfeff7;
+    background-color: #ffed89;
 }
 
 #logo_tool {
@@ -186,13 +195,13 @@ p.p_text {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 80px 250px 60px 60px;
     text-align: center;
-    background-color: #0e5376;
-    background: #1079ad;
-    background: -o-linear-gradient(top, #1079ad, #135b80);
-    background: -ms-linear-gradient(top, #1079ad, #135b80);
-    background: -webkit-linear-gradient(top, #1079ad, #135b80);
-    background: -moz-linear-gradient(top, #1079ad, #135b80);
-    background: linear-gradient(to bottom, #1079ad, #135b80);
+    background-color: #fdc733;
+    background: #f8be20;
+    background: -o-linear-gradient(top, #fdc733, #f8be20);
+    background: -ms-linear-gradient(top, #fdc733, #f8be20);
+    background: -webkit-linear-gradient(top, #fdc733, #f8be20);
+    background: -moz-linear-gradient(top, #fdc733, #f8be20);
+    background: linear-gradient(to bottom, #fdc733, #f8be20);
     box-shadow: inset 0 -3px 0 #484848, inset 0 -3px 3px #484848, inset 0 2px 2px #b2b2b2, inset 1px 0 2px #484848, inset -1px 0 2px #b2b2b2, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
 }
@@ -284,7 +293,7 @@ h3.names_buttons {
 
 .clear_form {
     color: #0e5376 !important;
-     font-size: 20px;
+    font-size: 20px;
     font-weight: bold;
     background: #fff;
     border: 4px solid #0e5376;
@@ -396,7 +405,7 @@ h3.names_buttons {
 footer {
     grid-area: footer_grid;
     display: grid;
-    background-color: #0e5376;
+    background-color: #f8be20;
     color: white;
     font-size: 12px;
     text-align: center;
@@ -491,7 +500,7 @@ option {
     /*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
     border-collapse: collapse;
     width: 80%;
-    border:"0";
+    border: "0";
 }
 
 #celda td,
@@ -516,25 +525,10 @@ option {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
-    background-color: #0e5376;
-    background: #0e5376;
-    background: -o-linear-gradient(top, #1079ad, #135b80);
-    background: -ms-linear-gradient(top, #1079ad, #135b80);
-    background: -webkit-linear-gradient(top, #1079ad, #135b80);
-    background: -moz-linear-gradient(top, #1079ad, #135b80);
-    background: linear-gradient(to bottom, #1079ad, #135b80);
-    box-shadow: inset 0 -3px 0 #484848,
-    inset 0 -3px 3px #484848,
-    inset 0 2px 2px #b2b2b2,
-    inset 1px 0 2px #484848,
-    inset -1px 0 2px #b2b2b2,
-    0 1px 1px rgba(0, 0, 0, 0.1),
-    0 2px 2px rgba(0, 0, 0, 0.06),
-    0 3px 3px rgba(0, 0, 0, 0.17),
-    2px 1px 2px rgba(0, 0, 0, 0.05),
-    -2px 1px 2px rgba(0, 0, 0, 0.05);
+    background-color: #fda41f;
+    background: #fda41f;
     color: white;
-    
+    opacity: .6;
 }
 
 #cell_iteration {
