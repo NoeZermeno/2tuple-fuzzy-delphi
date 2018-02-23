@@ -18,11 +18,11 @@
 	<link rel="stylesheet" href="CSS/menu_tools_style.css">
 
 	<link rel="stylesheet" href="CSS/style_trim.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-	<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link href="//file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 	<script type="text/javascript" src="JS/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
         //Filter for the Trim tool: Filters the data table according to the selected color (button).
         function fun(value) {
@@ -1013,6 +1013,9 @@ function consensus($index){
 
 		<div class="cssmenu" id="page_menu">
 			<ul>
+				<!--<li class="li_menu"><a href="https://2tuplas.000webhostapp.com/index.html" title="">HOME</a></li>
+				<li class="li_menu"><a href="https://2tuplas.000webhostapp.com/import.html" title="">IMPORT</a></li>-->
+				
 				<li class="li_menu"><a href="index.html" title="">HOME</a></li>
 				<li class="li_menu"><a href="import.html" title="">IMPORT</a></li>
 				<li class="li_menu"><a href="" title="">ANNEX</a></li>
@@ -1020,9 +1023,9 @@ function consensus($index){
 			</ul>
 		</nav>
 		<header class="header_internal">
-			<img id="logo_DaSCI" src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" >
+			<img id="logo_DaSCI" src="images/DaSCI_logo_101x90px.png" alt="logo_DaSCI" height="85px" >
 			<div id= "logo_tool">	 <img  src="images/internal_header.png"></div>
-			<img id="logo_UGR" src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" >
+			<img id="logo_UGR" src="images/UGR_logo_101x90px.png" alt="logo_UGR" height="85px" >
 <!--			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
 				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
 				<img src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" id="logo_UGR"> -->
@@ -1114,7 +1117,7 @@ function consensus($index){
 			</div>
 		</section>
 		<footer>
-			<div class="footer_text"><p>License CC-By-NC-SA University of Granada Contact: <br> rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p> </div>
+			<p>University of Granada License CC-By-NC-SA</p>
 			<div class="icons">
 				<a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" class="icon-github"></a>
 				<a href="https://twitter.com/DaSCI_es" title="twitter_DaSCI" class="icon-twitter"></a>
