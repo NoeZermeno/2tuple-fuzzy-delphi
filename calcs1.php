@@ -61,7 +61,7 @@
     	$(document).ready(function () {
     		var oTablaDatos = $('#datos').DataTable({
     			"scrollResize": true
-    			, "scrollY": 240
+    			, "scrollY": 270
     			, "scrollCollapse": true
     			, "paging": false
     			, "order": [

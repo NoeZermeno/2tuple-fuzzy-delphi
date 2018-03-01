@@ -25,7 +25,7 @@ main.main_index {
     grid-template-areas: "page_menu" "header_grid" "content_grid" "footer_grid";
     grid-template-columns: 1fr;
 	/* grid-template-rows: 50px 140px auto 60px;  */
-	grid-template-rows: 50fr 140fr auto 40fr;
+	grid-template-rows: 1fr 2.5fr 10.5fr 1fr;
     height: 100vh;
 }
 
@@ -37,8 +37,8 @@ main.main_internal {
     grid-gap: 0px;
     grid-template-areas: "header_grid" "page_menu" "show_result" "content_grid" "footer_grid";
     grid-template-columns: 1fr;
-	grid-template-rows: 90px 50px max-content auto 61px;
-    height: 99.95vh;
+	grid-template-rows: 1.8fr 1fr minmax(max-content,1fr) 9.5fr 1fr;
+    height: 100vh;
 }
 
 /********************/
@@ -403,7 +403,6 @@ footer {
     text-align: center;
     grid-template-areas: "footer_text icons";
     grid-template-columns: minmax(0%, 100%);
-    margin-top: 10px;
 }
 
 .footer_text {
