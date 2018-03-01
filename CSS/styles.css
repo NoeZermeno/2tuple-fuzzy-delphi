@@ -24,7 +24,8 @@ main.main_index {
     grid-gap: 0px;
     grid-template-areas: "page_menu" "header_grid" "content_grid" "footer_grid";
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 140px auto 50px;
+	/* grid-template-rows: 50px 140px auto 60px;  */
+	grid-template-rows: 50fr 140fr auto 60fr;
     height: 100vh;
 }
 
@@ -36,8 +37,8 @@ main.main_internal {
     grid-gap: 0px;
     grid-template-areas: "header_grid" "page_menu" "show_result" "content_grid" "footer_grid";
     grid-template-columns: 1fr;
-    grid-template-rows: 90px 50px max-content auto 60px;
-    height: 100vh;
+	grid-template-rows: 90px 50px max-content auto 60px;
+    height: 99.95vh;
 }
 
 /********************/
@@ -101,7 +102,7 @@ header.header_index {
 }
 
 header.header_internal {
-    background-color: #e7f2f8;
+    background-color: #dfeff7;
 }
 
 #logo_tool {
@@ -416,7 +417,8 @@ footer {
     grid-area: icons;
     color: white;
     font-size: 30px;
-    justify-content: flex-end;
+	justify-content: flex-end;
+	padding-top: 10px;
 }
 
 .icon-github,
