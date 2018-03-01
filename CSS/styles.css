@@ -37,7 +37,7 @@ main.main_internal {
     grid-gap: 0px;
     grid-template-areas: "header_grid" "page_menu" "show_result" "content_grid" "footer_grid";
     grid-template-columns: 1fr;
-	grid-template-rows: 90px 50px max-content auto 60px;
+	grid-template-rows: 90px 50px max-content auto 61px;
     height: 99.95vh;
 }
 
