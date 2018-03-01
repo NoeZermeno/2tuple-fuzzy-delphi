@@ -254,12 +254,8 @@ function ArrayToString($value)
 
 function completeTuple($value,$sel)
 {
-	$a = explode(',',$value);
-	$c = [];
-	for($i = 0;$i < count($a); $i++ ){
-		$c[] = '(' . elementOfSet($a[$i], $sel) . ')';
-	}
-	return implode(',', $c);
+		$c= '(' . elementOfSet($value, $sel) . ')';
+		echo $c;
 }
  //REVISAR NO SE QUE HACE**************
 function Tuple($value)
@@ -277,16 +273,14 @@ function Tuple($value)
 
 function elementOfSet($value, $sel)
 {
-	$a = explode(',',$value);
-	$c = [];
-	for($i = 0;$i < count($a); $i++ ){
-		if(strpos($a[$i],'.')){
-			$c[] = 's<sub>' . round($a[$i]) . '</sub><sup>' . $sel . '</sup>, ' . round(($a[$i] - round($a[$i])),2);
+
+		if(strpos($value ,'.')){
+			$c = 's<sub>' . round($value) . '</sub><sup>' . $sel . '</sup>, ' . round(($value  - round($value)),2);
 		}else {
-			$c[] = 's<sub>' . $a[$i] . '</sub><sup>' . $sel . '</sup> ' . ',0';
+			$c = 's<sub>' . $value . '</sub><sup>' . $sel . '</sup> ' . ',0';
 		}
-	}
-	return implode(',', $c);
+
+	return $c;
 }
 
 
@@ -707,8 +701,6 @@ for($j = 0; $j < $itemCount; $j++){
 	//	echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, 7)  . "</td><td>" . completeTuple($writing, 7)   ."</td><td>" . completeTuple($belonging, 7)   . "</td><td>" . completeTuple($scale, 7)  . "</td><td>" . $relevance  . "</td></tr>";
 		//echo "<tr><td>J" . ($i + 1) . "</td><td>" . completeTuple($clarity, $lcm)  . "</td><td>" . completeTuple($writing, $lcm)   ."</td><td>" . completeTuple($belonging, $lcm)   . "</td><td>" . completeTuple($scale, $lcm)  . "</td><td>" . $relevance  . "</td></tr>";
 	}
-
-
 //	echo '</table>';
 }
 //echo '</div>';
@@ -857,7 +849,6 @@ for($j = 0; $j < $itemCount; $j++){
 	//echo '<tr><td>I<sub>' . ($j + 1) . '<sub></td><td>' . completeTuple($CC, 7) . '</td><td>' . completeTuple($CW, 7) . '</td><td>' . completeTuple($CP, 7) . '</td><td>' . completeTuple($CAS, 7) . '</td><td>' .completeTuple($score, 7). '</td><td>' . $CR . '</td></tr>';
 }
 //echo '</table>';
-
 //echo "<br>";
 $table['CC'] = array_merge($table,$clarities);
 $table['CW'] = array_merge($table,$writings);
@@ -883,7 +874,7 @@ function collective_criteria($criteria){
 	 return $sum_criteria/$total;
 }
 
-function item_score(){
+function total_score(){
 	global $table_collective;
 	$item_score = 0 ;
 
@@ -891,8 +882,7 @@ function item_score(){
 		$item_score += $value;
 	}
 
-	printf ("%.2f", $item_score/4);
-	//echo $item_score/4;
+	return $item_score/4;
 }
 
 
@@ -946,10 +936,10 @@ function consensus($index){
 	}
 		//get consensus index
 	$consensus = 1-$sum/$lcm;
-	printf("%.2f", $consensus);
+	//printf("%.2f", $consensus);
 	//echo ($consensus);
 
-	if($consensus < .5) return true;
+	if($consensus > .5) return true;
 	else return false;
 }
 ?>
@@ -1064,33 +1054,34 @@ function consensus($index){
 								</td>
 								<td class="col_1" id="cClarity">
 									<?php //echo completeTuple(Normalize(linguisticLabel('CC',$y-1),13,7),7);?>
-									<?php printf("%.2f", Normalize(linguisticLabel('CC',$y-1),$lcm,$output_scale));?>
+									<?php completeTuple(Normalize(linguisticLabel('CC',$y-1),$lcm,$output_scale),$output_scale);?>
 								</td>
 								<td class="col_2" id="cWriting">
-									<?php printf("%.2f", Normalize(linguisticLabel('CW',$y-1),$lcm,$output_scale)); ?>
+									<?php completeTuple(Normalize(linguisticLabel('CW',$y-1),$lcm,$output_scale),$output_scale); ?>
 									<?php //echo linguisticLabel('CW',$y-1) ?>
 								</td>
 								<td class="col_3" id="cPresence">
-									<?php printf("%.2f", Normalize(linguisticLabel('CP',$y-1),$lcm,$output_scale));?>
+									<?php completeTuple(Normalize(linguisticLabel('CP',$y-1),$lcm,$output_scale),$output_scale);?>
 									<?php //echo linguisticLabel('CP',$y-1);?>
 								</td>
 								<td class="col_4" id="cScale">
-									<?php printf("%.2f", Normalize(linguisticLabel('CAS',$y-1),$lcm,$output_scale)); ?>
+									<?php completeTuple(Normalize(linguisticLabel('CAS',$y-1),$lcm,$output_scale),$output_scale); ?>
 									<?php //echo linguisticLabel('CAS',$y-1); ?>
 								</td>
 								<td class="col_5" id="cRelevance">
-									<?php printf("%.2f", linguisticLabel('CR',$y-1)); ?>
+									<?php printf("%.3f", linguisticLabel('CR',$y-1)); ?>
 								</td>
 								<td id="score">
-									<?php printf("%.2f", Normalize(linguisticLabel('SCORE',$y-1),$lcm,$output_scale));?>
+									<?php completeTuple(Normalize(linguisticLabel('SCORE',$y-1),$lcm,$output_scale),$output_scale);?>
 									<?php //echo linguisticLabel('SCORE',$y-1);?>
 								</td>
 								<td class="col_6">
-									<?php consensus($y-1);/*if(consensus($y-1)){
-									echo  "<img src='images/check.png' width=25px>";
-									}else{
-									echo  "<img src='images/no_check.png' width=25px>";
-									}*/
+									<?php 
+										if(consensus($y-1)){
+											echo  "<img src='images/check.png' width=25px>";
+										}else{
+											echo  "<img src='images/no_check.png' width=25px>";
+										}
 									?>
 								</td>
 								<td class=" level<?php echo level(Normalize(linguisticLabel('SCORE',$y-1),$lcm,$output_scale)); ?>">
@@ -1103,10 +1094,10 @@ function consensus($index){
 						<tr>
 							<th align="right">items</th>
 							<th align="right">Results</th>
-							<th class="col_1"><?php printf("%.2f", collective_criteria('CC')); ?></th>
-							<th class="col_2"><?php printf("%.2f", collective_criteria('CW')); ?></th>
-							<th class="col_3"><?php printf("%.2f", collective_criteria('CP')); ?></th>
-							<th class="col_4"><?php printf("%.2f", collective_criteria('CAS')); ?></th>
+							<th class="col_1"><?php completeTuple(Normalize(collective_criteria('CC'),$lcm,$output_scale),$output_scale); ?></th>
+							<th class="col_2"><?php completeTuple(Normalize(collective_criteria('CW'),$lcm,$output_scale),$output_scale); ?></th>
+							<th class="col_3"><?php completeTuple(Normalize(collective_criteria('CP'),$lcm,$output_scale),$output_scale); ?></th>
+							<th class="col_4"><?php completeTuple(Normalize(collective_criteria('CAS'),$lcm,$output_scale),$output_scale); ?></th>
 							<th class="col_5"></th>
 							<th class="col_6"></th>
 							<th></th>
@@ -1124,7 +1115,7 @@ function consensus($index){
 			</div>
 		</footer>
 		<div id="show_result">
-			<h2 class ="subtitle"> QUESTIONNAIRE TOTAL SCORE = <?php echo item_score(); ?>
+			<h2 class ="subtitle"> QUESTIONNAIRE TOTAL SCORE = <?php completeTuple(Normalize(total_score(),$lcm,$output_scale),$output_scale); ?>
 			</h2>
 		</div>
 	</main>
