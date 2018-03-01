@@ -272,10 +272,10 @@
     text-decoration: none;
     background: #0e5376;
     background: -o-linear-gradient(top, #1079ad, #0e5376);
-    background: -ms-linear-gradient(top, #107ad, #135b80);
-    background: -webkit-linear-gradient(top, #107ad, #135b80);
-    background: -moz-linear-gradient(top, #107ad, #135b80);
-    background: linear-gradient(to bottom, #107ad, #135b80);
+    background: -ms-linear-gradient(top, #1079ad, #135b80);
+    background: -webkit-linear-gradient(top, #1079ad, #135b80);
+    background: -moz-linear-gradient(top, #1079ad, #135b80);
+    background: linear-gradient(to bottom, #1079ad, #135b80);
     -webkit-transition: color .2s ease;
     -moz-transition: color .2s ease;
     -ms-transition: color .2s ease;

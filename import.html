@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>GRID</title>
 	<link rel="stylesheet" href="CSS/styles.css">
 	<link rel="stylesheet" href="CSS/menu_tools_style.css">
-	
 	<link rel="stylesheet" href="CSS/style_trim.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 	<link href="https://file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
@@ -14,30 +14,36 @@
 	<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="JS/val-and-fun.js"></script>
 </head>
+
 <body>
-	
-
-
-<main class="main_internal">
-	<nav class="menu" id="nav_bar">
-		<div class="cssmenu2" id="tools_menu">
-			
-		</div>
-
-		<div class="cssmenu" id="page_menu">
-			<ul>
-				<li class="li_menu"><a href="index.html" title="">HOME</a></li>
-				<li class="li_menu"><a href="import.html" title="">IMPORT</a></li>
-				<li class="li_menu"><a href="" title="">ANNEX</a></li>
-				<li class="li_menu"><a href="" title="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">SOURCE cODE</a></li>
-			</ul>
+	<main class="main_internal">
+		<nav class="menu" id="nav_bar">
+			<div class="cssmenu2" id="tools_menu">
+			</div>
+			<div class="cssmenu" id="page_menu">
+				<ul>
+					<li class="li_menu">
+						<a href="index.html" title="">HOME</a>
+					</li>
+					<li class="li_menu">
+						<a href="import.html" title="">IMPORT</a>
+					</li>
+					<li class="li_menu">
+						<a href="" title="">ANNEX</a>
+					</li>
+					<li class="li_menu">
+						<a href="" title="https://github.com/NoeZermeno/2tuple-fuzzy-delphi">SOURCE cODE</a>
+					</li>
+				</ul>
 			</div>
 		</nav>
 		<header class="header_internal">
-			<img id="logo_DaSCI" src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" >
-			<div id= "logo_tool">	 <img  src="images/internal_header.png"></div>
-			<img id="logo_UGR" src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" >
-<!--			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
+			<img id="logo_DaSCI" src="images/DaSCI_logo_101x90px.png" alt="logo_DaSCI" height="85px">
+			<div id="logo_tool">
+				<img src="images/internal_header.png">
+			</div>
+			<img id="logo_UGR" src="images/UGR_logo_101x90px.png" alt="logo_UGR" height="85px">
+			<!--			<img src="images/DaSCI_logo_green.png" alt="logo_DaSCI" height="70px" id="logo_DaSCI">
 				<h1 id="title">2-tuple Fuzzy Delphi Tool System</h1> 
 				<img src="images/UGR_logo_white_small.png" alt="logo_UGR" height="70px" id="logo_UGR"> -->
 		</header>
@@ -47,63 +53,61 @@
 				<h2 class="subtitle">Import the .cvs files of your questionnaire</h2>
 				<h5 class="subsubtitle">Items" responses is mandatory. Other files are optional.</h5>
 				<br/>
-				<form action="calcs1.php" method="post" enctype="multipart/form-data">
-				  <table id="celda">
-					<tr>
-					  <th class="th_import">Items" Responses</th>
-					  <th class="th_import">Items" Description</th>
-					  <th class="th_import">Dimensions &amp; Weights</th>
-					</tr>
-					<tr>
-					  <td class="td_import">
-						<input type="checkbox" name="heading1" value="1"> Use headings
-						<br>
-						<br>
-						<label>Select Responses file:</label>
-						<input type="file" name="file1" size="20" onchange="ext_cont(this)">
-					  </td>
-					  <td  class="td_import">
-						<input type="checkbox" name="heading2" value="1"> Use headings
-						<br>
-						<br>
-						<label>Select Description file:</label>
-						<input type="file" name="file2" size="20" onchange="ext_cont(this)">
-					  </td>
-					  <td  class="td_import">
-						<input type="checkbox" name="heading3" value="1"> Use headings
-						<br>
-						<br>
-						<label>Select Dimensions file:</label>
-						<input  type="file" name="file3" size="20" onchange="ext_cont(this)">
-					  </td>
-					</tr>
-					<tr>
-					  <td colspan="2" id="cell_iteration">
-						<label>Current iteration: </label>
-						<select name="selector">
-						  <option value="1" selected="1">1</option>
-						  <option value="2">2</option>
-						  <option value="3">3</option>
-						  <option value="4">4</option>
-						  <option value="5">5</option>
-						</select>
-					  </td>
-					  <td>
-						<input type="reset" name="cancel1" class="buttonsA1" value="Clear Form" onclick="hide1()"> </td>
-					</tr>
-				  </table>
-				  <br>
-				  <br>
-				  <div id="but01" style="display:none">
-					<input type="submit" name="submit" class="analize_btn" value="Import &amp; Analyze" onclick="calc_tab.php">
-					<!-- <a class="boton3" href="calcs.php">Import & Analyze</a> -->
-				  </div>
-		
+<form action="https://2tuplas.000webhostapp.com/calcs1.php" method="post" enctype="multipart/form-data">
+					<table id="celda">
+						<tr>
+							<th class="th_import">Items" Responses</th>
+							<th class="th_import">Items" Description</th>
+							<th class="th_import">Dimensions &amp; Weights</th>
+						</tr>
+						<tr>
+							<td class="td_import">
+								<label>Select Responses file:</label>
+								<br>
+								<br>
+								<input type="file" name="file1" size="20" onchange="ext_cont(this)">
+							</td>
+							<td class="td_import">
+								<label>Select Description file:</label>
+								<br>
+								<br>
+								<input type="file" name="file2" size="20" onchange="ext_cont(this)">
+							</td>
+							<td class="td_import">
+								<label>Select Dimensions file:</label>
+								<br>
+								<br>
+								<input type="file" name="file3" size="20" onchange="ext_cont(this)">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" id="cell_iteration">
+								<label>Current iteration: </label>
+								<select name="selector">
+									<option value="1" selected="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</td>
+							<td>
+								<input type="reset" name="cancel1" class="buttonsA1" value="Clear Form" onclick="hide1()"> </td>
+						</tr>
+					</table>
+					<br>
+					<br>
+					<div id="but01" style="display:none">
+<input type="submit" name="submit" class="analize_btn" value="Import &amp; Analyze">
+						<!-- <a class="boton3" href="calcs.php">Import & Analyze</a> -->
+					</div>
 				</form>
-			  </div>
+			</div>
 		</section>
 		<footer>
-			<div class="footer_text"><p>License CC-By-NC-SA University of Granada Contact: <br> rosana@ugr.es, jeovani@correo.ugr.es, nzermeno@correo.ugr.es, jeronimoduran@correo.ugr.es, herrera@decsai.ugr.es</p> </div>
+			<div class="footer_text">
+				<p>University of Granada License CC-By-NC-SA</p>
+			</div>
 			<div class="icons">
 				<a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" class="icon-github"></a>
 				<a href="https://twitter.com/DaSCI_es" title="twitter_DaSCI" class="icon-twitter"></a>
@@ -112,5 +116,4 @@
 		<div id="show_result" class="hidden"></div>
 	</main>
 </body>
-
 </html>
