@@ -61,7 +61,7 @@
     	$(document).ready(function () {
     		var oTablaDatos = $('#datos').DataTable({
     			"scrollResize": true
-    			, "scrollY": 240
+    			, "scrollY": 270
     			, "scrollCollapse": true
     			, "paging": false
     			, "order": [
@@ -1003,8 +1003,8 @@ function consensus($index){
 
 		<div class="cssmenu" id="page_menu">
 			<ul>
-				<!--<li class="li_menu"><a href="https://2tuplas.000webhostapp.com/index.html" title="">HOME</a></li>
-				<li class="li_menu"><a href="https://2tuplas.000webhostapp.com/import.html" title="">IMPORT</a></li>-->
+				<!--<li class="li_menu"><a href="https://noezermeno.github.io/2tuple-fuzzy-delphi/index.html" title="">HOME</a></li>
+				<li class="li_menu"><a href="https://noezermeno.github.io/2tuple-fuzzy-delphi/import.html" title="">IMPORT</a></li>-->
 				
 				<li class="li_menu"><a href="index.html" title="">HOME</a></li>
 				<li class="li_menu"><a href="import.html" title="">IMPORT</a></li>
