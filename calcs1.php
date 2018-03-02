@@ -275,7 +275,7 @@ function elementOfSet($value, $sel)
 {
 
 		if(strpos($value ,'.')){
-			$c = 's<sub>' . round($value) . '</sub><sup>' . $sel . '</sup>, ' . round(($value  - round($value)),2);
+			$c = 's<sub>' . round($value) . '</sub><sup>' . $sel . '</sup>, ' . round(($value  - round($value)),3);
 		}else {
 			$c = 's<sub>' . $value . '</sub><sup>' . $sel . '</sup> ' . ',0';
 		}
@@ -936,7 +936,7 @@ function consensus($index){
 	}
 		//get consensus index
 	$consensus = 1-$sum/$lcm;
-	//printf("%.2f", $consensus);
+	printf("%.3f", $consensus);
 	//echo ($consensus);
 
 	if($consensus > .5) return true;
