@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>2-Tuple Fuzzy Delphi DSS</title>
+
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="./css/file-input.css">
+	<link href="//file.myfontastic.com/VDXsxxmWcbZZG8xXax2UK4/icons.css" rel="stylesheet">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<main class="internalMain">
+		<header class="internalHeader">
+			<div class="logoDaCSI internalLogo">
+				<img src="./img/DaSCI_logo_180px.png" alt="Logo ">
+			</div>
+			<div class="logo2Tuplas">
+				<img src="./img/internal_header.png" alt="Logo ">
+			</div>
+			<div class="logoUGR internalLogo">
+				<img src="./img/UGR_logo_180px.png " alt="Logo ">
+			</div>
+		</header>
+		<nav class="navBar">
+			<div class="siteMenuContainer">
+				<ul class="siteMenu">
+					<li class="menuItem">
+						<a href="./index.html">HOME</a>
+					</li>
+					<li class="menuItem">
+						<a href="./import.html"> IMPORT</a>
+					</li>
+					<li class="menuItem">
+						<a href="#"> ANNEX</a>
+					</li>
+					<li class="menuItem">
+						<a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi"> CODE SOURCE</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<article class="container">
+			<!-- <form class="mainImportContainer" action="./results.php" method="post" enctype="multipart/form-data"> -->
+			<form class="mainImportContainer" action="https://2tuplas.000webhostapp.com/calcs1.php" method="post" enctype="multipart/form-data">
+				<div class="titleText">
+					<h2 class="titleContainer">Import the .csv files of your questionnaire</h2>
+					<h5 class="subtitle">Items responses is mandatory. Other files are optional.</h5>
+				</div>
+				<div class="responsesContainer fileContainer">
+					<div class="headerUploadFile">
+						<h2 class="headerTitleFile">Items Responses</h2>
+					</div>
+
+					<div class="inputFile">
+						<input type="file" name="file1" id="file-1" class="inputfile inputfile-1" />
+						<label for="file-1">
+							<img id="imgFile-1" src="./img/upload.png" class="iclearinputfile">
+							</img>
+							<br />
+							<span id="spanFile-1" class="iclearinputfile">Choose file...</span>
+						</label>
+					</div>
+				</div>
+				<div class="descriptionContainer fileContainer hidden">
+					<div class="headerUploadFile">
+						<h2 class="headerTitleFile">Items Description</h2>
+					</div>
+					<div class="inputFile">
+						<input type="file" name="file2" id="file-2" class="inputfile inputfile-1" />
+						<label for="file-2">
+							<img id="imgFile-2" src="./img/upload.png" class="iclearinputfile">
+							</img>
+							<br />
+							<span id="spanFile-2" class="iclearinputfile">Choose file...</span>
+						</label>
+					</div>
+				</div>
+				<div class="dimensionContainer fileContainer hidden">
+					<div class="headerUploadFile">
+						<h2 class="headerTitleFile">Items Dimensions</h2>
+					</div>
+					<div class="inputFile">
+						<input type="file" name="file3" id="file-3" class="inputfile inputfile-1" />
+						<label for="file-3">
+							<img id="imgFile-3" src="./img/upload.png" class="iclearinputfile">
+							</img>
+							<br />
+							<span id="spanFile-3" class="iclearinputfile">Choose file...</span>
+						</label>
+					</div>
+				</div>
+				<div class="iterationContainer">
+					<div class="btnStyle selectBtn">
+						<label>Current Iteration:
+							<select name="selector" class="selectorBtn">
+								<option value="1" selected>1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</label>
+					</div>
+				</div>
+				<div class="clearFormContainer">
+					<input type="reset" name="cancel1" class="btnStyle" value="Clear Form" onclick="hide1()">
+				</div>
+				<div class="importBtnContainer hidden">
+					<!-- id=but01 -->
+					<input type="submit" name="submit" class="importBtn" value="Import &amp; Analyze">
+				</div>
+			</form>
+		</article>
+		<footer>
+			<div class="textFooter">
+				<p>University of Granada License CC-By-NC-SA</p>
+			</div>
+			<div class="iconsFooter">
+				<a href="https://github.com/NoeZermeno/2tuple-fuzzy-delphi" class="icon-github" target="_blank"></a>
+				<a href="https://twitter.com/DaSCI_es" title="twitter_DaSCI" class="icon-twitter" target="_blank"></a>
+				<a></a> <!--Temporary: Remove logo 000webhost-->
+			</div>
+		</footer>
+	</main>
+	<script type="text/javascript" src="js/val-and-fun.js"></script>
+</body>
+
+</html>
