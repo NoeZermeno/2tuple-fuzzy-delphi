@@ -29,7 +29,7 @@ body {
   height: 40px;
   float: none;
   margin: 0 auto;
-  width: 260px;
+  width: 301px;
   max-width: 100%;
   border-radius: 10px;
   display: block;
@@ -44,7 +44,7 @@ body {
   display: table;
   float: left;
   padding: 0;
-  width: 14%;
+  width: 43px;  /*width .btns 301px / 7 buttons  43px;*/
   height: 100%;
   margin: 0;
   text-align: center;
@@ -58,7 +58,7 @@ body {
   border-radius: 0 10px 10px 0;
 }
 .btns .btn {
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   width: 100%;
   display: table-cell;

@@ -4,11 +4,9 @@
 .cssmenu ul li,
 .cssmenu ul li a,
 .cssmenu #menu-button {
-    margin: 0;
-    border: 0;
-    list-style: none;
+    /* list-style: none;
     line-height: 1;
-    display: block;
+    display: block; */
     position: relative;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -60,11 +58,10 @@
 /*Esta es una*/
 
 .cssmenu > ul > li > a {
-    padding: 20px 11px 18px 11px;
-    font-size: 13px;
+    padding: 10px 5px;
     color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: .2px;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     font-weight: 700;
     text-decoration: none;
@@ -125,7 +122,7 @@
     height: 0;
     border: 3px solid transparent;
     border-top-color: #ffffff;
-    z-index: 99;
+    
 }
 
 .cssmenu ul > li.has-sub:hover > a:before {
@@ -133,9 +130,9 @@
 }
 
 .cssmenu ul ul {
-    position: absolute;
+	position: absolute;
     left: -9999px;
-    opacity: 0;
+    opacity: 1;
     -webkit-transition: top .2s ease, opacity .2s ease;
     -moz-transition: top .2s ease, opacity .2s ease;
     -ms-transition: top .2s ease, opacity .2s ease;
@@ -144,13 +141,13 @@
 }
 
 .cssmenu > ul > li > ul {
-    top: 91px;
+    top: 71px;
     border-radius: 5px;
 }
 
 .cssmenu > ul > li:hover > ul {
     left: auto;
-    top: 51px;
+    top: 43px;
     opacity: 1;
 }
 
@@ -282,7 +279,7 @@
     -o-transition: color .2s ease;
     transition: color .2s ease;
     width: 360px;
-    padding:  20px 25px 20px 10px;
+    padding: 10px ;
     text-transform: uppercase;
     letter-spacing: 1px;
 
@@ -292,7 +289,7 @@
     background-color: #0e5376; 
     border-radius: 5px;
     width: 300px;
-    padding: 20px 25px 20px 10px;
+    padding: 10px 25px 10px 10px;
     font-size: 13px;
     color: #ffffff;
     text-transform: uppercase;
@@ -324,3 +321,31 @@ a{
        justify-content: flex-end;        
 }
 
+
+
+
+
+/******MENU TOOLS REVISAR***/
+
+.menu ul {
+	margin: 0;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.menu li.li_menu:hover {
+	background: rgba(0, 0, 0, 0.3);
+}
+
+ul.ul_menu {
+	background-color: #0e5376;
+	cursor: pointer;
+}
+
+.pTools{
+	margin: 0px;
+	padding-bottom:10px;
+	text-align:center;
+}

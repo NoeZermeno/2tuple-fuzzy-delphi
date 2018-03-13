@@ -1,0 +1,552 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body {
+	background-color: #eee;
+}
+
+main>*,
+main>*>*,
+main>*>*>* {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/*************************************/
+/* General structure of the CSS Grid */
+/*************************************/
+/* Index Page ************************/
+.indexMain {
+	
+	display: grid;
+	grid-template-areas: "pageMenu" "header" "mainContainer" "footer";
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 3fr 10fr 60px;
+	height: 100vh;
+}
+/*Import & Results Page */
+.internalMain {
+	display: grid;
+	grid-template-areas: "header" "pageMenu" "mainContainer" "footer";
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 50px 10fr auto;
+	height: 100vh;
+}
+
+/***************************************/
+/* Header CSS Grid Structure ***********/
+/***************************************/
+/* Index Page **************************/
+.indexHeader {
+	grid-area: header;
+}
+
+.indexLogoContainer img {
+	width: 80%;
+}
+
+/* Import & Results Pages ****************/
+.internalHeader {
+	display: grid;
+	background-color: #ecf6fc;
+	grid-template-areas: "logoDaCSI logo2Tuplas logoUGR";
+	grid-template-columns: 1fr auto 1fr;
+}
+
+.internalLogo {
+	height: 100px;
+}
+
+.internalLogo img {
+	height: 95%;
+}
+
+.logo2Tuplas {
+	grid-area: logo2Tuplas;
+}
+
+.logo2Tuplas img {
+	width: 100%;
+}
+
+.logoDaCSI {
+	grid-area: logoDaCSI;
+	justify-content: flex-start;
+}
+
+.logoUGR {
+	grid-area: logoUGR;
+	justify-content: flex-end;
+}
+
+/***************************************/
+/* Nav bar CSS Grid Structure **********/
+/***************************************/
+/* Index, Import & Results Pages *******/
+.navBar {
+	grid-area: pageMenu;
+	background-color: #0e5376;
+	background: #0e5376;
+	background: -o-linear-gradient(top, #1079ad, #135b80);
+	background: -ms-linear-gradient(top, #1079ad, #135b80);
+	background: -webkit-linear-gradient(top, #1079ad, #135b80);
+	background: -moz-linear-gradient(top, #1079ad, #135b80);
+	background: linear-gradient(to bottom, #1079ad, #135b80);
+	box-shadow: inset 0 -3px 0 #082f42, inset 0 -3px 3px #082f42, inset 0 2px 2px #1079ad, inset 1px 0 2px #082f42, inset -1px 0 2px #1079ad, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-areas: "toolsMenu siteMenu";
+	z-index: 1;
+}
+
+.siteMenuContainer {
+	grid-area: siteMenu;
+	display: flex;
+	justify-content: flex-end;
+	font-weight: bold;
+}
+
+/* This menu is only shown ***************
+on the results page **********************/
+.toolsMenuContainer {
+	grid-area: toolsMenu;
+	display: flex;
+	justify-content: flex-start;
+	font-weight: bold;
+}
+
+ul {
+	list-style: none;
+}
+
+.menuItem {
+	text-transform: uppercase;
+	display: inline;
+	padding: 10px 5px;
+}
+
+.menuItem a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.menuItem:hover {
+	background: rgba(0, 0, 0, 0.3);
+	padding: 10px 5px;
+}
+
+
+/***************************************/
+/* Content CSS Grid Structure **********/
+/***************************************/
+/* CSS Grid general container **********/
+/* Index, Import & Results pages *******/
+
+.container {
+	grid-area: mainContainer;
+}
+
+/*Title Index, Import & Results pages *******/
+.titleText {
+	grid-area: titleText;
+	display: inline;
+	text-align: center;
+	margin: 10px auto;
+}
+
+/* CSS Grid structure of the content container */
+/* Container Index Page*/
+.mainContainer {
+	display: block;
+	text-align: justify;
+	width: 80%;
+}
+
+.pText {
+	padding: 15px;
+	font-size: .9rem;
+}
+
+/* Container Import Page*/
+.mainImportContainer {
+	grid-area: mainContainer;
+	display: grid;
+	grid-template-areas: "titleText titleText titleText" " descriptionContainer responsesContainer dimensionContainer" "iterationContainer ... clearFormContainer" " ... importBtnContainer ... ";
+	;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr 2fr 70px auto;
+	width: 80%;
+}
+
+.mainImportContainer>* {
+	margin: 10px;
+}
+ 
+/* Import pages subtitles*/
+.titleContainer,
+.subtitle {
+	color: #0e5376;
+	text-shadow: 2px 2px #aaaaaa;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.subtitle {
+	font-size: 1em;
+}
+
+/* Container Results Page*/
+.mainResultsContainer {
+	grid-area: mainContainer;
+	display: grid;
+	grid-template-areas: "titleText" "tableContainer";
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+	max-width: 90%;
+	font-size: 12px;
+	text-align: center;
+}
+#datos{
+	height: 270px;
+}
+#tableDatosBody {
+	text-align: center;
+}
+#questions{
+	text-align: justify;
+	max-width: 180px;
+}
+.sorting_1{
+	font-family: 'Arial';
+	font-weight: bold;
+}
+
+
+.tableContainer{
+	grid-area: tableContainer;
+	position: relative;
+	height: 55vh;
+	padding: 5px;
+	border: 1px solid #aaa;
+	border-radius: 0.5em;
+	background-color: #f9f9f9
+}
+
+/*  Upload files Styles*/
+.responsesContainer {
+	grid-area: responsesContainer;
+	display: grid;
+	grid-template-areas: "headerUploadFile" "inputFile";
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+}
+
+.descriptionContainer {
+	grid-area: descriptionContainer;
+	display: grid;
+	grid-template-areas: "headerUploadFile" "inputFile";
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+}
+
+.dimensionContainer {
+	grid-area: dimensionContainer;
+	display: grid;
+	grid-template-areas: "headerUploadFile" "inputFile";
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+}
+
+.headerUploadFile {
+	grid-area: headerUploadFile;
+	background-color: #0e5376;
+	border-radius: 10px 10px 0 0;
+	background: #0e5376;
+	background: -o-linear-gradient(top, #1079ad, #135b80);
+	background: -ms-linear-gradient(top, #1079ad, #135b80);
+	background: -webkit-linear-gradient(top, #1079ad, #135b80);
+	background: -moz-linear-gradient(top, #1079ad, #135b80);
+	background: linear-gradient(to bottom, #1079ad, #135b80);
+	box-shadow: inset 0 -3px 0 #484848, inset 0 -3px 3px #484848, inset 0 2px 2px #b2b2b2, inset 1px 0 2px #484848, inset -1px 0 2px #b2b2b2, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
+	text-align: center;
+}
+.headerTitleFile {
+	color: #fff;
+	font-size: 1.5em;
+}
+.inputFile {
+	grid-area: inputFile;
+	text-align: center;
+}
+
+/* Style input file image in fiele-input.css */
+.fileContainer {
+	margin: 5px;
+	border: 2px solid #0e5376;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px #0a3e58;
+}
+
+.fileContainer>* {
+	padding: 5px;
+}
+
+/*Buttons Styles - iteration and clear form*/
+.btnStyle {
+	font-size: 1em;
+	color: #fff;
+	font-weight: bold;
+	background: #0e5376;
+	background: -o-linear-gradient(top, #1079ad, #135b80);
+	background: -ms-linear-gradient(top, #1079ad, #135b80);
+	background: -webkit-linear-gradient(top, #1079ad, #135b80);
+	background: -moz-linear-gradient(top, #1079ad, #135b80);
+	background: linear-gradient(to bottom, #1079ad, #135b80);
+	box-shadow: inset 0 -3px 0 #484848, inset 0 -3px 3px #484848, inset 0 2px 2px #b2b2b2, inset 1px 0 2px #484848, inset -1px 0 2px #b2b2b2, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
+	border-radius: 10px;
+	transition: all .5s ease;
+	width: 230px;
+	height: 50px;
+}
+
+.btnStyle:hover {
+	background: #eeeeee;
+	color: #0e5376;
+}
+
+/*Iteration input Style*/
+.iterationContainer {
+	grid-area: iterationContainer;
+	text-align: center;
+}
+.selectBtn {
+	padding-top: 12px;
+}
+
+.selectorBtn {
+	font-size: 1em;
+	border-radius: 5px;
+	width: 45px;
+}
+
+.selectorBtn:focus {
+	color: #fff;
+	font-size: 1em;
+	background-color: #0e5376;
+	border-radius: 5px;
+}
+
+/* Clear form button style */
+.clearFormContainer {
+	grid-area: clearFormContainer;
+}
+
+/* Import & Analize button style*/
+.importBtnContainer {
+	grid-area: importBtnContainer;
+	display: none;
+}
+
+.importBtn {
+	color: #fff;
+	font-size: 1.5em;
+	font-weight: bold;
+	background: #0e5376;
+	background: -o-linear-gradient(top, #1079ad, #135b80);
+	background: -ms-linear-gradient(top, #1079ad, #135b80);
+	background: -webkit-linear-gradient(top, #1079ad, #135b80);
+	background: -moz-linear-gradient(top, #1079ad, #135b80);
+	background: linear-gradient(to bottom, #1079ad, #135b80);
+	box-shadow: inset 0 -3px 0 #484848, inset 0 -3px 3px #484848, inset 0 2px 2px #b2b2b2, inset 1px 0 2px #484848, inset -1px 0 2px #b2b2b2, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
+	border-radius: 10px;
+	transition: all .5s ease;
+	width: 100%;
+	height: 50px;
+}
+
+.importBtn:hover {
+	background: #fff;
+	color: #0e5376;
+	border-color: #0e5376;
+}
+
+/***************************************/
+/* Footer CSS Grid Structure **********/
+/***************************************/
+/* Index, Import & Results pages *******/
+
+footer {
+	grid-area: footer;
+	margin-top: 10px;
+	background-color: #0e5376;
+	background: #0e5376;
+	background: -o-linear-gradient(top, #1079ad, #135b80);
+	background: -ms-linear-gradient(top, #1079ad, #135b80);
+	background: -webkit-linear-gradient(top, #1079ad, #135b80);
+	background: -moz-linear-gradient(top, #1079ad, #135b80);
+	background: linear-gradient(to bottom, #1079ad, #135b80);
+	box-shadow: inset 0 -3px 0 #484848, inset 0 -3px 3px #484848, inset 0 2px 2px #b2b2b2, inset 1px 0 2px #484848, inset -1px 0 2px #b2b2b2, 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.17), 2px 1px 2px rgba(0, 0, 0, 0.05), -2px 1px 2px rgba(0, 0, 0, 0.05);
+	color: #fff;
+	display: grid;
+	grid-template-areas: "textFooter iconsFooter";
+	grid-template-columns: 3fr 100px;
+	grid-auto-rows: 50px;
+}
+
+div.textFooter {
+	grid-area: textFooter;
+	font-size: 12px;
+	padding-left: 50px;
+}
+
+div.iconsFooter {
+	grid-area: iconsFooter;
+	justify-content: flex-end;
+}
+
+.icon-github,
+.icon-twitter {
+	font-size: 25px;
+	text-decoration: none;
+	color: white;
+	padding: 7px 15px 0 0;
+}
+
+/* Responsive Styles **********************/
+ @media only screen and (max-width: 990px) {
+/*	body {
+		background-color: rgb(216, 168, 66);
+	} */
+	.indexMain {
+		grid-template-rows: 1fr 1fr 15fr auto;
+	}
+	.internalMain {
+		grid-template-areas: "header" "pageMenu" "mainContainer" "footer";
+		grid-template-rows: auto 50px 1fr auto;
+	}
+	header.internalHeader {
+		grid-template-columns: 1fr 5fr 1fr;
+	}
+	.menuItem a {
+		color: #fff;
+		text-decoration: none;
+		font-size: 70%;
+	}
+	.internalLogo {
+		height: 80px;
+	}
+	.logo2Tuplas img {
+		width: 80%;
+	}
+	.mainImportContainer {
+		grid-area: mainContainer;
+		display: grid;
+		grid-template-areas: "titleText titleText titleText titleText titleText titleText" "... ... responsesContainer responsesContainer ... ..." "... ... descriptionContainer dimensionContainer  ... ..." " ... ... iterationContainer clearFormContainer ... ..." "... ... importBtnContainer importBtnContainer ... ...";
+		grid-template-columns: auto;
+		grid-template-rows: auto;
+		max-width: 90%;
+	}
+	.titleContainer,
+	.subtitle {
+		color: #0e5376;
+		text-shadow: 2px 2px #aaaaaa;
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+	.subtitle {
+		font-size: 1em;
+	}
+}
+
+@media only screen and (max-width: 670px) {
+	/* body {
+		background-color: lightblue;
+	} */
+	.indexMain {
+		grid-template-rows: 1fr 1fr 15fr 1fr;
+	}
+	.internalMain {
+		grid-template-areas: "header" "pageMenu" "mainContainer" "footer";
+		grid-template-rows: auto 50px 15fr auto;
+	}
+	header.internalHeader {
+		grid-template-columns: 1fr 5fr 1fr;
+	}
+	.menuItem a {
+		color: #fff;
+		text-decoration: none;
+		font-size: 80%;
+	}
+	.internalLogo {
+		height: 60px;
+	}
+	.mainImportContainer {
+		grid-area: mainContainer;
+		display: grid;
+		grid-template-areas: "titleText" "responsesContainer" "descriptionContainer" "dimensionContainer" "iterationContainer" "clearFormContainer" "importBtnContainer";
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		max-width: 90%;
+	}
+	.titleContainer,
+	.subtitle {
+		color: #0e5376;
+		text-shadow: 2px 2px #aaaaaa;
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+	.subtitle {
+		font-size: 1em;
+	}
+}
+
+.hidden {
+	display: none;
+}
+
+img.iclearinputfile:hover {
+	background-color: rgba(0, 0, 0, .3);
+	border-radius: 50%;
+}
+
+
+/*Color by level for the final results  */
+
+.level1 {
+	background-color: #FF7070;
+}
+
+.level2 {
+	background-color: #FF8C75;
+}
+
+.level3 {
+	background-color: #FF8B52;
+}
+
+.level4 {
+	background-color: #FFCB52;
+}
+
+.level5 {
+	background-color: #DCFF52;
+}
+
+.level6 {
+	background-color: #DCF9E4;
+}
+
+.level7 {
+	background-color: #B0F2C2;
+}
+
+div>a:last-of-type{
+	display: none !important;
+}
