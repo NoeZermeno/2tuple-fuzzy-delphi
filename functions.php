@@ -278,7 +278,7 @@ function elementOfSet($value, $sel)
 {
 
 	if (strpos($value, '.')) {
-		$c = 's<sub>' . round($value) . '</sub><sup>' . $sel . '</sup>, ' . round(($value - round($value)), 2);
+		$c = 's<sub>' . round($value) . '</sub><sup>' . $sel . '</sup>, ' . round(($value - round($value)), 3);
 	} else {
 		$c = 's<sub>' . $value . '</sub><sup>' . $sel . '</sup> ' . ',0';
 	}
@@ -623,38 +623,38 @@ function lLabel($str)
 	switch ($rounded) {
 		case 0:
 			{	//echo "1";
-				return "(Dreadful, " . round(($str - $rounded), 2) . ")";
+				return "(Dreadful, " . round(($str - $rounded), 3) . ")";
 			}
 			break;
 		case 1:
 			{//echo "2";
-				echo "(Very Incorrect, " . round(($str - $rounded), 2) . ")";
+				echo "(Very Incorrect, " . round(($str - $rounded), 3) . ")";
 			}
 			break;
 		case 2:
 			{ //echo "3";
-				echo "(Incorrect, " . round(($str - $rounded), 2) . ")";
+				echo "(Incorrect, " . round(($str - $rounded), 3) . ")";
 			}
 			break;
 		case 3:
 			{ //echo "4";
-				echo "(Moderate, " . round(($str - $rounded), 2) . ")";
+				echo "(Moderate, " . round(($str - $rounded), 3) . ")";
 			}
 			break;
 		case 4:
 			{ //echo "5";
-				echo "(Correct, " . round(($str - $rounded), 2) . ")";
+				echo "(Correct, " . round(($str - $rounded), 3) . ")";
 			}
 			break;
 		case 5:
 			{//echo "6";
-				echo "(Very Correct, " . round(($str - $rounded), 2) . ")";
+				echo "(Very Correct, " . round(($str - $rounded), 3) . ")";
 			}
 
 			break;
 		case 6:
 			{
-				echo "(Excelent, " . round(($str - $rounded), 2) . ")";
+				echo "(Excelent, " . round(($str - $rounded), 3) . ")";
 			}
 			break;
 	}

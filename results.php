@@ -296,6 +296,7 @@ header("Content-Type: text/html;charset=utf-8");
 				</div>
 				<div class="titleText">
 					<h2 class="titleContainer">QUESTIONNAIRE TOTAL SCORE =
+						<!-- <?php completeTuple(Normalize(total_score(), $lcm, $output_scale), $output_scale); ?> -->
 						<?php completeTuple(Normalize(total_score(), $lcm, $output_scale), $output_scale); ?>
 					</h2>
 				</div>
