@@ -250,7 +250,10 @@ header("Content-Type: text/html;charset=utf-8");
 									<?php printf("%.3f", linguisticLabel('CR', $y - 1)); ?>
 								</td>
 								<td id="score">
-									<?php completeTuple(Normalize(linguisticLabel('SCORE', $y - 1), $lcm, $output_scale), $output_scale); ?>
+									<?php completeTuple(Normalize(linguisticLabel('SCORE', $y - 1), $lcm, $output_scale), $output_scale);
+
+									?>
+
 									<?php //echo linguisticLabel('SCORE',$y-1);?>
 								</td>
 								<td class="col_6">
@@ -263,7 +266,7 @@ header("Content-Type: text/html;charset=utf-8");
 								?>
 								</td>
 								<td class=" level<?php echo level(Normalize(linguisticLabel('SCORE', $y - 1), $lcm, $output_scale)); ?>">
-									<?php lLabel(Normalize(linguisticLabel('SCORE', $y - 1), $lcm, $output_scale)); ?>
+									<?php  lLabel(Normalize(linguisticLabel('SCORE', $y - 1), $lcm, $output_scale)); ?>
 								</td>
 							</tr>
 						<?php 
