@@ -445,14 +445,17 @@ if ($hDimensions != false) {
 		for ($i = 3; $i < $columnCount; $i++) {
 			$value = $cols[$i];
 			$weightJ[] = $value;
+			$dimension->judgeValue[] =  $value;
 			$acum += $value;
 		}
 		
+
+/*
 		//Normalization of the judges' weight.
 		for ($i = 0; $i < count($weightJ); $i++) {
 			$dimension->judgeValue[] = ($weightJ[$i] / $acum);
-		}
-		
+		}*/
+
 		//The values of the dimension instance are saved.
 		$dimensions[] = $dimension;
 		$num_dimension++;
@@ -557,7 +560,7 @@ function weight_criteria($value, $value2)
 }
 
 function score($value)
-{
+{	
 	$a = explode(',', $value);
 	$b = explode(',', $value2);
 	$c = [];
@@ -824,7 +827,8 @@ for ($dim = 0; $dim < count($dimensions); $dim++) {
 			$sScale = TupleAdd($scale, $sScale);
 			$relevance = round($item->getWeight() * $dimensions[$dim]->judgeValue[$i], 3);
 			$sRelevance = TupleAdd($relevance, $sRelevance);  //REVISAR por que relevancia va a 2 tuplas
-			/*echo "<br>Claridad: ";
+			/*
+			echo "<br>Claridad: ";
 			print_r ($sClarity);
 			echo "<br>Writing: ";
 			print_r ($sWriting);
@@ -872,7 +876,7 @@ for ($j = 0; $j < $itemCount; $j++) {
 	$score = TupleAdd($CW, $score);
 	$score = TupleAdd($CP, $score);
 	$score = TupleAdd($CAS, $score);
-	$score = TupleDiv($score, 4) * $relevances[$j];
+	$score = TupleDiv($score, 4);
 	$sScore[] = $score;
 	//echo '<tr><td>Q<sub>' . ($j + 1) . '<sub></td><td>' . $CC . '</td><td>' . $CW . '</td><td>' . $CP . '</td><td>' . $CAS . '</td><td>' .$score. '</td></tr>';
 	//echo '<tr><td>I<sub>' . ($j + 1) . '<sub></td><td>' . completeTuple($CC, 7) . '</td><td>' . completeTuple($CW, 7) . '</td><td>' . completeTuple($CP, 7) . '</td><td>' . completeTuple($CAS, 7) . '</td><td>' .completeTuple($score, 7). '</td><td>' . $CR . '</td></tr>';
