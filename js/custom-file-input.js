@@ -42,3 +42,9 @@ function show1() {
 function hide1() {
   document.getElementsByClassName("importBtn")[0].style.display = "none";
 }
+
+$.fn.dataTableExt.afnFiltering.push(
+    function( oSettings, aData, iDataIndex ) {
+		return false;
+    }
+);
