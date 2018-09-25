@@ -57,9 +57,6 @@ $(document).ready(function () {
         scrollX: 100,
         scrollCollapse: true,
         paging: false,
-        // "order": [
-        // 	[0, "asc"]
-        // ],
         searching: true,
         "columnDefs": [{
             "targets": [10],
@@ -106,7 +103,7 @@ $(document).ready(function () {
         }
 
         var columns = [2, 3, 4, 5];
-        var sums = {2: 0, 3: 0, 4: 0, 5: 0};
+        var sums = { 2: 0, 3: 0, 4: 0, 5: 0 };
 
         for (j = 0; j < rowCount; j++) {
             for (i in columns) {
@@ -115,14 +112,12 @@ $(document).ready(function () {
                 var elements = data.split(',');
                 var beta = 0;
                 if (elements[0].length < 6) {
-                    //console.log(elements[0]);
                     beta = parseInt(elements[0][2]);
                 } else {
                     elements[0] = elements[0].replace('(', '');
                     beta = ling.indexOf(elements[0]);
                 }
-                //console.log(beta);
-                sums[column] = sums[column] + ((beta + parseFloat( elements[1].replace(')', '')) * rows[j][6]));
+                sums[column] = sums[column] + ((beta + parseFloat(elements[1].replace(')', '')) * rows[j][6]));
             }
         }
 
@@ -132,12 +127,33 @@ $(document).ready(function () {
         }
 
         console.log(sums);
+        var r, d;
         if (document.getElementById('chkChangeLabels').checked) {
-            var r = Math.round( sums[2] );
-            document.getElementById('cc').asText = '(' + ling[r] + ', ' + (r - sums[2]) + ')';
+            r = Math.round(sums[2]);
+            d = Number(r - sums[2]).toFixed(3);
+            document.getElementsByName('fcc')[1].innerText = '(' + ling[(isNaN(r) ? '0' : r)] + ', ' + (isNaN(d) ? '0' : d) + ')';
+            r = Math.round(sums[3]);
+            d = Number(r - sums[3]).toFixed(3);
+            document.getElementsByName('fcw')[1].innerText = '(' + ling[(isNaN(r) ? '0' : r)] + ', ' + (isNaN(d) ? '0' : d) + ')';
+            r = Math.round(sums[4]);
+            d = Number(r - sums[4]).toFixed(3)
+            document.getElementsByName('fcp')[1].innerText = '(' + ling[(isNaN(r) ? '0' : r)] + ', ' + (isNaN(d) ? '0' : d) + ')';
+            r = Math.round(sums[5]);
+            d = Number(r - sums[5]).toFixed(3);
+            document.getElementsByName('fcas')[1].innerText = '(' + ling[(isNaN(r) ? '0' : r)] + ', ' + (isNaN(d) ? '0' : d) + ')';
         } else {
-            var r = Math.round( sums[2] );
-            document.getElementById('cc').asHTML = '(s<sub>' + r + '</sub><sup>7</sup>, ' + (r - sums[2]) + ')';
+            r = Math.round(sums[2]);
+            d = Number(r - sums[2]).toFixed(3);
+            document.getElementsByName('fcc')[1].innerHTML = '(s<sub>' + (isNaN(r) ? '0' : r) + '</sub><sup>7</sup>, ' + (isNaN(d) ? '0' : d) + ')';
+            r = Math.round(sums[3]);
+            d = Number(r - sums[3]).toFixed(3);
+            document.getElementsByName('fcw')[1].innerHTML = '(s<sub>' + (isNaN(r) ? '0' : r) + '</sub><sup>7</sup>, ' + (isNaN(d) ? '0' : d) + ')';
+            r = Math.round(sums[4]);
+            d = Number(r - sums[4]).toFixed(3)
+            document.getElementsByName('fcp')[1].innerHTML = '(s<sub>' + (isNaN(r) ? '0' : r) + '</sub><sup>7</sup>, ' + (isNaN(d) ? '0' : d) + ')';
+            r = Math.round(sums[5]);
+            d = Number(r - sums[5]).toFixed(3);
+            document.getElementsByName('fcas')[1].innerHTML = '(s<sub>' + (isNaN(r) ? '0' : r) + '</sub><sup>7</sup>, ' + (isNaN(d) ? '0' : d) + ')';
         }
     });
 
@@ -176,4 +192,5 @@ function columnformat(asLinguistic) {
         }
     }
 
+    $('#datos').DataTable().draw();
 }

@@ -166,7 +166,7 @@ ul {
 .mainContainer {
 	display: block;
 	text-align: justify;
-	width: 80%;
+	width: 100%;
 }
 
 .pText {
@@ -206,7 +206,7 @@ ul {
 .mainResultsContainer {
 	grid-area: mainContainer;
 	display: grid;
-	grid-template-areas: "titleText" "tableContainer";
+	grid-template-areas: "titleText" "tableContainer" "checkbox";
 	grid-template-columns: 1fr;
 	grid-template-rows: auto;
 	max-width: 90%;
@@ -238,6 +238,17 @@ ul {
 	border-radius: 0.5em;
 	background-color: #f9f9f9
 }
+
+.checkbox{
+		position: absolute;
+		background-color: red;
+		top: 0;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		width: 20px;
+}
+
 
 /*  Upload files Styles*/
 .responsesContainer {

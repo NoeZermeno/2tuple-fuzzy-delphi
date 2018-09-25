@@ -148,9 +148,10 @@ header("Content-Type: text/html;charset=utf-8");
 				</ul>
 			</div>
 		</nav>
+		
 		<article class="container">
-			<div>
-				<input id="chkChangeLabels" type="checkbox" onClick="columnformat(this.checked)"> As Linguistic Labels<br>
+			<div class="checkbox">
+						<input id="chkChangeLabels" type="checkbox" onClick="columnformat(this.checked)"> As Linguistic Labels<br>
 			</div>
 			<div class="mainResultsContainer">
 				<!--The title container is at the end of the document to obtain the result of all calculations.-->
@@ -249,17 +250,17 @@ if (consensus($y - 1)) {
 							<tr>
 								<th align="right">items</th>
 								<th align="right">Results</th>
-								<th id="cc" class="col_1">
-									<?php completeTuple(Normalize(collective_criteria('CC'), $lcm, $output_scale), $output_scale);?>
+								<th name="fcc" class="col_1">
+									<?php //completeTuple(Normalize(collective_criteria('CC'), $lcm, $output_scale), $output_scale);?>
 								</th>
-								<th id="cw" class="col_2">
-									<?php completeTuple(Normalize(collective_criteria('CW'), $lcm, $output_scale), $output_scale);?>
+								<th name="fcw" class="col_2">
+									<?php //completeTuple(Normalize(collective_criteria('CW'), $lcm, $output_scale), $output_scale);?>
 								</th>
-								<th id="cp" class="col_3">
-									<?php completeTuple(Normalize(collective_criteria('CP'), $lcm, $output_scale), $output_scale);?>
+								<th name="fcp" class="col_3">
+									<?php //completeTuple(Normalize(collective_criteria('CP'), $lcm, $output_scale), $output_scale);?>
 								</th>
-								<th id="cas" class="col_4">
-									<?php completeTuple(Normalize(collective_criteria('CAS'), $lcm, $output_scale), $output_scale);?>
+								<th name="fcas" class="col_4">
+									<?php //completeTuple(Normalize(collective_criteria('CAS'), $lcm, $output_scale), $output_scale);?>
 								</th>
 								<th class="col_5"></th>
 								<th class="col_6"></th>
