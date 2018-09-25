@@ -150,11 +150,10 @@ header("Content-Type: text/html;charset=utf-8");
 		</nav>
 		
 		<article class="container">
-			<div class="checkbox">
-						<input id="chkChangeLabels" type="checkbox" onClick="columnformat(this.checked)"> As Linguistic Labels<br>
-			</div>
+			
 			<div class="mainResultsContainer">
 				<!--The title container is at the end of the document to obtain the result of all calculations.-->
+				
 				<div class="tableContainer">
 					<table id="datos" class="display" cellspacing="0" width="100%">
 						<thead>
@@ -272,8 +271,12 @@ if (consensus($y - 1)) {
 				</div>
 				<div class="titleText">
 					<h2 id="qt" class="titleContainer">
-
+						
 					</h2>
+					<div class="checkbox">
+							<input id="chkChangeLabels" type="checkbox" onClick="columnformat(this.checked)"> As Linguistic Labels<br>
+						</div>
+
 				</div>
 			</div>
 		</article>
