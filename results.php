@@ -132,11 +132,11 @@ header("Content-Type: text/html;charset=utf-8");
 
 					</li>
 					<li class="menuItem">
-						<a href="https://noezermeno.github.io/2tuple-fuzzy-delphi/index.html"> HOME</a>
+						<a href="./index.html"> HOME</a>
 					</li>
 					<li class="menuItem">
 						<!-- <a href="./import.html"> IMPORT</a> -->
-						<a href="https://noezermeno.github.io/2tuple-fuzzy-delphi/import.html"> IMPORT</a>
+						<a href="./import.html"> IMPORT</a>
 					</li>
 					<li class="menuItem">
 						<a href="#"> ANNEX</a>
